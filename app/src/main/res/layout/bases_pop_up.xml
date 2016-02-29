@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/atBatSecondBaseButtonText"
+            android:id="@+id/SecondBaseButton_AtBat"
+            android:layout_alignParentTop="true"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/atBatFirstBaseButtonText"
+            android:id="@+id/FirstdBaseButton_AtBat"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_below="@+id/SecondBaseButton_AtBat"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/atBatThirdBaseButtonText"
+            android:id="@+id/ThirdBaseButton_AtBat"
+            android:layout_below="@+id/SecondBaseButton_AtBat"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/atBatHomeBaseButtonText"
+            android:id="@+id/HomeBaseButton_AtBat"
+            android:layout_below="@+id/FirstdBaseButton_AtBat"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+</LinearLayout>

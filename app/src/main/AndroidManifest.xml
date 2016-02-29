@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.ianshinbro.trackerbat">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/MyMaterialTheme">
+        <activity
+            android:name=".UI.playerListScreen"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".UI.AddPlayer"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".UI.UpdatePlayer"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".UI.gameOverviewScreen"
+            android:theme="@style/Theme.AppCompat"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".UI.AddGame"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".UI.AtBatListScreen"
+            android:theme="@style/Theme.AppCompat"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".UI.AtBatScreen"
+            android:theme="@style/Theme.AppCompat"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UI.atBatSetup"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UI.HitPopUp"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UI.GameEnd"
+            android:label="@string/title_activity_game_end"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth"
+            android:screenOrientation="portrait"/>
+    </application>
+
+</manifest>
