@@ -40,6 +40,9 @@ public class Game implements iGame, Serializable{
     public void updateGameAtIndex(int index, AtBat atBat) {
         this.atBats.set(index,atBat);
     }
+    public void updateAtBats(ArrayList<AtBat> atBats) {
+        this.atBats=atBats;
+    }
     public void setAwayTeam(String awayTeam) {
         this.awayTeam = awayTeam;
     }

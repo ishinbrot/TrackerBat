@@ -30,5 +30,6 @@
     <string name="atBatHomeBaseButtonText">HOME</string>
     <string name="addInningAtBatSetup">Add Inning</string>
     <string name="title_activity_game_end">GameEnd</string>
-    <string name="endGameButton">End Game</string>
+    <string name="endGameText">End Game</string>
+    <string name="SavePlayerText">Save Player</string>
 </resources>

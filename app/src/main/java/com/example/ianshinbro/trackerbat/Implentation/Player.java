@@ -14,10 +14,11 @@ public class Player implements iPlayer, Serializable{
 
     public Player( int number) {
         this.number = number;
+        this.games = new ArrayList<>();
     }
 
     public Player() {
-
+        this.games=new ArrayList<>();
     }
 
     public Player(String firstName, String lastName, int number) {
@@ -27,7 +28,12 @@ public class Player implements iPlayer, Serializable{
         this.games = new ArrayList<>();
 
     }
-
+    public void updateGame(int index, Game game) {
+        this.games.set(index, game);
+    }
+    public ArrayList<Game> getGames() {
+        return this.games;
+    }
     public String getFirstName() {
         return this.firstName;
     }
@@ -37,7 +43,9 @@ public class Player implements iPlayer, Serializable{
     public String getNickName() {
         return this.nickName;
     }
-
+    public void updateGames(ArrayList<Game> games) {
+        this.games=games;
+    }
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
