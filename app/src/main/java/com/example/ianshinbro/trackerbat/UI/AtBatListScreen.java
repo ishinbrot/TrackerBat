@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -17,6 +20,11 @@ import com.example.ianshinbro.trackerbat.Implentation.AtBat;
 import com.example.ianshinbro.trackerbat.Implentation.Game;
 import com.example.ianshinbro.trackerbat.R;
 import com.example.ianshinbro.trackerbat.UI.Adapters.AtBatAdapter;
+import com.example.ianshinbro.trackerbat.UI.Adapters.DividerItemDecoration;
+import com.example.ianshinbro.trackerbat.UI.Adapters.ItemTouchHelperCallBack;
+import com.example.ianshinbro.trackerbat.UI.Adapters.OnStartDragListener;
+import com.example.ianshinbro.trackerbat.UI.Adapters.PlayerHolder;
+import com.example.ianshinbro.trackerbat.UI.Adapters.listItemListener;
 
 import java.util.ArrayList;
 
@@ -25,18 +33,19 @@ import java.util.ArrayList;
  * Created by ianshinbrot on 4/30/15.
  */
 public class AtBatListScreen extends Activity {
-    ListView playerList;
+    RecyclerView atBatList;
     FloatingActionButton addAtBat;
     Button helpButton;
     TextView titleView;
     Button endGameButton;
     Game game;
     AtBat atBat;
-    int totalinList=-1;
-    private int selectedPosition=-1;
-    private String tag="AtBatListScreen";
+    private LinearLayoutManager linearLayoutManager;
+    int totalinList = -1;
+    private int selectedPosition = -1;
+    private String tag = "AtBatListScreen";
     private Context context;
-    private ArrayList<AtBat> atbats = new ArrayList<>();
+    private ItemTouchHelper mItemTouchHelper;
     private AtBatAdapter atBatAdapter;
     private boolean firstPlayer = false;
 
@@ -47,23 +56,22 @@ public class AtBatListScreen extends Activity {
         context = getApplicationContext();
         Intent intent = getIntent();
 
-       game = (Game) intent.getExtras().getSerializable("game");
+        game = (Game) intent.getExtras().getSerializable("game");
+        game.updateAtBats(game.getAtBats());
         Log.d(this.tag, "atbat load");
         this.loadFields();
         this.setOnClickListeners();
         this.setText();
         this.loadList();
-
-
     }
+
     @Override
-    protected  void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == 1) {        // return 1 is adding
             Log.d(this.tag, "Adding at atBat");
             atBat = (AtBat) data.getExtras().getSerializable("atBat");
-            atbats.add(atBat);
             game.addAtBat(atBat);
             totalinList++;
             selectedPosition = totalinList;
@@ -72,7 +80,6 @@ public class AtBatListScreen extends Activity {
         if (resultCode == 2) {        // new at bat
             Log.d(this.tag, "Updating at Bat");
             atBat = (AtBat) data.getExtras().getSerializable("atBat");
-            atbats.set(selectedPosition, atBat);
             game.updateGameAtIndex(selectedPosition, atBat);
 
             selectedPosition = -1;        // deselect current position
@@ -86,8 +93,8 @@ public class AtBatListScreen extends Activity {
             finish();
 
         }
-        this.loadList();
     }
+
     private OnClickListener newAtBat = new OnClickListener() {
         public void onClick(View v) {
             // register selection
@@ -98,69 +105,86 @@ public class AtBatListScreen extends Activity {
 
         }
     };
+
     private void editAtBat() {
         Intent intent = new Intent(AtBatListScreen.this, AtBatScreen.class);
         intent.putExtra("atBat", atBat);
-        startActivityForResult(intent, 0);
+        startActivityForResult(intent, 3);
 
 
     }
+
     private OnClickListener endGameListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
             game.endGame();
-            Intent intent = new Intent(AtBatListScreen.this,GameEnd.class);
+            Intent intent = new Intent(AtBatListScreen.this, GameEnd.class);
             intent.putExtra("game", game);
             startActivityForResult(intent, 0);
         }
     };
+
     private void loadList() {
 
-        atBatAdapter = new AtBatAdapter(this, R.layout.atbat_list, atbats);
-        playerList.setAdapter(atBatAdapter);
-        playerList.setDividerHeight(2);
-        playerList.setClickable(true);
-        playerList.setOnItemLongClickListener(updateAtBat);
-        playerList.setOnItemClickListener(selectAtBat);
-        if (atbats.size() == 0) {
+        atBatAdapter = new AtBatAdapter(game.getAtBats(),new OnStartDragListener() {
+            @Override
+            public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+                mItemTouchHelper.startDrag(viewHolder);
+            }
 
-            playerList.setVisibility(View.GONE);
-            addAtBat.setVisibility(View.VISIBLE);
-            firstPlayer = true;
-        } else {
-            playerList.setVisibility(View.VISIBLE);
-            firstPlayer = false;
-        }
+            @Override
+            public void onUpdate(RecyclerView.ViewHolder viewHolder) {
+                int position = viewHolder.getAdapterPosition();
+                updateAtBat(position);
+            }
+
+            @Override
+            public void onSelect(RecyclerView.ViewHolder viewHolder) {
+                int position = viewHolder.getAdapterPosition();
+                selectAtBat(position);
+            }
+
+        });
+        atBatList.setAdapter(atBatAdapter);
+        atBatList.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        atBatList.setLayoutManager(linearLayoutManager);
+
+        RecyclerView.ItemDecoration itemDecoration =
+                new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
+        atBatList.addItemDecoration(itemDecoration);
+
+        ItemTouchHelper.Callback callback =
+                new ItemTouchHelperCallBack(atBatAdapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(atBatList);
     }
 
-    private AdapterView.OnItemClickListener selectAtBat = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            AtBat atBat = atBatAdapter.getItem(position);
-            selectedPosition = position;
+    public void selectAtBat(int position) {
+        AtBat atBat = game.getAtBats().get(position);
+        selectedPosition = position;
 
-            Intent selectedAtBat = new Intent(AtBatListScreen.this,AtBatScreen.class);
+        Intent selectedAtBat = new Intent(AtBatListScreen.this, AtBatScreen.class);
 
-           selectedAtBat.putExtra("newAtBat",false);
-            selectedAtBat.putExtra("atBat",atBat);
+        selectedAtBat.putExtra("newAtBat", false);
+        Log.d(tag, "size " + game.getAtBats().size());
+        selectedAtBat.putExtra("atBat", atBat);
 
-            startActivity(selectedAtBat);
+        startActivityForResult(selectedAtBat, 3);
 
-        }
-    };
-    private  AdapterView.OnItemLongClickListener updateAtBat = new AdapterView.OnItemLongClickListener() {
-        @Override
-        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-            AtBat atBat = atBatAdapter.getItem(position);
-            selectedPosition=position;
-            Intent attBat = new Intent(AtBatListScreen.this, AtBatScreen.class);
+    }
 
-            attBat.putExtra("atBat", atBat);
+    public void updateAtBat(int position) {
 
-            startActivityForResult(attBat, 1);
-            return true;
-        }
-    };
+        AtBat atBat = game.getAtBats().get(position);
+        selectedPosition = position;
+        Intent attBat = new Intent(AtBatListScreen.this, AtBatScreen.class);
+
+        attBat.putExtra("atBat", atBat);
+
+        startActivityForResult(attBat, 1);
+    }
 
     private void setText() {
         titleView.setText(R.string.atbatScreenTitleText);
@@ -172,14 +196,13 @@ public class AtBatListScreen extends Activity {
     private void setOnClickListeners() {
         addAtBat.setOnClickListener(newAtBat);
         endGameButton.setOnClickListener(endGameListener);
-
     }
     private void loadFields() {
 
-        playerList = (ListView) findViewById(R.id.listView_listScreen);
+        atBatList = (RecyclerView) findViewById(R.id.listView_listScreen);
         addAtBat = (FloatingActionButton) findViewById(R.id.addBTN_listScreen);
         helpButton = (Button) findViewById(R.id.helpButton_listScreen);
-        endGameButton = (Button) findViewById(R.id.endGameBTN);
+        endGameButton = (Button) findViewById(R.id.endListButton);
         titleView = (TextView) findViewById(R.id.ScreenTitle_listView);
     }
 

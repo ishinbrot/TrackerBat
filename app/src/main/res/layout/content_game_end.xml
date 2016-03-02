@@ -45,9 +45,9 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/endGameButton"
         android:id="@+id/endGameButton_EndGamePopUp"
         android:layout_below="@+id/layout_AwayTeamScore"
-        style="?android:attr/borderlessButtonStyle"/>
+        style="?android:attr/borderlessButtonStyle"
+        android:text="@string/endGameText" />
 
 </RelativeLayout>

@@ -1,69 +1,134 @@
 package com.example.ianshinbro.trackerbat.UI.Adapters;
 
 import android.content.Context;
+import android.support.v4.view.MotionEventCompat;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ianshinbro.trackerbat.Implentation.Player;
 import com.example.ianshinbro.trackerbat.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
  * Created by ianshinbro on 2/20/2016.
  */
-public class PlayerAdapter extends ArrayAdapter<Player> {
-    private ArrayList<Player> players;
-    public PlayerAdapter(Context context, int textViewResourceId) {
-        super(context, textViewResourceId);
+public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> implements ItemTouchHelperAdapter {
+    private ArrayList<Player> players = new ArrayList<>();
+    private  OnStartDragListener mDragStartListener;
+
+    private static String Log="PlayerAdapter";
+
+    public PlayerAdapter(ArrayList<Player> players) {
+      this.players=players;
 
     }
 
-    public PlayerAdapter(Context context, int resource, ArrayList<Player> players) {
-        super(context, resource, players);
+    public PlayerAdapter(ArrayList<Player>players, OnStartDragListener dragListener) {
+        mDragStartListener = dragListener;
         this.players=players;
+    }
+    public interface OnDragStartListener {
+        void onDragStarted(RecyclerView.ViewHolder viewHolder);
+        void onUpdate(RecyclerView.ViewHolder viewHolder);
+
+    }
+    @Override
+    public void onItemDismiss(int position) {
+        players.remove(position);
+        notifyItemRemoved(position);
+    }
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        Player prev = players.remove(fromPosition);
+        players.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
+   @Override
+   public PlayerHolder onCreateViewHolder(
+           ViewGroup parent, int viewType) {
+       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.player_list, parent, false);
+       PlayerHolder playerHolder = new PlayerHolder(view);
+       return  playerHolder;
+   }
+
+    @Override
+    public void onBindViewHolder(final PlayerHolder viewHolder, int position) {
+        Player player = players.get(position);
+
+        if (player.nickNameExists()) {
+            viewHolder.name.setText(player.getNickName());
+        } else {
+            viewHolder.name.setText(player.getFirstName() + " " + player.getLastName());
+        }
+        viewHolder.number.setText(Integer.toString(player.getNumber()));
+
+        viewHolder.updateView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    mDragStartListener.onUpdate(viewHolder);
+                }
+
+                return false;
+
+            }
+        });
+        viewHolder.name.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    mDragStartListener.onSelect(viewHolder);
+                }
+
+                return false;
+            }
+        });
+        viewHolder.number.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    mDragStartListener.onSelect(viewHolder);
+                }
+
+                return false;
+            }
+        });
+    }
+
+    public void updateData(ArrayList<Player> players) {
+        players.clear();
+        players.addAll(players);
+        notifyDataSetChanged();
+    }
+    public void addItem(int position, Player player) {
+        players.add(player);
+
+        notifyItemInserted(position - 1);
+    }
+    public void updatePlayer(Player player, int position) {
+        players.set(position, player);
+        notifyItemChanged(position);
+    }
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public int getItemCount() {
 
-        View v = convertView;
-
-        if (v == null) {
-            LayoutInflater vi;
-            vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.player_list, parent, false);
-        }
-
-        Player p = getItem(position);
-
-        if (p != null) {
-            TextView tt1 = (TextView) v.findViewById(R.id.PlayerName_PlayerListScreen);
-            TextView tt2 = (TextView) v.findViewById(R.id.PlayerNumber_PlayerListScreen);
-
-            if (tt1 != null) {
-
-                    if (!p.nickNameExists()) {
-                        tt1.setText(p.getFirstName() +" " + p.getLastName());
-                        tt1.setTextSize(25);
-                    } else {
-                        tt1.setText(p.getNickName());
-                        tt1.setTextSize(25);
-                    }
-                }
-
-            if (tt2 != null) {
-                tt2.setText("#" + Integer.toString(p.getNumber()));
-                tt2.setTextSize(25);
-            }
-
-        }
-
-        return v;
+        return players.size();
     }
 
 }

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:id="@+id/atBatListlinearLayout"
+    android:focusable="true"
+    android:background="?android:attr/selectableItemBackground"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/InningNumber_AtBatScreen"
-        android:layout_gravity="center_vertical"
-        android:textColor="#000000"
+        android:layout_gravity="top|center_vertical"
         android:layout_alignParentTop="true"
         android:layout_toStartOf="@+id/GameTeam_GameListScreen" />
 
@@ -23,8 +26,17 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/InningStats_AtBatScreen"
-        android:layout_gravity="center_vertical"
-        android:textColor="#000000"
+        android:layout_gravity="top|center_vertical"
         android:layout_below="@+id/GameScore_GameListScreen"
         android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:id="@+id/handle_UpdateAtBatButton"
+        android:layout_width="?listPreferredItemHeight"
+        android:layout_height="match_parent"
+
+        android:src="@drawable/ic_update"
+        android:layout_gravity="top" />
+
+
 </LinearLayout>

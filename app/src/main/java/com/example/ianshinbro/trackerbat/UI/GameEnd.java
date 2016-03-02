@@ -90,5 +90,6 @@ public class GameEnd extends Activity {
         endGame = (Button) findViewById(R.id.endGameButton_EndGamePopUp);
         homeTeamScore = (EditText) findViewById(R.id.HomeTeamScore);
         awayTeamScore = (EditText) findViewById(R.id.AwayTeamScore);
+        endGame.addTextChangedListener(mTextWatcher);
     }
 }
