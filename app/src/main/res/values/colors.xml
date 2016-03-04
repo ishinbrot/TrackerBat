@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#125688</color>
-    <color name="colorPrimaryDark">#125688</color>
+    <color name="colorPrimary">#124788</color>
+    <color name="colorPrimaryDark">#124678</color>
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
     <color name="colorAccent">#c8e8ff</color>
+    <color name="button_normal">#FFD700</color>
+    <color name="textColor">#125688</color>
+    <color name="toolBarText">#FFC600</color>
+    <color name="popUpBasesButtonColor">#FFFFFF</color>
+    <color name="popUpTextViewColor">#66CD00</color>
+    <color name="popUpBackground">#397300</color>
 </resources>
