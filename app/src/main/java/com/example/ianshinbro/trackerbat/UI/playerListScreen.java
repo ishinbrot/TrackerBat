@@ -90,21 +90,6 @@ public class playerListScreen extends AppCompatActivity {
             Log.d(this.tag, "games" + player.getGames().size());
             playerAdapter.updatePlayer(player, selectedPosition);
         }
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                //Remove swiped item from list and notify the RecyclerView
-            }
-
-        };
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
     }
     private OnClickListener addPlayer = new OnClickListener() {
         public void onClick(View v) {
@@ -119,7 +104,7 @@ public class playerListScreen extends AppCompatActivity {
 
     private void loadList() {
 
-
+        // creates a new player adapter with a custom listener for selected, dragging, and updating
         playerAdapter = new PlayerAdapter(players, new OnStartDragListener() {
             @Override
             public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
@@ -187,10 +172,6 @@ public class playerListScreen extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
 
-
-
-
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -202,11 +183,18 @@ public class playerListScreen extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This method is called to set up the toolbar
+     */
     private void setUpToolbar() {
         toolbar.setTitle(R.string.playerListTitleText);
 
         setSupportActionBar(toolbar);
     }
+
+    /**
+     * This method loads the fields for the given page
+     */
     private void loadFields() {
 
         playerList = (RecyclerView) findViewById(R.id.listView_listScreen);
