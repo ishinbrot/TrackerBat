@@ -1,4 +1,4 @@
-package com.example.ianshinbro.trackerbat.UI;
+package com.example.ianshinbro.trackerbat.UI.popupScreens;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -90,6 +90,8 @@ public class GameEnd extends Activity {
         endGame = (Button) findViewById(R.id.endGameButton_EndGamePopUp);
         homeTeamScore = (EditText) findViewById(R.id.HomeTeamScore);
         awayTeamScore = (EditText) findViewById(R.id.AwayTeamScore);
-        endGame.addTextChangedListener(mTextWatcher);
+        homeTeamScore.addTextChangedListener(mTextWatcher);
+        awayTeamScore.addTextChangedListener(mTextWatcher);
+        endGame.setEnabled(false);
     }
 }

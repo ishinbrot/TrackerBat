@@ -5,17 +5,6 @@ import java.io.Serializable;
 /**
  * Created by ianshinbro on 2/19/2016.
  */
-
-enum OutField{PITCHER(1), CATCHER(2), FIRST_BASE(3), SECOND_BASE(4),THIRD_BASE(5),SHORT_STOP(6),LEFT_FIELD(7),CENTER_FIELD(8),RIGHT_FIELD(9);
-    private int value;
-    private OutField(int value) {
-        this.value=value;
-    }
-    public int getValue() {
-        return value;
-    }
-}
-
 public class AtBat implements iAtBat, Serializable{
 
     public AtBat(int inningNumber) {
@@ -52,15 +41,16 @@ public class AtBat implements iAtBat, Serializable{
         }
         switch (currentBase) {
             case FIRST:
-                currentBase = Base.ATBAT;
+                this.currentBase = Base.ATBAT;
                 break;
             case SECOND:
-                currentBase = Base.FIRST;
+                this.currentBase = Base.FIRST;
                 break;
             case THIRD:
-                currentBase = Base.SECOND;
+                this.currentBase = Base.SECOND;
+                break;
             case HOME:
-                currentBase = Base.THIRD;
+                this.currentBase = Base.THIRD;
                 revertScore();
                 break;
         }
@@ -108,6 +98,12 @@ public class AtBat implements iAtBat, Serializable{
     public void undoWalk() {
         this.walk=false;
     }
+    public void undoOut() {
+        this.finalCatch=OutField.NONE;
+        this.initialCatch=OutField.NONE;
+        this.firstOutRecieved=false;
+        this.out=false;
+    }
     public String getFinalBase() {
         switch (finalBase) {
             case FIRST :
@@ -137,10 +133,62 @@ public class AtBat implements iAtBat, Serializable{
     public String getBaseStats() {
 
         // they never advanced a base
-        if (this.initialBase == this.finalBase) {
-            return this.getInitialBase();
-        } else if (this.initialBase != this.finalBase) {
-            return this.getInitialBase() + " to " + this.getFinalBase();
+        if (!out) {
+            if (this.initialBase != Base.ATBAT) {
+                if (this.initialBase == this.finalBase) {
+                    return this.getInitialBase();
+                } else if (this.initialBase != this.finalBase) {
+                    return this.getInitialBase() + " to " + this.getFinalBase();
+                }
+            }
+        }
+        else {
+            if (this.finalCatch == this.initialCatch) {
+                return "Out via " + this.getCatchString(this.initialCatch);
+            }
+            else return "Out via " +  this.getCatchString(this.initialCatch) + " to "+ this.getCatchString(this.finalCatch);
+        }
+        return "";
+    }
+    public void undoStats() {
+        if (out) {
+            undoOut();
+        }
+        else {
+            this.currentBase=Base.ATBAT;
+            this.finalBase=Base.ATBAT;
+            this.initialBase=Base.ATBAT;
+        }
+    }
+    public String getCatchString(OutField field) {
+        switch (field) {
+            case PITCHER:
+                return "Pitcher";
+
+            case CENTER_FIELD:
+                return "Center Field";
+
+            case FIRST_BASE:
+                return "First Base";
+
+            case SECOND_BASE:
+                return "Second Base";
+
+            case THIRD_BASE:
+                return "Third Base";
+
+            case CATCHER:
+                return "Catcher";
+
+            case RIGHT_FIELD:
+                return "Right Field";
+
+            case LEFT_FIELD:
+                return "Left Field";
+
+            case SHORT_STOP:
+                return "Short Stop";
+
         }
         return "";
     }
@@ -150,14 +198,28 @@ public class AtBat implements iAtBat, Serializable{
     public OutField getInitialCatch() {
         return this.initialCatch;
     }
+    public boolean isFirstOutRecieved() {
+        return firstOutRecieved;
+    }
+
+    public void setFirstOutRecieved(boolean firstOutRecieved) {
+        this.firstOutRecieved = firstOutRecieved;
+    }
+    public void setOut(boolean out) {
+        this.out=out;
+    }
+    public boolean isOut() {
+        return this.out;
+    }
     boolean hit;
-    boolean out;
+    boolean out=false;
     boolean walk;
     int score;
     private Base initialBase = Base.ATBAT;
     private Base finalBase = Base.ATBAT;
     private Base currentBase;
     private OutField initialCatch;
+    private boolean firstOutRecieved;
     private OutField finalCatch;
     private int inningNumber;
     private String baseStats;

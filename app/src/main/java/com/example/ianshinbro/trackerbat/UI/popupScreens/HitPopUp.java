@@ -1,9 +1,11 @@
-package com.example.ianshinbro.trackerbat.UI;
+package com.example.ianshinbro.trackerbat.UI.popupScreens;
 
 import android.app.*;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.*;
@@ -21,6 +23,7 @@ public class HitPopUp extends Activity {
     Base base;
     AtBat atBat;
     Intent intent;
+    Context ctx;
     private String tag="PopUpScreen";
 
     public void onCreate(Bundle savedInstanceState) {

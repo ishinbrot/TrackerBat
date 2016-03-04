@@ -1,9 +1,11 @@
-package com.example.ianshinbro.trackerbat.UI;
+package com.example.ianshinbro.trackerbat.UI.popupScreens;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -44,8 +46,36 @@ public class atBatSetup extends Activity {
 
         }
     };
+    private TextWatcher addAtBatWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            // check Fields For Empty Values
+            checkFieldsForEmptyValues();
+        }
+    };
+
+    void checkFieldsForEmptyValues(){
+
+        String s1 = inningNumber.getText().toString();
+
+        if(s1.equals("")){
+            addatBat.setEnabled(false);
+        } else {
+            addatBat.setEnabled(true);
+        }
+    }
     private void setOnClickListeners() {
         addatBat.setOnClickListener(addInning);
+        addatBat.setEnabled(false);
+        inningNumber.addTextChangedListener(addAtBatWatcher);
     }
     private void loadButtons() {
         addatBat = (Button) findViewById(R.id.addInning_AtBat_SetupPage);

@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ianshinbro.trackerbat.R;
+import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHelperViewHolder;
 
 
 /**

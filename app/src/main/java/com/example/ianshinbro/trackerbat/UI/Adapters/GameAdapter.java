@@ -1,19 +1,16 @@
 package com.example.ianshinbro.trackerbat.UI.Adapters;
 
-import android.content.Context;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.ianshinbro.trackerbat.Implentation.Game;
-import com.example.ianshinbro.trackerbat.Implentation.Player;
 import com.example.ianshinbro.trackerbat.R;
+import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHelperAdapter;
+import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.OnStartDragListener;
 
 import java.util.ArrayList;
 
@@ -21,9 +18,9 @@ import java.util.ArrayList;
 /**
  * Created by ianshinbro on 2/20/2016.
  */
-public class GameAdapter extends RecyclerView.Adapter<GameHolder> implements ItemTouchHelperAdapter  {
+public class GameAdapter extends RecyclerView.Adapter<GameHolder> implements ItemTouchHelperAdapter {
     private ArrayList<Game> games;
-    private  OnStartDragListener mDragStartListener;
+    private OnStartDragListener mDragStartListener;
     private static String Log="PlayerAdapter";
 
     public GameAdapter(ArrayList<Game> games) {

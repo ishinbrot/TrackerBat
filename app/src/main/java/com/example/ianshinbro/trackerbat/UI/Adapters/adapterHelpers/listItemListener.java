@@ -1,4 +1,4 @@
-package com.example.ianshinbro.trackerbat.UI.Adapters;
+package com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

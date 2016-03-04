@@ -7,13 +7,11 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.ianshinbro.trackerbat.Implentation.AtBat;
-import com.example.ianshinbro.trackerbat.Implentation.Game;
 import com.example.ianshinbro.trackerbat.R;
+import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHelperAdapter;
+import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.OnStartDragListener;
 
 import java.util.ArrayList;
 
@@ -24,7 +22,7 @@ import java.util.ArrayList;
 public class AtBatAdapter extends RecyclerView.Adapter<AtBatHolder> implements ItemTouchHelperAdapter {
     private ArrayList<AtBat> atBats;
     private Context mContext;
-    private  OnStartDragListener mDragStartListener;
+    private OnStartDragListener mDragStartListener;
     private static String Log="PlayerAdapter";
 
     public AtBatAdapter(ArrayList<AtBat> atBats, OnStartDragListener dragListener) {
@@ -63,9 +61,11 @@ public class AtBatAdapter extends RecyclerView.Adapter<AtBatHolder> implements I
         AtBat atBat = atBats.get(position);
 
         viewHolder.inningNumber.setText("Inning " +atBat.getInningNumber());
-        viewHolder.inningStats.setText(atBat.getBaseStats());
+        if (atBat.getBaseStats()!="") {
+            viewHolder.inningStats.setText(atBat.getBaseStats());
+        }
 
-
+/**
         viewHolder.updateView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -75,6 +75,7 @@ public class AtBatAdapter extends RecyclerView.Adapter<AtBatHolder> implements I
                 return false;
             }
         });
+ */
         viewHolder.inningStats.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

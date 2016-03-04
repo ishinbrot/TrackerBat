@@ -1,37 +1,36 @@
 package com.example.ianshinbro.trackerbat.UI;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
 import android.util.Log;
 
 import com.example.ianshinbro.trackerbat.Implentation.Game;
 import com.example.ianshinbro.trackerbat.Implentation.Player;
 import com.example.ianshinbro.trackerbat.R;
-import com.example.ianshinbro.trackerbat.UI.Adapters.DividerItemDecoration;
+import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.DividerItemDecoration;
 import com.example.ianshinbro.trackerbat.UI.Adapters.GameAdapter;
-import com.example.ianshinbro.trackerbat.UI.Adapters.ItemTouchHelperCallBack;
-import com.example.ianshinbro.trackerbat.UI.Adapters.OnStartDragListener;
+import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHelperCallBack;
+import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.OnStartDragListener;
+import com.example.ianshinbro.trackerbat.UI.popupScreens.AddGame;
 
 
 /**
  * Created by ianshinbrot on 4/30/15.
  */
-public class gameOverviewScreen extends Activity {
+public class gameOverviewScreen extends AppCompatActivity {
     RecyclerView gameList;
     FloatingActionButton addGameButton;
-    Button helpButton;
-    Button savePlayerButton;
-    TextView titleView;
     Game game;
     Player player;
     private ItemTouchHelper mItemTouchHelper;
@@ -41,6 +40,7 @@ public class gameOverviewScreen extends Activity {
     private int selectedPosition = -1;
     private Context context;
     private GameAdapter gameAdapter;
+    private Toolbar toolbar;
     private boolean firstPlayer = false;
 
 
@@ -48,13 +48,13 @@ public class gameOverviewScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_view);
         Intent intent = getIntent();
-
+        setSupportActionBar(toolbar);
         player = (Player) intent.getExtras().getSerializable("player");
         player.updateGames((player.getGames()));
         Log.d(this.tag, "entering gameListScreen with game size" + player.getGames().size());
         this.loadFields();
         this.setOnClickListeners();
-        this.setText();
+        this.setUpToolbar();
         this.loadList();
     }
 
@@ -108,14 +108,17 @@ public class gameOverviewScreen extends Activity {
     private OnClickListener savePlayerListener = new OnClickListener() {
         public void onClick(View v) {
             // register selection
-
-            Intent savePlayer = new Intent();
-            savePlayer.putExtra("player", player);
-            setResult(3, savePlayer);
-            finish();
+            savePlayerFunction();
 
         }
     };
+
+    private void savePlayerFunction() {
+        Intent savePlayer = new Intent();
+        savePlayer.putExtra("player", player);
+        setResult(3, savePlayer);
+        finish();
+    }
 
     private void loadList() {
 
@@ -176,24 +179,42 @@ public class gameOverviewScreen extends Activity {
         startActivityForResult(selectedGame, 3);
     }
 
-    private void setText() {
-        titleView.setText(R.string.gameListScreenTitleText);
-        savePlayerButton.setText(R.string.SavePlayerText);
-        savePlayerButton.setVisibility(View.VISIBLE);
-
-    }
-
     private void setOnClickListeners() {
         addGameButton.setOnClickListener(addGameListener);
-        savePlayerButton.setOnClickListener(savePlayerListener);
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.savePlayerButton) {
+            savePlayerFunction();
+            return true;
+        }
+        if (id==android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.gamelist_menu, menu);
+        return true;
+    }
+    private void setUpToolbar() {
+        toolbar.setTitle(R.string.gameListScreenTitleText);
+        setSupportActionBar(toolbar);
     }
 
     private void loadFields() {
         gameList = (RecyclerView) findViewById(R.id.listView_listScreen);
         addGameButton = (FloatingActionButton) findViewById(R.id.addBTN_listScreen);
-        helpButton = (Button) findViewById(R.id.helpButton_listScreen);
-        titleView = (TextView) findViewById(R.id.ScreenTitle_listView);
-        savePlayerButton = (Button) findViewById(R.id.endListButton);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
     }
 }

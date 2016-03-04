@@ -1,43 +1,38 @@
 package com.example.ianshinbro.trackerbat.UI;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.util.Log;
 
 import com.example.ianshinbro.trackerbat.Implentation.AtBat;
 import com.example.ianshinbro.trackerbat.Implentation.Game;
 import com.example.ianshinbro.trackerbat.R;
 import com.example.ianshinbro.trackerbat.UI.Adapters.AtBatAdapter;
-import com.example.ianshinbro.trackerbat.UI.Adapters.DividerItemDecoration;
-import com.example.ianshinbro.trackerbat.UI.Adapters.ItemTouchHelperCallBack;
-import com.example.ianshinbro.trackerbat.UI.Adapters.OnStartDragListener;
-import com.example.ianshinbro.trackerbat.UI.Adapters.PlayerHolder;
-import com.example.ianshinbro.trackerbat.UI.Adapters.listItemListener;
-
-import java.util.ArrayList;
+import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.DividerItemDecoration;
+import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHelperCallBack;
+import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.OnStartDragListener;
+import com.example.ianshinbro.trackerbat.UI.popupScreens.GameEnd;
+import com.example.ianshinbro.trackerbat.UI.popupScreens.atBatSetup;
 
 
 /**
  * Created by ianshinbrot on 4/30/15.
  */
-public class AtBatListScreen extends Activity {
+public class AtBatListScreen extends AppCompatActivity {
     RecyclerView atBatList;
     FloatingActionButton addAtBat;
-    Button helpButton;
-    TextView titleView;
-    Button endGameButton;
+    Toolbar toolbar;
     Game game;
     AtBat atBat;
     private LinearLayoutManager linearLayoutManager;
@@ -47,7 +42,6 @@ public class AtBatListScreen extends Activity {
     private Context context;
     private ItemTouchHelper mItemTouchHelper;
     private AtBatAdapter atBatAdapter;
-    private boolean firstPlayer = false;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,14 +55,14 @@ public class AtBatListScreen extends Activity {
         Log.d(this.tag, "atbat load");
         this.loadFields();
         this.setOnClickListeners();
-        this.setText();
+        this.setUpToolbar();
         this.loadList();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+           totalinList= atBatAdapter.getItemCount()-1;        // ensure the total is correct
         if (resultCode == 1) {        // return 1 is adding
             Log.d(this.tag, "Adding at atBat");
             atBat = (AtBat) data.getExtras().getSerializable("atBat");
@@ -79,6 +73,7 @@ public class AtBatListScreen extends Activity {
         }
         if (resultCode == 2) {        // new at bat
             Log.d(this.tag, "Updating at Bat");
+            Log.d(this.tag, atBat.getBaseStats());
             atBat = (AtBat) data.getExtras().getSerializable("atBat");
             game.updateGameAtIndex(selectedPosition, atBat);
 
@@ -114,15 +109,13 @@ public class AtBatListScreen extends Activity {
 
     }
 
-    private OnClickListener endGameListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
+    private void endGame() {
             game.endGame();
             Intent intent = new Intent(AtBatListScreen.this, GameEnd.class);
             intent.putExtra("game", game);
             startActivityForResult(intent, 0);
         }
-    };
+
 
     private void loadList() {
 
@@ -141,7 +134,7 @@ public class AtBatListScreen extends Activity {
             @Override
             public void onSelect(RecyclerView.ViewHolder viewHolder) {
                 int position = viewHolder.getAdapterPosition();
-                selectAtBat(position);
+            //    selectAtBat(position);
             }
 
         });
@@ -185,25 +178,43 @@ public class AtBatListScreen extends Activity {
 
         startActivityForResult(attBat, 1);
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
 
-    private void setText() {
-        titleView.setText(R.string.atbatScreenTitleText);
-        endGameButton.setVisibility(View.VISIBLE);
-        endGameButton.setText(R.string.EndGameBtn);
 
+            case R.id.saveAtBatListButton:
+
+                endGame();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.atbat_menu_list, menu);
+        return true;
+    }
+    private void setUpToolbar() {
+        toolbar.setTitle(R.string.atbatTitleText);
+        setSupportActionBar(toolbar);
     }
 
     private void setOnClickListeners() {
         addAtBat.setOnClickListener(newAtBat);
-        endGameButton.setOnClickListener(endGameListener);
     }
     private void loadFields() {
 
         atBatList = (RecyclerView) findViewById(R.id.listView_listScreen);
         addAtBat = (FloatingActionButton) findViewById(R.id.addBTN_listScreen);
-        helpButton = (Button) findViewById(R.id.helpButton_listScreen);
-        endGameButton = (Button) findViewById(R.id.endListButton);
-        titleView = (TextView) findViewById(R.id.ScreenTitle_listView);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
     }
 
 }

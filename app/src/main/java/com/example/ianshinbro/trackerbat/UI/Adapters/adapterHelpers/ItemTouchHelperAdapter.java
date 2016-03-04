@@ -1,4 +1,4 @@
-package com.example.ianshinbro.trackerbat.UI.Adapters;
+package com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers;
 
 /**
  * Created by ianshinbro on 2/29/2016.

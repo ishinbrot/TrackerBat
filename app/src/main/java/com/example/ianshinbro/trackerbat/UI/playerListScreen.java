@@ -1,28 +1,28 @@
 package com.example.ianshinbro.trackerbat.UI;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 
-import com.example.ianshinbro.trackerbat.Implentation.Game;
 import com.example.ianshinbro.trackerbat.Implentation.Player;
 import com.example.ianshinbro.trackerbat.R;
-import com.example.ianshinbro.trackerbat.UI.Adapters.DividerItemDecoration;
-import com.example.ianshinbro.trackerbat.UI.Adapters.ItemTouchHelperCallBack;
-import com.example.ianshinbro.trackerbat.UI.Adapters.OnStartDragListener;
+import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.DividerItemDecoration;
+import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHelperCallBack;
+import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.OnStartDragListener;
 import com.example.ianshinbro.trackerbat.UI.Adapters.PlayerAdapter;
-import com.example.ianshinbro.trackerbat.UI.Adapters.PlayerHolder;
-import com.example.ianshinbro.trackerbat.UI.Adapters.listItemListener;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 /**
  * Created by ianshinbrot on 4/30/15.
  */
-public class playerListScreen extends Activity{
+public class playerListScreen extends AppCompatActivity {
     RecyclerView playerList;
     FloatingActionButton addPlayerButton;
     int totalinList=0;
@@ -43,18 +43,21 @@ public class playerListScreen extends Activity{
     private PlayerAdapter playerAdapter;
     private LinearLayoutManager linearLayoutManager;
     private ItemTouchHelper mItemTouchHelper;
+    private Toolbar toolbar;
+
     private boolean firstPlayer = false;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_view);
+        // create the delegate
         context = getApplicationContext();
         players = new ArrayList<>();
         Log.d(this.tag, "initialLoad");
             this.loadFields();
             this.setOnClickListeners();
-        this.setText();
+        this.setUpToolbar();
         this.loadList();
 
 
@@ -62,21 +65,19 @@ public class playerListScreen extends Activity{
     @Override
     protected  void onActivityResult(int requestCode, int resultCode, Intent data) {
        super.onActivityResult(requestCode, resultCode, data);
-
+        totalinList= playerAdapter.getItemCount()-1;        // ensure the total is correct
+        // This is when adding a player
         if (resultCode==1) {        // return 1 is adding
             Log.d(this.tag, "Adding player");
             Player player = (Player) data.getExtras().getSerializable("player");
             totalinList++;
             selectedPosition = totalinList;
             players.add(player);
-
-
             Intent selectedPlayer = new Intent(playerListScreen.this,gameOverviewScreen.class);
-
             selectedPlayer.putExtra("player", player);
-
-         //   startActivityForResult(selectedPlayer,3);
+            startActivityForResult(selectedPlayer,3);
         }
+        // This is when updating a player
         if (resultCode==2) {        // updates
             Log.d(this.tag,"Updating player");
             Player player = (Player) data.getExtras().getSerializable("player");
@@ -175,22 +176,42 @@ public class playerListScreen extends Activity{
             startActivityForResult(updatePlayer, 3);
     }
 
-    private void setText() {
-        titleView.setText(R.string.playerListTitleText);
-
-    }
-
     private void setOnClickListeners() {
         addPlayerButton.setOnClickListener(addPlayer);
 
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
 
+
+
+
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.playerlist_menu, menu);
+        return true;
+    }
+
+    private void setUpToolbar() {
+        toolbar.setTitle(R.string.playerListTitleText);
+
+        setSupportActionBar(toolbar);
+    }
     private void loadFields() {
 
         playerList = (RecyclerView) findViewById(R.id.listView_listScreen);
         addPlayerButton = (FloatingActionButton) findViewById(R.id.addBTN_listScreen);
-        helpButton = (Button) findViewById(R.id.helpButton_listScreen);
-        titleView = (TextView) findViewById(R.id.ScreenTitle_listView);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
     }
 
 }

@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ianshinbro.trackerbat.R;
+import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHelperViewHolder;
 
 /**
  * Created by ianshinbro on 2/29/2016.
@@ -24,7 +25,7 @@ import com.example.ianshinbro.trackerbat.R;
         this.inningNumber = (TextView) itemView.findViewById(R.id.InningNumber_AtBatScreen);
         this.inningStats = (TextView) itemView.findViewById(R.id.InningStats_AtBatScreen);
       //  this.handleView = (ImageView) itemView.findViewById(R.id.handle_atBatView);
-        this.updateView = (ImageView) itemView.findViewById(R.id.handle_UpdateAtBatButton);
+       // this.updateView = (ImageView) itemView.findViewById(R.id.handle_UpdateAtBatButton);
 
         mainLayout = (LinearLayout) itemView.findViewById(R.id.atBatListlinearLayout);
 

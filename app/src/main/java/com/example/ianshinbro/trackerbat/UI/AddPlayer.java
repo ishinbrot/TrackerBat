@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -15,11 +17,11 @@ import com.example.ianshinbro.trackerbat.R;
 
 public class AddPlayer extends Activity {
     Button  savePlayer;
-    EditText firstName;
-    EditText lastName;
-    EditText nickName;
-    EditText playerNumber;
-   private Context applicationContext;
+    TextInputLayout firstName;
+    TextInputLayout lastName;
+    TextInputLayout nickName;
+    TextInputLayout playerNumber;
+    private Context applicationContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,13 +44,13 @@ public class AddPlayer extends Activity {
 
     private void savePlayer() {
         Player player = new Player();
-        player.setFirstName(firstName.getText().toString());
-        player.setLastName(lastName.getText().toString());
-        if (nickName.getText().length()!=0) {
-            player.setNickName(nickName.getText().toString());
+        player.setFirstName(firstName.getEditText().getText().toString());
+        player.setLastName(lastName.getEditText().getText().toString());
+        if (nickName.getEditText().getText().length()!=0) {
+            player.setNickName(nickName.getEditText().getText().toString());
         }
-        if (playerNumber.getText().length()!=0) {
-            player.setNumber(Integer.parseInt(playerNumber.getText().toString()));
+        if (playerNumber.getEditText().getText().length()!=0) {
+            player.setNumber(Integer.parseInt(playerNumber.getEditText().getText().toString()));
         }
         Intent intent = new Intent();
         intent.putExtra("player", player);
@@ -63,9 +65,9 @@ public class AddPlayer extends Activity {
 
     private void setOnClickListeners() {
         savePlayer.setOnClickListener(addPlayer);
-        firstName.addTextChangedListener(mTextWatcher);
-        lastName.addTextChangedListener(mTextWatcher);
-        playerNumber.addTextChangedListener(mTextWatcher);
+        firstName.getEditText().addTextChangedListener(mTextWatcher);
+        lastName.getEditText().addTextChangedListener(mTextWatcher);
+        playerNumber.getEditText().addTextChangedListener(mTextWatcher);
 
     }
     private TextWatcher mTextWatcher = new TextWatcher() {
@@ -86,9 +88,9 @@ public class AddPlayer extends Activity {
 
     void checkFieldsForEmptyValues(){
 
-        String s1 = firstName.getText().toString();
-        String s2 = lastName.getText().toString();
-        String s3 = playerNumber.getText().toString();
+        String s1 = firstName.getEditText().getText().toString();
+        String s2 = lastName.getEditText().getText().toString();
+        String s3 = playerNumber.getEditText().getText().toString();
 
         if(s1.equals("")|| s2.equals("") || s3.equals("")){
             savePlayer.setEnabled(false);
@@ -99,10 +101,10 @@ public class AddPlayer extends Activity {
 
     private void initializeButtons() {
         savePlayer = (Button) findViewById(R.id.saveButton_Update_AddPage);
-        firstName = (EditText) findViewById(R.id.FirstName_UpdatePlayerScreen);
-        lastName = (EditText) findViewById(R.id.LastName_UpdatePlayerScreen);
-        nickName = (EditText) findViewById(R.id.NickName_UpdatePlayerScreen);
-        playerNumber = (EditText) findViewById(R.id.PlayerNumber_UpdatePlayerScreen);
+        firstName = (TextInputLayout) findViewById(R.id.layout_FirstName_UpdatePlayerScreen);
+        lastName = (TextInputLayout) findViewById(R.id.layout_LastName_UpdatePlayerScreen);
+        nickName = (TextInputLayout) findViewById(R.id.layout_NickName_UpdatePlayerScreen);
+        playerNumber = (TextInputLayout) findViewById(R.id.layout_PlayerNumber_UpdatePlayerScreen);
         savePlayer.setEnabled(false);
     }
 }
