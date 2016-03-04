@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.ianshinbro.trackerbat.Implentation.Game;
-import com.example.ianshinbro.trackerbat.Implentation.Player;
 import com.example.ianshinbro.trackerbat.R;
 
 public class UpdateGame extends Activity {
@@ -57,6 +56,10 @@ public class UpdateGame extends Activity {
 
         finish();       // finishing activity
     }
+
+    /**
+     * This creates a text watcher to enable the buttons on a key press
+     */
     private TextWatcher gameTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -73,6 +76,9 @@ public class UpdateGame extends Activity {
         }
     };
 
+    /**
+     * This method checks for all the empty values on the page
+     */
     void checkFieldsForEmptyValues(){
 
         String s1 = homeTeam.getText().toString();
@@ -86,14 +92,20 @@ public class UpdateGame extends Activity {
         }
     }
 
+    /**
+     * This sets the text on the page based on a game object
+     * @param game - custom game object
+     */
     private void setText(Game game) {
         updateGame.setText(R.string.SaveChanges_BTNText);
         homeTeam.setText(game.getHomeTeam());
         awayTeam.setText(game.getAwayTeam());
         inningTotal.setText(Integer.toString(game.getInningNumber()));
-
     }
 
+    /**
+     * This initializes the buttons on the page
+     */
     private void initializeButtons() {
         updateGame = (Button) findViewById(R.id.addGame_AddGameScreen);
         homeTeam = (EditText) findViewById(R.id.HomeTeam_AddGameScreen);
