@@ -1,6 +1,5 @@
 package com.example.ianshinbro.trackerbat.UI;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -38,10 +37,8 @@ public class gameOverviewScreen extends AppCompatActivity {
     int totalinList = -1;
     private String tag = "gameOverviewScreen";
     private int selectedPosition = -1;
-    private Context context;
     private GameAdapter gameAdapter;
     private Toolbar toolbar;
-    private boolean firstPlayer = false;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,14 +102,10 @@ public class gameOverviewScreen extends AppCompatActivity {
 
         }
     };
-    private OnClickListener savePlayerListener = new OnClickListener() {
-        public void onClick(View v) {
-            // register selection
-            savePlayerFunction();
 
-        }
-    };
-
+    /**
+     * This method is called when the save button is pressed
+     */
     private void savePlayerFunction() {
         Intent savePlayer = new Intent();
         savePlayer.putExtra("player", player);
@@ -120,8 +113,11 @@ public class gameOverviewScreen extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * This method loads the lists
+     */
     private void loadList() {
-
+            // initializes the game adapter with a custom listener for select, update, and drag
         gameAdapter = new GameAdapter(player.getGames(), new OnStartDragListener() {
             @Override
             public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
@@ -159,6 +155,10 @@ public class gameOverviewScreen extends AppCompatActivity {
         mItemTouchHelper.attachToRecyclerView(gameList);
     }
 
+    /**
+     * This method is called when the update button is clicked
+     * @param position - position in the array list
+     */
     private void updateGame(int position) {
         Game game = player.getGame(position);
         Intent selectedGame = new Intent(gameOverviewScreen.this, UpdateGame.class);
@@ -168,6 +168,10 @@ public class gameOverviewScreen extends AppCompatActivity {
         startActivityForResult(selectedGame, 3);
     }
 
+    /**
+     * This method gets called when the game is selected
+     * @param position - position in the list
+     */
     private void selectGame(int position) {
         Game game = player.getGame(position);
         selectedPosition = position;
@@ -179,9 +183,11 @@ public class gameOverviewScreen extends AppCompatActivity {
         startActivityForResult(selectedGame, 3);
     }
 
+    /**
+     * This method sets the on click listeners
+     */
     private void setOnClickListeners() {
         addGameButton.setOnClickListener(addGameListener);
-
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -207,11 +213,18 @@ public class gameOverviewScreen extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.gamelist_menu, menu);
         return true;
     }
+
+    /**
+     * This method sets up the toolbar
+     */
     private void setUpToolbar() {
         toolbar.setTitle(R.string.gameListScreenTitleText);
         setSupportActionBar(toolbar);
     }
 
+    /**
+     * This method loads the fields on the page
+     */
     private void loadFields() {
         gameList = (RecyclerView) findViewById(R.id.listView_listScreen);
         addGameButton = (FloatingActionButton) findViewById(R.id.addBTN_listScreen);
