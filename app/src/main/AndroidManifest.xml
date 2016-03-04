@@ -11,47 +11,58 @@
         <activity
             android:name=".UI.playerListScreen"
             android:label="@string/app_name"
-            android:theme="@style/MyMaterialTheme.Base"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/MyMaterialTheme.Base">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.AddPlayer"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".UI.UpdatePlayer"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".UI.gameOverviewScreen"
-            android:theme="@style/MyMaterialTheme.Base"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".UI.AddGame"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".UI.UpdateGame"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".UI.AtBatListScreen"
-            android:theme="@style/MyMaterialTheme.Base"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".UI.AtBatScreen"
-            android:theme="@style/MyMaterialTheme.Base"
-            android:screenOrientation="portrait"/>
         <activity
-            android:name=".UI.atBatSetup"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth"
-            android:screenOrientation="portrait"/>
+            android:name=".UI.AddPlayer"
+            android:screenOrientation="portrait"
+            android:theme="@style/PopupTheme" />
         <activity
-            android:name=".UI.HitPopUp"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth"
-            android:screenOrientation="portrait"/>
+            android:name=".UI.UpdatePlayer"
+            android:screenOrientation="portrait"
+            android:theme="@style/PopupTheme" />
         <activity
-            android:name=".UI.GameEnd"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth"
-            android:screenOrientation="portrait"/>
+            android:name=".UI.gameOverviewScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyMaterialTheme.Base" />
+        <activity
+            android:name=".UI.popupScreens.AddGame"
+            android:screenOrientation="portrait"
+            android:theme="@style/PopupTheme" />
+        <activity
+            android:name=".UI.UpdateGame"
+            android:screenOrientation="portrait"
+            android:theme="@style/PopupTheme" />
+        <activity
+            android:name=".UI.AtBatListScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyMaterialTheme.Base" />
+        <activity
+            android:name=".UI.AtBatScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyMaterialTheme.Base" />
+        <activity
+            android:name=".UI.popupScreens.atBatSetup"
+            android:screenOrientation="portrait"
+            android:theme="@style/PopupTheme" />
+        <activity
+            android:name=".UI.popupScreens.HitPopUp"
+            android:screenOrientation="portrait"
+            android:theme="@style/PopupBases" />
+        <activity
+            android:name=".UI.popupScreens.GameEnd"
+            android:screenOrientation="portrait"
+            android:theme="@style/PopupTheme" />
+        <activity
+            android:name=".UI.popupScreens.OutPopUp"
+            android:theme="@style/PopupBases"></activity>
+
     </application>
 
 </manifest>
