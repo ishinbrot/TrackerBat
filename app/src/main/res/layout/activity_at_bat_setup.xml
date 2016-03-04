@@ -1,33 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/addInningAtBatSetup"
-        android:id="@+id/addInning_AtBat_SetupPage"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
+    <View
+        android:layout_width="175dp"
+        android:layout_height="30dp"></View>
     <android.support.design.widget.TextInputLayout
         android:id="@+id/layout_addInningText_AtBat_SetupPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/addInning_AtBat_SetupPage"
         android:layout_below="@+id/addInning_AtBat_SetupPage">
+
     <EditText
         android:layout_width="wrap_content"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
+        android:drawableLeft="@drawable/ic_stars_red_800_18dp"
         android:id="@+id/addInningText_AtBat_SetupPage"
         android:hint="Inning Number"
-        android:width="130dp"
-        android:layout_centerHorizontal="true" />
+        android:width="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/addInning_AtBat_SetupPage" />
     </android.support.design.widget.TextInputLayout>
 
-</RelativeLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="@string/addInningAtBatSetup"
+        android:id="@+id/addInning_AtBat_SetupPage"
+        android:layout_marginTop="10dp"
+        android:layout_above="@+id/layout_addInningText_AtBat_SetupPage"
+        android:layout_centerHorizontal="true"
+        android:width="150dp" />
+    <View
+        android:layout_width="175dp"
+        android:layout_height="30dp"></View>
+
+</LinearLayout>

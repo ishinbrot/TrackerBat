@@ -15,7 +15,10 @@
         android:id="@+id/InningNumber_AtBatScreen"
         android:layout_gravity="top|center_vertical"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/GameTeam_GameListScreen" />
+        android:padding="5dp"
+        android:height="50dp"
+        android:layout_toStartOf="@+id/GameTeam_GameListScreen"
+        android:textColor="#000000" />
 
     <Space
         android:layout_width="10dp"
@@ -26,17 +29,11 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/InningStats_AtBatScreen"
+        android:padding="5dp"
         android:layout_gravity="top|center_vertical"
         android:layout_below="@+id/GameScore_GameListScreen"
-        android:layout_alignParentEnd="true" />
-
-    <ImageView
-        android:id="@+id/handle_UpdateAtBatButton"
-        android:layout_width="?listPreferredItemHeight"
-        android:layout_height="match_parent"
-
-        android:src="@drawable/ic_info_black_18dp"
-        android:layout_gravity="top" />
+        android:layout_alignParentEnd="true"
+        android:textColor="#000000" />
 
 
 </LinearLayout>

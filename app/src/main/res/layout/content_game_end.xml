@@ -9,45 +9,44 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.ianshinbro.trackerbat.UI.GameEnd">
+    tools:context=".UI.popupScreens.GameEnd">
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/layout_HomeTeamScore"
         android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true">
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:inputType="number"
+        android:drawableLeft="@drawable/ic_stars_red_800_18dp"
         android:id="@+id/HomeTeamScore"
-        android:width="100dp" />
+        android:width="200dp" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/layout_AwayTeamScore"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/layout_HomeTeamScore"
-        android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/layout_HomeTeamScore"
-        android:layout_height="wrap_content">
+        android:layout_alignParentStart="true">
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_stars_red_800_18dp"
         android:inputType="number"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/AwayTeamScore"
-        android:width="100dp" />
+        android:width="200dp" />
 </android.support.design.widget.TextInputLayout>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/endGameButton_EndGamePopUp"
+        android:text="@string/endGameText"
         android:layout_below="@+id/layout_AwayTeamScore"
-        style="?android:attr/borderlessButtonStyle"
-        android:text="@string/endGameText" />
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

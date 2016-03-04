@@ -15,11 +15,15 @@
         android:id="@+id/GameTeam_GameListScreen"
         android:layout_gravity="top|center_vertical"
         android:layout_alignParentTop="true"
+
+        android:padding="5dp"
         android:layout_toStartOf="@+id/GameTeam_GameListScreen"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="#000000" />
 
     <Space
         android:layout_width="10dp"
+        android:height="50dp"
         android:layout_height="30dp"/>
 
     <TextView
@@ -30,7 +34,9 @@
         android:layout_gravity="top|center_vertical"
         android:layout_below="@+id/GameScore_GameListScreen"
         android:layout_alignParentEnd="true"
-        android:textAlignment="center" />
+        android:padding="5dp"
+        android:textAlignment="center"
+        android:textColor="#000000" />
 
     <Space
         android:layout_width="10dp"
@@ -41,16 +47,18 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/GameProgress_GameListScreen"
+        android:padding="5dp"
         android:layout_below="@+id/GameScore_GameListScreen"
         android:layout_alignParentEnd="true"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="#000000" />
 
     <ImageView
         android:id="@+id/handle_UpdateGameButton"
         android:layout_width="?listPreferredItemHeight"
         android:layout_height="match_parent"
-
-        android:src="@drawable/ic_info_black_18dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_mode_edit"
         android:layout_gravity="top" />
 
 </LinearLayout>

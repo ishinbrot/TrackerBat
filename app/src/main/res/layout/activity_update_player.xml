@@ -12,9 +12,8 @@
     <android.support.design.widget.TextInputLayout
         android:id="@+id/layout_FirstName_UpdatePlayerScreen"
         android:layout_width="match_parent"
-        android:layout_below="@+id/saveButton_Update_AddPage"
-        android:layout_alignLeft="@id/saveButton_Update_AddPage"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true">
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,16 +21,17 @@
         android:ems="10"
         android:id="@+id/FirstName_UpdatePlayerScreen"
         android:hint="@string/First_Name_TxtFld"
-        android:layout_below="@+id/saveButton_Update_AddPage"
+
+        android:drawableLeft="@drawable/ic_stars_red_800_18dp"
         android:width="150dp" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/layout_LastName_UpdatePlayerScreen"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/layout_FirstName_UpdatePlayerScreen"
-        android:layout_alignLeft="@id/saveButton_Update_AddPage"
-        android:layout_height="wrap_content">
+        android:layout_alignParentStart="true">
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,6 +40,7 @@
         android:ems="10"
         android:id="@+id/LastName_UpdatePlayerScreen"
         android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/ic_stars_red_800_18dp"
         android:width="150dp" />
 </android.support.design.widget.TextInputLayout>
 
@@ -47,17 +48,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/saveButton_Update_AddPage"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="66dp" />
+        android:layout_below="@+id/layout_NickName_UpdatePlayerScreen"
+        android:layout_alignParentStart="true" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/layout_NickName_UpdatePlayerScreen"
         android:layout_width="match_parent"
-        android:layout_below="@+id/layout_LastName_UpdatePlayerScreen"
-        android:layout_alignLeft="@id/saveButton_Update_AddPage"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_PlayerNumber_UpdatePlayerScreen"
+        android:layout_alignParentStart="true">
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,12 +71,14 @@
     <android.support.design.widget.TextInputLayout
         android:id="@+id/layout_PlayerNumber_UpdatePlayerScreen"
         android:layout_width="match_parent"
-        android:layout_below="@+id/layout_NickName_UpdatePlayerScreen"
-        android:layout_alignLeft="@id/saveButton_Update_AddPage"
-        android:layout_height="wrap_content">
+
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_LastName_UpdatePlayerScreen"
+        android:layout_alignParentEnd="true">
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_stars_red_800_18dp"
         android:inputType="number|textCapWords"
         android:ems="10"
         android:id="@+id/PlayerNumber_UpdatePlayerScreen"

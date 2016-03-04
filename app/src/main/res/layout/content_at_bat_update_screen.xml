@@ -1,89 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:layout_width="match_parent" android:layout_height="match_parent">
     <include
-        android:id="@+id/atBat_toolbar"
+        android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/atbatTitleText"
-        android:id="@+id/ScreenTitle_AtBat"
-        android:layout_centerHorizontal="true"
-        android:textColor="#ffffff"
-        android:layout_alignBottom="@+id/EndButton_atBatScreen"
-        android:layout_alignParentTop="true"
-        android:textAlignment="center" />
-
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Question_Mark"
-        android:id="@+id/helpButton_atBatScreen"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#ffffff" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/atBatendAtBatButtonText"
-        android:id="@+id/EndButton_atBatScreen"
-        android:layout_alignParentEnd="true"
-        android:textColor="#ffffff"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_toEndOf="@+id/AdvanceBaseButton_AtBatScreen" />
-
-    <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/atBatHitButtonText"
         android:id="@+id/HitButton_AtBatScreen"
-        android:layout_below="@+id/atBat_toolbar"
+        android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
-        android:textColor="#ffffff" />
+        android:layout_marginTop="50dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/atBatWalkButtonText"
         android:id="@+id/WalkButton_AtBatScreen"
         android:layout_below="@+id/HitButton_AtBatScreen"
         android:layout_alignStart="@+id/HitButton_AtBatScreen"
-        android:layout_marginTop="33dp"
-        android:textColor="#ffffff" />
+        android:layout_marginTop="50dp"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/atBatOutButtonText"
         android:id="@+id/OutButton_AtBatScreen"
         android:layout_below="@+id/WalkButton_AtBatScreen"
         android:layout_alignStart="@+id/WalkButton_AtBatScreen"
-        android:layout_marginTop="39dp"
-        android:textColor="#ffffff" />
+        android:layout_marginTop="50dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/atBatadvanceBaseButtonText"
         android:id="@+id/AdvanceBaseButton_AtBatScreen"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="50dp"
         android:layout_below="@+id/OutButton_AtBatScreen"
-        android:layout_centerHorizontal="true"
-        android:textColor="#ffffff" />
+        android:layout_centerHorizontal="true" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/atBatUndoButtonText"
         android:id="@+id/UndoBat_AtBatScreen"
-        android:layout_marginTop="46dp"
         android:layout_below="@+id/AdvanceBaseButton_AtBatScreen"
-        android:layout_alignStart="@+id/OutButton_AtBatScreen"
-        android:textColor="#ffffff" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="41dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:textSize="25dp"
+        android:id="@+id/AtBatStatsUpdateScreen"
+        android:layout_below="@+id/UndoBat_AtBatScreen"
+        android:layout_centerHorizontal="true"
+        android:textColor="#000000" />
 </RelativeLayout>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/secondFieldButtonText"
+            android:id="@+id/SecondBaseOutPopUp"
+            android:layout_below="@+id/LeftFieldOutPopUp"
+            android:layout_alignStart="@+id/PitcherOutPopUp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/FirstCatcherButtonText"
+            android:id="@+id/FirstBaseOutPopUp"
+            android:layout_alignTop="@+id/PitcherOutPopUp"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/thirdCatcherButtonText"
+            android:id="@+id/ThirdBaseOutPopUp"
+            android:layout_alignTop="@+id/PitcherOutPopUp"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/catcherButtonText"
+            android:id="@+id/CatcherOutPopUp"
+            android:layout_below="@+id/PitcherOutPopUp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="72dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shortStopButtonText"
+            android:id="@+id/ShortStopOutPopUp"
+            android:layout_below="@+id/SecondBaseOutPopUp"
+            android:layout_marginLeft="50dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/leftFieldButtonText"
+            android:id="@+id/LeftFieldOutPopUp"
+            android:layout_below="@+id/CenterFieldOutPopUp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rightFieldButtonText"
+            android:id="@+id/RightFieldOutPopUp"
+            android:layout_below="@+id/CenterFieldOutPopUp"
+            android:layout_alignEnd="@+id/FirstBaseOutPopUp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/centerFieldButtonText"
+            android:id="@+id/CenterFieldOutPopUp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/PitcherButtonText"
+            android:id="@+id/PitcherOutPopUp"
+            android:layout_below="@+id/ShortStopOutPopUp"
+            android:layout_alignStart="@+id/CatcherOutPopUp" />
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="SELECT TWO"
+        android:textSize="25dp"
+        android:layout_below="@+id/CatcherOutPopUp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:id="@+id/PopUpText"
+        android:textColor="#ffffff" />
+    </RelativeLayout>
