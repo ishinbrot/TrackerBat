@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.util.Log;
 
 import com.example.ianshinbro.trackerbat.Implentation.AtBat;
@@ -70,9 +69,11 @@ public class AtBatScreen extends AppCompatActivity {
     protected  void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // If a hit was taken
         if (resultCode == 1) {        // return 1 is adding
             Log.d(this.tag, "Hit Updated");
             atBat = (AtBat) data.getExtras().getSerializable("atBat");
+            // disable all buttons on screen
             Out.setEnabled(false);
             Walk.setEnabled(false);
             Undo.setEnabled(true);
@@ -80,6 +81,7 @@ public class AtBatScreen extends AppCompatActivity {
 
             Base initialBase = atBat.getInitialBaseNum();
             String message = "";
+            // Determine what the message should be based on the first base
             switch (initialBase) {
                 case FIRST:
                     message = "HIT A SINGLE";
@@ -103,6 +105,7 @@ public class AtBatScreen extends AppCompatActivity {
                 setStatus(message);
             }
         }
+        // If the player received an out
         if (resultCode == 2) {
             Log.d(this.tag, "Out Updated");
             atBat = (AtBat) data.getExtras().getSerializable("atBat");
@@ -114,6 +117,8 @@ public class AtBatScreen extends AppCompatActivity {
             OutField initialCatch = atBat.getInitialCatch();
             OutField finalCatch = atBat.getFinalCatch();
             String message = "";
+            // determine if one or two people caught the ball
+            // display the first out message
             if (initialCatch!=finalCatch) {
                 switch (initialCatch) {
                     case FIRST_BASE:
@@ -144,6 +149,7 @@ public class AtBatScreen extends AppCompatActivity {
                         message = "Out via Short Stop to";
                         break;
                 }
+                // display the last out message
                 switch (finalCatch) {
                     case FIRST_BASE:
                         message += " First";
@@ -175,6 +181,7 @@ public class AtBatScreen extends AppCompatActivity {
                 }
             }
             else {
+                // goes here if only one person caught the ball
                 switch (finalCatch) {
                     case FIRST_BASE:
                         message = "Out via First";
@@ -205,7 +212,7 @@ public class AtBatScreen extends AppCompatActivity {
                         break;
                 }
             }
-            // if system forces back
+            // if system forces back with a back button
             if (message.equals("")) {
                 // do nothing
             } else {
@@ -214,6 +221,10 @@ public class AtBatScreen extends AppCompatActivity {
         }
     }
 
+    /**
+     * Gets called if the save button is pressed
+     * This sets the final base and ends the activity
+     */
     private void endAtBat() {
             Intent intent = new Intent();
             atBat.setFinalBase(atBat.getCurrentBase());
@@ -222,6 +233,10 @@ public class AtBatScreen extends AppCompatActivity {
             finish();
         }
 
+    /**
+     * Listener if the hit button is pressed
+     * A new activity is launched in this method
+     */
     private OnClickListener HitListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -233,6 +248,10 @@ public class AtBatScreen extends AppCompatActivity {
 
         }
     };
+    /**
+     * Listener if the walk button is pressed
+     * A new activity is launched in this method
+     */
     private OnClickListener WalkListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -246,6 +265,10 @@ public class AtBatScreen extends AppCompatActivity {
             Undo.setEnabled(true);
         }
     };
+    /**
+     * Listener if the out button is pressed
+     * A new activity is launched in this method
+     */
     private OnClickListener OutListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -257,6 +280,10 @@ public class AtBatScreen extends AppCompatActivity {
 
         }
     };
+    /**
+     * Listener if the advance base button is pressed
+     * A new activity is launched in this method
+     */
     private OnClickListener AdvanceBaseListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -280,6 +307,10 @@ public class AtBatScreen extends AppCompatActivity {
             setStatus(message);
         }
     };
+    /**
+     * Listener if the undo button is pressed
+     * A new activity is launched in this method
+     */
     private OnClickListener UndoListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -326,11 +357,19 @@ public class AtBatScreen extends AppCompatActivity {
             setStatus(message);
         }
     };
+
+    /**
+     * This method sets the status in the text view
+     * @param message - the message to be displayed
+     */
     private void setStatus(String message) {
         atBatStatus.setText("Status: " +message);
 
     }
 
+    /**
+     * This method enables all buttons on the page if undo is defaulted back to at bat
+     */
     private void undoEnabler() {
         Undo.setEnabled(false);
         Hit.setEnabled(true);
@@ -339,6 +378,9 @@ public class AtBatScreen extends AppCompatActivity {
         AdvanceBase.setEnabled(false);
     }
 
+    /**
+     * This method sets the on click listeners for the page
+     */
     private void setOnClickListeners() {
         Walk.setOnClickListener(WalkListener);
         Hit.setOnClickListener(HitListener);
@@ -349,11 +391,20 @@ public class AtBatScreen extends AppCompatActivity {
         AdvanceBase.setEnabled(false);
         setStatus("At Bat");
     }
+
+    /**
+     * This method sets up the toolbar for the page
+     */
     private void setUpToolbar() {
         toolbar.setTitle(R.string.atbatTitleText);
-
         setSupportActionBar(toolbar);
     }
+
+    /**
+     * This method gets called when an option in the toolbar is selected
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -369,6 +420,13 @@ public class AtBatScreen extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    /**
+     * This method creates the menu in the toolbar
+     * The menu consists of hte save menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -376,6 +434,9 @@ public class AtBatScreen extends AppCompatActivity {
 
         return true;
     }
+    /**
+     * This method loads the fields in the view on the page
+     */
     private void loadFields() {
 
         Hit = (Button) findViewById(R.id.HitButton_AtBatScreen);
