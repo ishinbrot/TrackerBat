@@ -46,12 +46,22 @@ public class AtBatAdapter extends RecyclerView.Adapter<AtBatHolder> implements I
         atBats.remove(position);
         notifyItemRemoved(position);
     }
+
+    /**
+     * Moves the item when moving an item in the list
+     * @param fromPosition
+     * @param toPosition
+     */
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
         AtBat prev = atBats.remove(fromPosition);
         atBats.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
         notifyItemMoved(fromPosition, toPosition);
     }
+
+    /**
+     * Interface for the touch listener
+     */
     public interface OnDragStartListener {
         void onDragStarted(RecyclerView.ViewHolder viewHolder);
 
@@ -76,6 +86,9 @@ public class AtBatAdapter extends RecyclerView.Adapter<AtBatHolder> implements I
             }
         });
  */
+        /**
+         * Sets the listener for the inning stats text and inning number
+         */
         viewHolder.inningStats.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -98,24 +111,6 @@ public class AtBatAdapter extends RecyclerView.Adapter<AtBatHolder> implements I
         });
     }
 
-    public void updateData(ArrayList<AtBat> atBats) {
-        this.atBats.clear();
-        this.atBats.addAll(atBats);
-        notifyDataSetChanged();
-    }
-    public void addItem(int position, AtBat atBat) {
-        atBats.add(atBat);
-
-        notifyItemInserted(position - 1);
-    }
-    public void updatePlayer(AtBat atBat, int position) {
-        atBats.set(position, atBat);
-        notifyItemChanged(position);
-    }
-    public void removeItem(int position) {
-        atBats.remove(position);
-        notifyItemRemoved(position);
-    }
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
