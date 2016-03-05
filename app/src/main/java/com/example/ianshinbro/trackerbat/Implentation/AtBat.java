@@ -5,6 +5,11 @@ import java.io.Serializable;
 /**
  * Created by ianshinbro on 2/19/2016.
  */
+
+/**
+ * This method stores atBat information
+ * It implements serializable to be utilized by Android
+ */
 public class AtBat implements iAtBat, Serializable{
 
     public AtBat(int inningNumber) {
@@ -13,14 +18,27 @@ public class AtBat implements iAtBat, Serializable{
         this.score=0;
         this.inningNumber=inningNumber;
     }
+
+    /**
+     * Constructor for class. Defaults all values to 0
+     */
     public AtBat() {
         this.hit = false;
         this.out = false;
         this.score = 0;
     }
+
+    /**
+     *
+     * @return - retrieves the inning number
+     */
     public int getInningNumber() {
         return this.inningNumber;
     }
+
+    /**
+     * this moves to the next base for the atbat class
+     */
     public void nextBase() {
         switch (currentBase) {
             case FIRST:
@@ -35,6 +53,10 @@ public class AtBat implements iAtBat, Serializable{
                 break;
         }
     }
+
+    /**
+     * This reverts the base for the atBat class
+     */
     public void revertBase() {
         if (this.currentBase.getValue()==4) {
             this.revertScore();
@@ -56,16 +78,34 @@ public class AtBat implements iAtBat, Serializable{
         }
     }
 
+    /**
+     * Sets the initial base as the initial and current base for the class
+     * @param base - base object that is assigned
+     */
     public void setInitialBase(Base base) {
        this.initialBase=base;
         this.currentBase=base;
     }
+
+    /**
+     * This makes the initial basae as an at bat
+     */
     public void UndoInitialBase() {
         this.initialBase=Base.ATBAT;
     }
+
+    /**
+     * This sets the inning number for hte AtBat
+     * @param inning - inning number of the AtBat
+     */
     public void setInningNumber(int inning) {
         this.inningNumber=inning;
     }
+
+    /**
+     * retrieves the initial bats
+     * @return - a string containing what the initial base would be equal to
+     */
     public String getInitialBase() {
         switch (initialBase) {
             case FIRST:
@@ -79,31 +119,66 @@ public class AtBat implements iAtBat, Serializable{
         }
         return "";
     }
+
+    /**
+     * This retrieves the initial base
+     * @return - the initial bases enum value
+     */
     public Base getInitialBaseNum() {
         return this.initialBase;
     }
+
+    /**
+     * Retrieves the current base
+     * @return - current bases enum value
+     */
     public Base getCurrentBase() {
         return this.currentBase;
     }
+
+    /**
+     * retrieves the initial base
+     * @return - initial base enum value
+     */
     public Base getInitialBaseEnum() {
         return initialBase;
     }
+
+    /**
+     * Sets the final base
+     * @param finalBase - base object that will be the final base
+     */
     public void setFinalBase(Base finalBase) {
 
         this.finalBase=finalBase;
     }
+
+    /**
+     * Informs the AtBat class that the user walked
+     * TODO currently not utilzed to display walk on list screen, as scorecard doesn't inform walk
+     */
     public void setWalk() {
         this.walk=true;
     }
     public void undoWalk() {
         this.walk=false;
     }
+
+    /**
+     * Informs that an out is to be removed
+     * Defaults all related values
+     */
     public void undoOut() {
         this.finalCatch=OutField.NONE;
         this.initialCatch=OutField.NONE;
         this.firstOutRecieved=false;
         this.out=false;
     }
+
+    /**
+     * Retrieves the final base as a string value
+     * @return - string value of the final base
+     */
     public String getFinalBase() {
         switch (finalBase) {
             case FIRST :
@@ -120,16 +195,34 @@ public class AtBat implements iAtBat, Serializable{
     public void score() {
         this.score+=1;
     }
+
+    /**
+     * Reverts the score of the atBat object
+     */
     public void revertScore() {
         this.score-=1;
     }
+
+    /**
+     * Sets the initial catche used only on outs
+     * @param initialCatch - initial person catching the ball
+     */
     public void setInitialCatch(OutField initialCatch) {
         this.initialCatch=initialCatch;
     }
+    /**
+     * Sets the initial catche used only on outs
+     * @param finalCatch - initial person catching the ball
+     */
     public void setFinalCatch(OutField finalCatch) {
 
         this.finalCatch=finalCatch;
     }
+
+    /**
+     * Confirms the base stats to a string value
+     * @return the value of the atBat
+     */
     public String getBaseStats() {
 
         // they never advanced a base
@@ -150,16 +243,12 @@ public class AtBat implements iAtBat, Serializable{
         }
         return "";
     }
-    public void undoStats() {
-        if (out) {
-            undoOut();
-        }
-        else {
-            this.currentBase=Base.ATBAT;
-            this.finalBase=Base.ATBAT;
-            this.initialBase=Base.ATBAT;
-        }
-    }
+
+    /**
+     * Retrieves the current catcher as a string value
+     * @param field - the outfielder who caught the ball
+     * @return - string value of the person who caught the ball
+     */
     public String getCatchString(OutField field) {
         switch (field) {
             case PITCHER:
@@ -222,5 +311,4 @@ public class AtBat implements iAtBat, Serializable{
     private boolean firstOutRecieved;
     private OutField finalCatch;
     private int inningNumber;
-    private String baseStats;
 }
