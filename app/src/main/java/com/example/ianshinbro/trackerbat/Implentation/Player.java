@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 /**
  * Created by ianshinbrot on 4/30/15.
+ * This is a player class
+ * Serializable is used to navigate intents in android
  */
 public class Player implements iPlayer, Serializable{
 
@@ -28,6 +30,12 @@ public class Player implements iPlayer, Serializable{
         this.games = new ArrayList<>();
 
     }
+
+    /**
+     * This updates a specific game by player
+     * @param index - the index of the game to be updated
+     * @param game - the modified game object
+     */
     public void updateGame(int index, Game game) {
         this.games.set(index, game);
     }
@@ -55,10 +63,19 @@ public class Player implements iPlayer, Serializable{
     public void setNickName(String nickName) {
         this.nickName = nickName; this.hasNickName=true;
     }
+
+    /**
+     * Determine if nickname exists
+     * @return
+     */
     public boolean nickNameExists() {
         return this.hasNickName;
     }
 
+    /**
+     * This retrieves the number of the player
+     * @return - number of the player
+     */
     public int getNumber() {
         return number;
     }
