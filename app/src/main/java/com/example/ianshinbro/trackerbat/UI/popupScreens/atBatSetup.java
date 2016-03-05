@@ -35,6 +35,9 @@ public class atBatSetup extends Activity {
 
     }
 
+    /**
+     * This adds an onclick listener to the add inning button
+     */
     private View.OnClickListener addInning = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -46,6 +49,9 @@ public class atBatSetup extends Activity {
 
         }
     };
+    /**
+     * This adds a text watcher to the text fields to enable to the button
+     */
     private TextWatcher addAtBatWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -62,6 +68,9 @@ public class atBatSetup extends Activity {
         }
     };
 
+    /**
+     * This checks the fields for empty values
+     */
     void checkFieldsForEmptyValues(){
 
         String s1 = inningNumber.getText().toString();
@@ -72,11 +81,19 @@ public class atBatSetup extends Activity {
             addatBat.setEnabled(true);
         }
     }
+
+    /**
+     * This sets the on click listeners for the page
+     */
     private void setOnClickListeners() {
         addatBat.setOnClickListener(addInning);
         addatBat.setEnabled(false);
         inningNumber.addTextChangedListener(addAtBatWatcher);
     }
+
+    /**
+     * This loads the buttons on the page
+     */
     private void loadButtons() {
         addatBat = (Button) findViewById(R.id.addInning_AtBat_SetupPage);
         inningNumber = (TextView) findViewById(R.id.addInningText_AtBat_SetupPage);

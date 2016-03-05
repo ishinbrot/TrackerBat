@@ -29,10 +29,12 @@ public class OutPopUp extends Activity {
     Intent intent;
     private String tag = "OutPopUp";
 
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(this.tag, "entering gameListScreen");
         Intent intent = getIntent();
+        // retrieve the at bat object
         atBat = (AtBat) intent.getExtras().getSerializable("atBat");
         setContentView(R.layout.content_out_pop_up);
         this.loadFields();
@@ -51,6 +53,9 @@ public class OutPopUp extends Activity {
         rightField.setOnClickListener(rightFieldListener);
     }
 
+    /**
+     * This ends the activity
+     */
     private void finishActivity() {
         intent = new Intent();
         atBat.setOut(true);
@@ -59,10 +64,14 @@ public class OutPopUp extends Activity {
         finish();
     }
 
+    /**
+     * This is an onclick listener for hitting the right field
+     */
     private OnClickListener rightFieldListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
             out1 = OutField.RIGHT_FIELD;
+            // check if the first out is recieved, else set final out
             if (!atBat.isFirstOutRecieved()) {
                 atBat.setInitialCatch(out1);
                 atBat.setFirstOutRecieved(true);
@@ -73,6 +82,9 @@ public class OutPopUp extends Activity {
             }
         }
     };
+    /**
+     * This is an onclick listener for center field
+     */
     private OnClickListener centerFieldListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -86,6 +98,9 @@ public class OutPopUp extends Activity {
             }
         }
     };
+    /**
+     * This is an onclick listener for left field
+     */
     private OnClickListener leftFieldListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -99,6 +114,9 @@ public class OutPopUp extends Activity {
             }
         }
     };
+    /**
+     * This is an onclick listener for the pitcher
+     */
     private OnClickListener pitcherListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -112,6 +130,9 @@ public class OutPopUp extends Activity {
             }
         }
     };
+    /**
+     * This is an onclick listener for short stop
+     */
     private OnClickListener shortStopListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -125,6 +146,9 @@ public class OutPopUp extends Activity {
             }
         }
     };
+    /**
+     * This is an onclick listener for catcher
+     */
     private OnClickListener catcherBaseListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -140,6 +164,9 @@ public class OutPopUp extends Activity {
         }
     };
 
+    /**
+     * This is an onclick listener for first base
+     */
     private OnClickListener firstBaseListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -153,6 +180,9 @@ public class OutPopUp extends Activity {
             }
         }
     };
+    /**
+     * This is an onclick listener for third base
+     */
     private OnClickListener thirdBaseListener = new OnClickListener() {
         @Override
         public void onClick(View v) {

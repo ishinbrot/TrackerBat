@@ -27,6 +27,9 @@ public class GameEnd extends Activity {
     Game game;
     private String tag="AtBatSetup";
     @Override
+    /**
+     * This is called when ending the game activity
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
@@ -40,6 +43,9 @@ public class GameEnd extends Activity {
         this.setHints();
     }
 
+    /**
+     * This is a listener that ends the game
+     */
     private View.OnClickListener endGameListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -49,9 +55,11 @@ public class GameEnd extends Activity {
             intent.putExtra("game", game);
             setResult(3, intent);
             finish();
-
         }
     };
+    /**
+     * This is a text watcher for the text fields
+     */
     private TextWatcher mTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -68,6 +76,9 @@ public class GameEnd extends Activity {
         }
     };
 
+    /**
+     * This checks the fields for empty values
+     */
     void checkFieldsForEmptyValues(){
 
         String s1 = homeTeamScore.getText().toString();
@@ -79,13 +90,25 @@ public class GameEnd extends Activity {
             endGame.setEnabled(true);
         }
     }
+
+    /**
+     * This sets the hints for the text fields
+     */
     private void setHints() {
         homeTeamScore.setHint(game.getHomeTeam() + " Score");
         awayTeamScore.setHint(game.getAwayTeam()+ " Score");
     }
+
+    /**
+     * This sets the on click listeners for the page
+     */
     private void setOnClickListeners() {
         endGame.setOnClickListener(endGameListener);
     }
+
+    /**
+     * This loads the buttons for the page
+     */
     private void loadButtons() {
         endGame = (Button) findViewById(R.id.endGameButton_EndGamePopUp);
         homeTeamScore = (EditText) findViewById(R.id.HomeTeamScore);

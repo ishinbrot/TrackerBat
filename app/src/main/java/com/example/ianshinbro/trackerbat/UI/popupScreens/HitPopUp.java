@@ -53,6 +53,11 @@ public class HitPopUp extends Activity {
         setResult(1, intent);
         finish();
     }
+
+    /**
+     * This is a listener for the first base button
+     * Sets the base to first
+     */
     private OnClickListener FirstBaseListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -61,6 +66,10 @@ public class HitPopUp extends Activity {
             finishActivity();
         }
     };
+    /**
+     * This is a listener for the second base button
+     * Sets the base to second
+     */
     private OnClickListener SecondBaseListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -69,6 +78,10 @@ public class HitPopUp extends Activity {
             finishActivity();
         }
     };
+    /**
+     * This is a listener for the third base button
+     * Sets the base to third
+     */
     private OnClickListener ThirdBaseListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -77,6 +90,10 @@ public class HitPopUp extends Activity {
             finishActivity();
         }
     };
+    /**
+     * This is a listener for the home base button
+     * Sets the home to first
+     */
     private OnClickListener HomeBaseListener = new OnClickListener() {
         @Override
         public void onClick(View v) {

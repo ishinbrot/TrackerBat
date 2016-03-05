@@ -19,6 +19,11 @@ public class AddGame extends Activity {
     EditText awayTeam;
     EditText inningTotal;
     private Context applicationContext;
+
+    /**
+     * This method is called when adding a game is used
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +35,9 @@ public class AddGame extends Activity {
         this.setText();
     }
 
+    /**
+     * This onclick method is called to a new game
+     */
     private View.OnClickListener newGame = new View.OnClickListener() {
         public void onClick(View v) {
             // register selection
@@ -39,6 +47,9 @@ public class AddGame extends Activity {
         }
     };
 
+    /**
+     * This saves the game
+     */
     private void saveGame() {
         Game game = new Game();
         game.setHomeTeam(homeTeam.getText().toString());
@@ -52,18 +63,26 @@ public class AddGame extends Activity {
 
         finish();       // finishing activity
     }
+
+    /**
+     * This sets the text of the button
+     */
     private void setText() {
         addGame.setText(R.string.SaveChanges_BTNText);
-
     }
 
+    /**
+     * This sets the on click listeners to the button and the type listeners for the text fields
+     */
     private void setOnClickListeners() {
         addGame.setOnClickListener(newGame);
         homeTeam.addTextChangedListener(gameTextWatcher);
         awayTeam.addTextChangedListener(gameTextWatcher);
-
-
     }
+
+    /**
+     * A watcher for the text fields
+     */
     private TextWatcher gameTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -80,6 +99,9 @@ public class AddGame extends Activity {
         }
     };
 
+    /**
+     * This checks the fields for empty values
+     */
     void checkFieldsForEmptyValues(){
 
         String s1 = homeTeam.getText().toString();
@@ -92,6 +114,9 @@ public class AddGame extends Activity {
         }
     }
 
+    /**
+     * This initializes the buttons on the page
+     */
     private void initializeButtons() {
         addGame = (Button) findViewById(R.id.addGame_AddGameScreen);
         homeTeam = (EditText) findViewById(R.id.HomeTeam_AddGameScreen);
