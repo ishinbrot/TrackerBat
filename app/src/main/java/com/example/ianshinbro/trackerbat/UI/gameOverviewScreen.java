@@ -22,6 +22,7 @@ import com.example.ianshinbro.trackerbat.UI.Adapters.GameAdapter;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHelperCallBack;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.OnStartDragListener;
 import com.example.ianshinbro.trackerbat.UI.popupScreens.AddGame;
+import com.example.ianshinbro.trackerbat.UI.popupScreens.UpdateGame;
 
 
 /**
@@ -48,7 +49,6 @@ public class gameOverviewScreen extends AppCompatActivity {
         setSupportActionBar(toolbar);
         player = (Player) intent.getExtras().getSerializable("player");
         player.updateGames((player.getGames()));
-        Log.d(this.tag, "entering gameListScreen with game size" + player.getGames().size());
         this.loadFields();
         this.setOnClickListeners();
         this.setUpToolbar();
@@ -75,6 +75,7 @@ public class gameOverviewScreen extends AppCompatActivity {
 
             selectedPosition = -1;        // deselect current position
         }
+        // this is when ending the player edit
         if (resultCode == 3) {
             Log.d(this.tag, "Ending Player Edit");
             game = (Game) data.getExtras().getSerializable("game");
@@ -84,14 +85,18 @@ public class gameOverviewScreen extends AppCompatActivity {
         }
     }
 
+    /**
+     * This is called when selecting a game
+     */
     private void editGame() {
         Intent intent = new Intent(gameOverviewScreen.this, AtBatListScreen.class);
         intent.putExtra("game", game);
         startActivityForResult(intent, 0);
-
-
     }
 
+    /**
+     * This is a listener to add a game
+     */
     private OnClickListener addGameListener = new OnClickListener() {
         public void onClick(View v) {
             // register selection
@@ -139,16 +144,21 @@ public class gameOverviewScreen extends AppCompatActivity {
                 selectGame(position);
             }
         });
+        // tie to the adapter to the game list
         gameList.setAdapter(gameAdapter);
+        // ensure every row has a fixed size
         gameList.setHasFixedSize(true);
+        // give the recycler view a layout manager
         linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         gameList.setLayoutManager(linearLayoutManager);
 
+        // add a line for separation
         RecyclerView.ItemDecoration itemDecoration =
                 new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         gameList.addItemDecoration(itemDecoration);
 
+        // create a callback touch helper
         ItemTouchHelper.Callback callback =
                 new ItemTouchHelperCallBack(gameAdapter);
         mItemTouchHelper = new ItemTouchHelper(callback);

@@ -1,4 +1,4 @@
-package com.example.ianshinbro.trackerbat.UI;
+package com.example.ianshinbro.trackerbat.UI.popupScreens;
 
 import android.app.Activity;
 import android.content.Context;
