@@ -20,11 +20,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UI.AddPlayer"
+            android:name=".UI.popupScreens.AddPlayer"
             android:screenOrientation="portrait"
             android:theme="@style/PopupTheme" />
         <activity
-            android:name=".UI.UpdatePlayer"
+            android:name=".UI.popupScreens.UpdatePlayer"
             android:screenOrientation="portrait"
             android:theme="@style/PopupTheme" />
         <activity
@@ -36,7 +36,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/PopupTheme" />
         <activity
-            android:name=".UI.UpdateGame"
+            android:name=".UI.popupScreens.UpdateGame"
             android:screenOrientation="portrait"
             android:theme="@style/PopupTheme" />
         <activity
