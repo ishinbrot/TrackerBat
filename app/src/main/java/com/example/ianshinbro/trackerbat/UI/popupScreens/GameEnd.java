@@ -52,6 +52,7 @@ public class GameEnd extends Activity {
             Intent intent = new Intent();
             game.setHomeScore(Integer.parseInt(homeTeamScore.getText().toString()));
             game.setAwayScore(Integer.parseInt(awayTeamScore.getText().toString()));
+            game.endGame();
             intent.putExtra("game", game);
             setResult(3, intent);
             finish();

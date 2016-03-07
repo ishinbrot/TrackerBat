@@ -42,7 +42,7 @@ public class Game implements iGame, Serializable{
      * This will end the game
      */
     public void endGame() {
-        inProgress=false;
+        this.inProgress=false;
     }
 
     /**
