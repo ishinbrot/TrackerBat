@@ -261,6 +261,7 @@ public class AtBatScreen extends AppCompatActivity {
             setStatus(message);
             Out.setEnabled(false);
             AdvanceBase.setEnabled(true);
+            Hit.setEnabled(false);
             Walk.setEnabled(false);
             Undo.setEnabled(true);
         }
