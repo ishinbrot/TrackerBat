@@ -33,6 +33,7 @@ public class UpdateGame extends Activity {
         updateGame.setOnClickListener(saveGameListener);
         homeTeam.addTextChangedListener(gameTextWatcher);
         awayTeam.addTextChangedListener(gameTextWatcher);
+        inningTotal.addTextChangedListener(gameTextWatcher);
 
     }
     private View.OnClickListener saveGameListener = new View.OnClickListener() {

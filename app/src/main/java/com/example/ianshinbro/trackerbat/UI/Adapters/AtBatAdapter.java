@@ -74,18 +74,6 @@ public class AtBatAdapter extends RecyclerView.Adapter<AtBatHolder> implements I
         if (atBat.getBaseStats()!="") {
             viewHolder.inningStats.setText(atBat.getBaseStats());
         }
-
-/**
-        viewHolder.updateView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-                    mDragStartListener.onUpdate(viewHolder);
-                }
-                return false;
-            }
-        });
- */
         /**
          * Sets the listener for the inning stats text and inning number
          */
