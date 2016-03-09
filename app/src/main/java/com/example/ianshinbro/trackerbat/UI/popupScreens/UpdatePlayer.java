@@ -47,6 +47,9 @@ public class UpdatePlayer extends Activity {
         finish();       // finishing activity
     }
 
+    /**
+     * This sets the onclick listeners
+     */
     private void setOnClickListeners() {
         savePlayer.setOnClickListener(updatePlayer);
         firstName.addTextChangedListener(mTextWatcher);
