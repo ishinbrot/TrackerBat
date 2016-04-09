@@ -1,8 +1,5 @@
 package com.example.ianshinbro.trackerbat.Implentation;
 
-import com.example.ianshinbro.trackerbat.Implentation.Game;
-import com.example.ianshinbro.trackerbat.Implentation.iPlayer;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -11,23 +8,23 @@ import java.util.ArrayList;
  * This is a player class
  * Serializable is used to navigate intents in android
  */
-public class Player implements iPlayer, Serializable{
+public class Player implements Serializable{
 
 
     public Player( int number) {
-        this.number = number;
-        this.games = new ArrayList<>();
+        this.number_ = number;
+        this.games_ = new ArrayList<>();
     }
 
     public Player() {
-        this.games=new ArrayList<>();
+        this.games_=new ArrayList<>();
     }
 
     public Player(String firstName, String lastName, int number) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.number = number;
-        this.games = new ArrayList<>();
+        this.firstName_ = firstName;
+        this.lastName_ = lastName;
+        this.number_ = number;
+        this.games_ = new ArrayList<>();
 
     }
 
@@ -37,31 +34,37 @@ public class Player implements iPlayer, Serializable{
      * @param game - the modified game object
      */
     public void updateGame(int index, Game game) {
-        this.games.set(index, game);
+        this.games_.set(index, game);
     }
     public ArrayList<Game> getGames() {
-        return this.games;
+        return this.games_;
+    }
+    public void setId(int id) {
+        this.id_=id;
+    }
+    public int getID() {
+        return this.id_;
     }
     public String getFirstName() {
-        return this.firstName;
+        return this.firstName_;
     }
     public String getLastName() {
-        return this.lastName;
+        return this.lastName_;
     }
     public String getNickName() {
-        return this.nickName;
+        return this.nickName_;
     }
     public void updateGames(ArrayList<Game> games) {
-        this.games=games;
+        this.games_=games;
     }
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName_ = firstName;
     }
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName_ = lastName;
     }
     public void setNickName(String nickName) {
-        this.nickName = nickName; this.hasNickName=true;
+        this.nickName_ = nickName; this.hasNickName=true;
     }
 
     /**
@@ -77,29 +80,30 @@ public class Player implements iPlayer, Serializable{
      * @return - number of the player
      */
     public int getNumber() {
-        return number;
+        return number_;
     }
 
     public void setNumber(int number) {
-        this.number = number;
+        this.number_ = number;
     }
     public void addGame(Game game) {
-        this.games.add(game);
+        this.games_.add(game);
     }
     public void removeGame(int index) {
-        this.games.remove(index);
+        this.games_.remove(index);
     }
     public Game getGame(int index) {
-        return this.games.get(index);
+        return this.games_.get(index);
     }
 
     public String toString() {
-        return this.firstName + " " + this.lastName + " " + this.number;
+        return this.firstName_ + " " + this.lastName_ + " " + this.number_;
     }
-    private String firstName;
-    private String lastName;
-    private String nickName;
+    private String firstName_;
+    private String lastName_;
+    private String nickName_;
+    int id_;
     private Boolean hasNickName=false;
-    private int number;
-    private ArrayList<Game> games;
+    private int number_;
+    private ArrayList<Game> games_;
 }

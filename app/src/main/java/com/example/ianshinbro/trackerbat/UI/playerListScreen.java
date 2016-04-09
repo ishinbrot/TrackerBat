@@ -74,6 +74,7 @@ public class playerListScreen extends AppCompatActivity {
             Player player = (Player) data.getExtras().getSerializable("player");
             totalinList++;
             selectedPosition = totalinList;
+            player.setId(selectedPosition);
             players.add(player);
             Intent selectedPlayer = new Intent(playerListScreen.this,gameOverviewScreen.class);
             selectedPlayer.putExtra("player", player);
