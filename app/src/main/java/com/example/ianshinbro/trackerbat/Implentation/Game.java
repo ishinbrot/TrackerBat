@@ -6,17 +6,17 @@ import java.util.ArrayList;
 /**
  * Created by ianshinbrot on 5/2/15.
  */
-public class Game implements iGame, Serializable{
+public class Game implements Serializable{
     /**
      * Constructor for game object
      * Sets the score to zero, progress to true, and default number of innings to 9
      */
     public Game() {
-        this.numberOfInnings=9;
-        this.atBats = new ArrayList<>();
-        this.awayScore=0;
-        this.homeScore=0;
-        this.inProgress=true;
+        this.numberOfInnings_=9;
+        this.atBats_ = new ArrayList<>();
+        this.awayScore_=0;
+        this.homeScore_=0;
+        this.inProgress_=true;
     }
 
     /**
@@ -24,10 +24,10 @@ public class Game implements iGame, Serializable{
      * @param numOfInnings - sets number of innings to passed in object
      */
     public Game(int numOfInnings) {
-        this.numberOfInnings=numOfInnings;
-        this.atBats = new ArrayList<>();
-        this.awayScore=0;
-        this.homeScore=0;
+        this.numberOfInnings_=numOfInnings;
+        this.atBats_ = new ArrayList<>();
+        this.awayScore_=0;
+        this.homeScore_=0;
     }
 
     /**
@@ -35,14 +35,14 @@ public class Game implements iGame, Serializable{
      * @param atBat the current at bat that will be added to the game
      */
    public void addAtBat(AtBat atBat) {
-        this.atBats.add(atBat);
+        this.atBats_.add(atBat);
    }
 
     /**
      * This will end the game
      */
     public void endGame() {
-        this.inProgress=false;
+        this.inProgress_=false;
     }
 
     /**
@@ -50,7 +50,7 @@ public class Game implements iGame, Serializable{
      * @param index - index to remove the at bat
      */
     public void removeAtBat(int index) {
-        this.atBats.remove(index);
+        this.atBats_.remove(index);
     }
 
     /**
@@ -59,7 +59,7 @@ public class Game implements iGame, Serializable{
      * @return - the at bat at the current index
      */
     public AtBat getAtBat(int index) {
-       return this.atBats.get(index);
+       return this.atBats_.get(index);
     }
 
     /**
@@ -67,7 +67,7 @@ public class Game implements iGame, Serializable{
      * @return
      */
     public ArrayList<AtBat> getAtBats() {
-        return this.atBats;
+        return this.atBats_;
     }
 
     /**
@@ -76,7 +76,7 @@ public class Game implements iGame, Serializable{
      * @param atBat - new at bat object to be modified
      */
     public void updateGameAtIndex(int index, AtBat atBat) {
-        this.atBats.set(index,atBat);
+        this.atBats_.set(index,atBat);
     }
 
     /**
@@ -84,7 +84,7 @@ public class Game implements iGame, Serializable{
      * @param atBats
      */
     public void updateAtBats(ArrayList<AtBat> atBats) {
-        this.atBats=atBats;
+        this.atBats_=atBats;
     }
 
     /**
@@ -92,7 +92,7 @@ public class Game implements iGame, Serializable{
      * @param awayTeam - String for the away team
      */
     public void setAwayTeam(String awayTeam) {
-        this.awayTeam = awayTeam;
+        this.awayTeam_ = awayTeam;
     }
 
     /**
@@ -100,7 +100,7 @@ public class Game implements iGame, Serializable{
      * @param number - total number of innings in the game
      */
     public void setInningNumber(int number) {
-        this.numberOfInnings=number;
+        this.numberOfInnings_=number;
     }
 
     /**
@@ -108,7 +108,7 @@ public class Game implements iGame, Serializable{
      * @return
      */
     public String getAwayTeam() {
-        return this.awayTeam;
+        return this.awayTeam_;
     }
 
     /**
@@ -116,7 +116,7 @@ public class Game implements iGame, Serializable{
      * @param homeTeam - String containing the home team to be added
      */
     public void setHomeTeam(String homeTeam) {
-        this.homeTeam = homeTeam;
+        this.homeTeam_ = homeTeam;
     }
 
     /**
@@ -124,7 +124,7 @@ public class Game implements iGame, Serializable{
      * @return
      */
     public String getHomeTeam() {
-        return this.homeTeam;
+        return this.homeTeam_;
     }
 
     /**
@@ -132,27 +132,27 @@ public class Game implements iGame, Serializable{
      * @param score - int containing the score of the away team
      */
     public void setAwayScore(int score) {
-        this.awayScore=score;
+        this.awayScore_=score;
     }
     public int getAwayScore() {
-        return this.awayScore;
+        return this.awayScore_;
     }
     public void setHomeScore(int score) {
-        this.homeScore=score;
+        this.homeScore_=score;
     }
     public int getHomeScore() {
-        return this.homeScore;
+        return this.homeScore_;
     }
 
     public boolean getStatus() {
-        return this.inProgress;
+        return this.inProgress_;
     }
     /**
      *
      * @return
      */
     public int getInningNumber() {
-        return this.numberOfInnings;
+        return this.numberOfInnings_;
     }
 
     /**
@@ -163,14 +163,21 @@ public class Game implements iGame, Serializable{
 
     return null;
     }
+    public void setId(int id) {
+        this.id_=id;
+    }
+    public int getID() {
+        return this.id_;
+    }
 
-    private ArrayList<AtBat> atBats;
-    private String homeTeam;
-    private String awayTeam;
-    private int awayScore;
-    private int homeScore;
-    private int numberOfInnings;       // 9 is default number of innings
-    boolean inProgress;
+    private ArrayList<AtBat> atBats_;
+    private String homeTeam_;
+    private String awayTeam_;
+    private int id_;
+    private int awayScore_;
+    private int homeScore_;
+    private int numberOfInnings_;       // 9 is default number of innings
+    boolean inProgress_;
 
 
 

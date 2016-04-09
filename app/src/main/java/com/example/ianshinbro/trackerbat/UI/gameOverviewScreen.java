@@ -62,6 +62,7 @@ public class gameOverviewScreen extends AppCompatActivity {
         if (resultCode == 1) {        // return 1 is adding
             Log.d(this.tag, "Adding game");
             game = (Game) data.getExtras().getSerializable("game");
+            game.setId(totalinList);
             player.addGame(game);
             totalinList++;
             selectedPosition = totalinList;
