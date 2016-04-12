@@ -25,7 +25,7 @@ public class AtBatAdapter extends RecyclerView.Adapter<AtBatHolder> implements I
     private OnStartDragListener mDragStartListener;
     private static String Log="PlayerAdapter";
 
-    public AtBatAdapter(ArrayList<AtBat> atBats, OnStartDragListener dragListener) {
+    public AtBatAdapter(ArrayList<AtBat> atBats ,OnStartDragListener dragListener ) {
         this.atBats=atBats;
         this.mDragStartListener=dragListener;
 

@@ -10,7 +10,7 @@ import java.io.Serializable;
  * This method stores atBat information
  * It implements serializable to be utilized by Android
  */
-public class AtBat implements iAtBat, Serializable{
+public class AtBat implements  Serializable{
 
     public AtBat(int inningNumber) {
         this.hit=false;

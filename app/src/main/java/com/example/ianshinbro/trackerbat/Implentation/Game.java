@@ -178,6 +178,13 @@ public class Game implements Serializable{
     private int homeScore_;
     private int numberOfInnings_;       // 9 is default number of innings
     boolean inProgress_;
+    public static final String TABLE_NAME="Game";
+    public static final String COLUMN_GAMEID = "gameID";
+    public static final String COLUMN_NUMOFINNINGS = "numberOfInnings";
+    public static final String COLUMN_AWAYTEAM = "awayTeam";
+    public static final String COLUMN_HOMETEAM = "homeTeam";
+    public static final String COLUMN_AWAYSCORE = "awayScore";
+    public static final String COLUMN_HOMESCORE = "homeScore";
 
 
 

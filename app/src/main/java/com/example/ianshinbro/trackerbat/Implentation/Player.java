@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Serializable is used to navigate intents in android
  */
 public class Player implements Serializable{
-
+    public static final String TAG = Player.class.getSimpleName();
 
     public Player( int number) {
         this.number_ = number;
@@ -106,4 +106,10 @@ public class Player implements Serializable{
     private Boolean hasNickName=false;
     private int number_;
     private ArrayList<Game> games_;
+    public static final String TABLE_NAME="Players";
+    public static final String COLUMN_PLAYERID = "PlayerID";
+    public static final String COLUMN_FIRST_NAME = "firstName";
+    public static final String COLUMN_LAST_NAME = "lastName";
+    public static final String COLUMN_NUMBER = "playerNumber";
+    public static final String COLUMN_NICKNAME = "playerNickName";
 }

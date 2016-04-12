@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.util.Log;
 
 import com.example.ianshinbro.trackerbat.Implentation.Player;
+import com.example.ianshinbro.trackerbat.data.SQLLiteSetup.DataBaseHelper;
 import com.example.ianshinbro.trackerbat.R;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.DividerItemDecoration;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHelperCallBack;
@@ -46,6 +47,7 @@ public class playerListScreen extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private ItemTouchHelper mItemTouchHelper;
     private Toolbar toolbar;
+    DataBaseHelper helper;
 
     private boolean firstPlayer = false;
 
@@ -108,7 +110,7 @@ public class playerListScreen extends AppCompatActivity {
     private void loadList() {
 
         // creates a new player adapter with a custom listener for selected, dragging, and updating
-        playerAdapter = new PlayerAdapter(players, new OnStartDragListener() {
+        playerAdapter = new PlayerAdapter(players, helper, new OnStartDragListener() {
             @Override
             public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
                 mItemTouchHelper.startDrag(viewHolder);
