@@ -60,7 +60,9 @@ public class PlayerRepo {
             row.setId(Integer.parseInt(res.getString(0)));
             row.setFirstName(res.getString(1));
             row.setLastName(res.getString(2));
-            row.setNickName(res.getString(3));
+            if (res.getString(3)!=null) {
+                row.setNickName(res.getString(3));
+            }
             row.setNumber(Integer.parseInt(res.getString(4)));
             Log.d("Player Repo", "Retrieving player at " + row.getID());
             list.add(row);

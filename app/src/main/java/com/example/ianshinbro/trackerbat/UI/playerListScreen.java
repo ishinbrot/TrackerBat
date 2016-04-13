@@ -87,7 +87,6 @@ public class playerListScreen extends AppCompatActivity {
             Log.d(this.tag,"Updating player");
             Player player = (Player) data.getExtras().getSerializable("player");
             playerAdapter.updatePlayer(player, selectedPosition);
-
         }
         if (resultCode==3) {
             Log.d(this.tag, "Updating player with game");
