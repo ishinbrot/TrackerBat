@@ -42,7 +42,6 @@ public class playerListScreen extends AppCompatActivity {
     private int selectedPosition=-1;
     private String tag="PlayerListScreen";
    private Context context;
-    private ArrayList<Player> players;
     private PlayerAdapter playerAdapter;
     private LinearLayoutManager linearLayoutManager;
     private ItemTouchHelper mItemTouchHelper;
@@ -55,12 +54,9 @@ public class playerListScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_view);
-        players = new ArrayList<>();
-        playerRepo = new PlayerRepo();
-        retrievePlayers();
+
         // create the delegate
         context = getApplicationContext();
-
         Log.d(this.tag, "initialLoad");
             this.loadFields();
             this.setOnClickListeners();
@@ -79,9 +75,9 @@ public class playerListScreen extends AppCompatActivity {
             Player player = (Player) data.getExtras().getSerializable("player");
             totalinList++;
             selectedPosition = totalinList;
-            playerRepo.insert(player);
             player.setId(selectedPosition);
-            players.add(player);
+            playerAdapter.addPlayer(player,selectedPosition);
+          //  players.add(player);
             Intent selectedPlayer = new Intent(playerListScreen.this,gameOverviewScreen.class);
             selectedPlayer.putExtra("player", player);
             startActivityForResult(selectedPlayer,3);
@@ -110,13 +106,11 @@ public class playerListScreen extends AppCompatActivity {
 
         }
     };
-    private void retrievePlayers() {
-        players = playerRepo.getAllPlayers();
-    }
+
     private void loadList() {
 
         // creates a new player adapter with a custom listener for selected, dragging, and updating
-        playerAdapter = new PlayerAdapter(players, new OnStartDragListener() {
+        playerAdapter = new PlayerAdapter(new OnStartDragListener() {
             @Override
             public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
                 mItemTouchHelper.startDrag(viewHolder);
@@ -150,7 +144,7 @@ public class playerListScreen extends AppCompatActivity {
         mItemTouchHelper.attachToRecyclerView(playerList);
     }
     private void selectPlayer(int position) {
-        Player player = players.get(position);
+        Player player = playerAdapter.getPlayer(position);
 
         selectedPosition = position;
 
@@ -163,8 +157,9 @@ public class playerListScreen extends AppCompatActivity {
     }
 
         public void updatePlayer(int position) {
-        Player player = players.get(position);
+
         selectedPosition=position;
+            Player player = playerAdapter.getPlayer(position);
         Intent updatePlayer = new Intent(playerListScreen.this, UpdatePlayer.class);
 
         updatePlayer.putExtra("player", player);

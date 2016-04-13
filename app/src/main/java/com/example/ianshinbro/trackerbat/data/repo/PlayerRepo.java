@@ -55,13 +55,14 @@ public class PlayerRepo {
         ArrayList<Player> list=new ArrayList<Player>();
 
         while(res.moveToNext()){
-            Log.d("Player Repo", "Retrieving player");
+
             Player row=new Player();
             row.setId(Integer.parseInt(res.getString(0)));
             row.setFirstName(res.getString(1));
             row.setLastName(res.getString(2));
             row.setNickName(res.getString(3));
             row.setNumber(Integer.parseInt(res.getString(4)));
+            Log.d("Player Repo", "Retrieving player at " + row.getID());
             list.add(row);
         }
 
@@ -76,10 +77,11 @@ public class PlayerRepo {
     }
 
     // Deleting a shop
-    public void remove(Player player) {
+    public void remove(int id) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        Log.d("Player Repo", "Remove player at "+ id);
         db.delete(Player.TABLE_NAME, Player.COLUMN_PLAYERID + " = ?",
-                new String[]{String.valueOf(player.getID())});
+                new String[]{String.valueOf(id)});
         DatabaseManager.getInstance().closeDatabase();
     }
     // Updating a shop

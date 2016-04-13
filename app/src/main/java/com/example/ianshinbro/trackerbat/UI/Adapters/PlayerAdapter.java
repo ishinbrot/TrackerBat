@@ -11,6 +11,7 @@ import com.example.ianshinbro.trackerbat.data.model.Player;
 import com.example.ianshinbro.trackerbat.R;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHelperAdapter;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.OnStartDragListener;
+import com.example.ianshinbro.trackerbat.data.repo.PlayerRepo;
 
 import java.util.ArrayList;
 
@@ -21,16 +22,25 @@ import java.util.ArrayList;
 public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> implements ItemTouchHelperAdapter {
     private ArrayList<Player> players = new ArrayList<>();
     private OnStartDragListener mDragStartListener;
+    private PlayerRepo playerRepo;
     private static String Log="PlayerAdapter";
 
     public PlayerAdapter(ArrayList<Player> players) {
       this.players=players;
+        playerRepo = new PlayerRepo();
 
     }
 
+    public PlayerAdapter( OnStartDragListener dragListener) {
+        mDragStartListener = dragListener;
+        playerRepo = new PlayerRepo();
+        this.players=playerRepo.getAllPlayers();
+
+    }
     public PlayerAdapter(ArrayList<Player>players, OnStartDragListener dragListener) {
         mDragStartListener = dragListener;
         this.players=players;
+        playerRepo = new PlayerRepo();
     }
     public interface OnDragStartListener {
         void onDragStarted(RecyclerView.ViewHolder viewHolder);
@@ -39,7 +49,8 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> implements
     }
     @Override
     public void onItemDismiss(int position) {
-        players.remove(position);
+        Player player = players.remove(position);
+        playerRepo.remove(player.getID());
         notifyItemRemoved(position);
     }
     @Override
@@ -106,13 +117,18 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> implements
         players.addAll(players);
         notifyDataSetChanged();
     }
-    public void addItem(int position, Player player) {
+    public void addPlayer(Player player,int position) {
         players.add(player);
+        playerRepo.insert(player);
 
         notifyItemInserted(position - 1);
     }
+    public Player getPlayer(int position) {
+        return players.get(position);
+    }
     public void updatePlayer(Player player, int position) {
         players.set(position, player);
+        playerRepo.updatePlayer(player);
         notifyItemChanged(position);
     }
     @Override
