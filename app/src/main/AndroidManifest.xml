@@ -3,6 +3,7 @@
     package="com.example.ianshinbro.trackerbat">
 <uses-sdk android:minSdkVersion="23"
     android:targetSdkVersion="23"/>
+    <android permission="android.permission.WRITE_INTERNAL_STORAGE"/>
     <meta-data android:name="com.google.android.backup.api_key" android:value="AEdPqrEAAAAIlMA74L6xG6bvubKBgdlQIf-avW79igt2Mr_QBg" />
     <application
         android:name=".app.App"

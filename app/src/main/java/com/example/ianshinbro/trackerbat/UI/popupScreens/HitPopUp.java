@@ -5,13 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.*;
 
-import com.example.ianshinbro.trackerbat.Implentation.AtBat;
-import com.example.ianshinbro.trackerbat.Implentation.Base;
+import com.example.ianshinbro.trackerbat.data.model.AtBat;
+import com.example.ianshinbro.trackerbat.data.model.Base;
 import com.example.ianshinbro.trackerbat.R;
 
 public class HitPopUp extends Activity {

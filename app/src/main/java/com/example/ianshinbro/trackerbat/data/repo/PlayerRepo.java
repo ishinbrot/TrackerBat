@@ -1,10 +1,14 @@
 package com.example.ianshinbro.trackerbat.data.repo;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.ianshinbro.trackerbat.data.DatabaseManager;
 import com.example.ianshinbro.trackerbat.data.model.Player;
+
+import java.util.ArrayList;
 
 /**
  * Created by ianshinbro on 4/12/2016.
@@ -18,13 +22,13 @@ public class PlayerRepo {
     }
 
     public static final String createTable() {
-        return "CREATE TABLE"
+        return "CREATE TABLE "
                 + Player.TABLE_NAME + "("
-                + Player.COLUMN_PLAYERID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + Player.COLUMN_FIRST_NAME + "TEXT,"
-                + Player.COLUMN_LAST_NAME + "TEXT,"
-                + Player.COLUMN_NICKNAME + "TEXT,"
-                + Player.COLUMN_NUMBER + "INTEGER," + ")";
+                + Player.COLUMN_PLAYERID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + Player.COLUMN_FIRST_NAME + " TEXT NOT NULL,"
+                + Player.COLUMN_LAST_NAME + " TEXT NOT NULL,"
+                + Player.COLUMN_NICKNAME + " TEXT,"
+                + Player.COLUMN_NUMBER + " INTEGER NOT NULL" + ")";
     }
 
     public int insert(Player player) {
@@ -33,7 +37,9 @@ public class PlayerRepo {
         ContentValues values = new ContentValues();
         values.put(player.COLUMN_FIRST_NAME, player.getFirstName());
         values.put(player.COLUMN_LAST_NAME, player.getLastName());
-        values.put(player.COLUMN_NICKNAME, player.getNickName());
+        if (player.nickNameExists()) {
+            values.put(player.COLUMN_NICKNAME, player.getNickName());
+        }
         values.put(player.COLUMN_NUMBER, player.getNumber());
         // insert row
         playerId = (int)db .insert(player.TABLE_NAME,null,values);
@@ -42,12 +48,39 @@ public class PlayerRepo {
         return playerId;
     }
 
+    public ArrayList<Player> getAllPlayers() {
+        String query = "SELECT * FROM " + Player.TABLE_NAME;
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        Cursor res = db.rawQuery(query, null);
+        ArrayList<Player> list=new ArrayList<Player>();
+
+        while(res.moveToNext()){
+            Log.d("Player Repo", "Retrieving player");
+            Player row=new Player();
+            row.setId(Integer.parseInt(res.getString(0)));
+            row.setFirstName(res.getString(1));
+            row.setLastName(res.getString(2));
+            row.setNickName(res.getString(3));
+            row.setNumber(Integer.parseInt(res.getString(4)));
+            list.add(row);
+        }
+
+        if (list.size()==0) {
+            Log.d("Player Repo", "Empty list");
+        }
+
+        res.close();
+        DatabaseManager.getInstance().closeDatabase();
+        return list;
+
+    }
+
     // Deleting a shop
     public void remove(Player player) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         db.delete(Player.TABLE_NAME, Player.COLUMN_PLAYERID + " = ?",
                 new String[]{String.valueOf(player.getID())});
-        db.close();
+        DatabaseManager.getInstance().closeDatabase();
     }
     // Updating a shop
     public int updatePlayer(Player player) {

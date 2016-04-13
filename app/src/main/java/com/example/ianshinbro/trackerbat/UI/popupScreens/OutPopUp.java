@@ -8,9 +8,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.*;
 
-import com.example.ianshinbro.trackerbat.Implentation.AtBat;
-import com.example.ianshinbro.trackerbat.Implentation.Base;
-import com.example.ianshinbro.trackerbat.Implentation.OutField;
+import com.example.ianshinbro.trackerbat.data.model.AtBat;
+import com.example.ianshinbro.trackerbat.data.model.OutField;
 import com.example.ianshinbro.trackerbat.R;
 
 public class OutPopUp extends Activity {

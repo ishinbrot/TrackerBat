@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.ianshinbro.trackerbat.Implentation.Game;
+import com.example.ianshinbro.trackerbat.data.model.Game;
 import com.example.ianshinbro.trackerbat.R;
 
 public class UpdateGame extends Activity {

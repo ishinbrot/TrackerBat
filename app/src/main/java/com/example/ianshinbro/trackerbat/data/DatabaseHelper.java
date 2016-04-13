@@ -26,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //version number.
     private static final int DATABASE_VERSION =8;
     // Database Name
-    private static final String DATABASE_NAME = "sqliteDBMultiTbl.db";
+    public static final String DATABASE_NAME = "trackerBat.db";
     private static final String TAG = DatabaseHelper.class.getSimpleName().toString();
 
     public DatabaseHelper( ) {

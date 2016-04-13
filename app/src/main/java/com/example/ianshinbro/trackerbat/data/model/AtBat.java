@@ -296,6 +296,12 @@ public class AtBat implements  Serializable{
     public void setFirstOutRecieved(boolean firstOutRecieved) {
         this.firstOutRecieved = firstOutRecieved;
     }
+    public void setId(int id) {
+        this.id_=id;
+    }
+    public int getId() {
+        return this.id_;
+    }
     public void setOut(boolean out) {
         this.out=out;
     }
@@ -313,6 +319,7 @@ public class AtBat implements  Serializable{
     private boolean firstOutRecieved;
     private OutField finalCatch;
     private int inningNumber;
+    int id_;
     public static final String TABLE_NAME="AtBats";
     public static final String COLUMN_ATBATID = "atBatID";
     public static final String COLUMN_INNINGNUMBER = "inningNumber";

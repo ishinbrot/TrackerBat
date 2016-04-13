@@ -3,7 +3,8 @@ package com.example.ianshinbro.trackerbat.data.repo;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.ianshinbro.trackerbat.model.AtBat;
+import com.example.ianshinbro.trackerbat.data.DatabaseManager;
+import com.example.ianshinbro.trackerbat.data.model.AtBat;
 
 /**
  * Created by ianshinbro on 4/12/2016.
@@ -17,11 +18,11 @@ public class AtBatRepo {
     }
 
     public static final String createTable() {
-        return "CREATE TABLE"
+        return "CREATE TABLE "
                 + AtBat.TABLE_NAME + "("
-                + AtBat.COLUMN_ATBATID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + AtBat.COLUMN_INNINGNUMBER + "INTEGER,"
-                + AtBat.COLUMN_BASESTATS + "TEXT,)";
+                + AtBat.COLUMN_ATBATID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + AtBat.COLUMN_INNINGNUMBER + " INTEGER,"
+                + AtBat.COLUMN_BASESTATS + " TEXT)";
     }
 
     public int insert(AtBat atBat) {

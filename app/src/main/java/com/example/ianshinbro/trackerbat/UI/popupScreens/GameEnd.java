@@ -2,7 +2,6 @@ package com.example.ianshinbro.trackerbat.UI.popupScreens;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,14 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.example.ianshinbro.trackerbat.Implentation.AtBat;
-import com.example.ianshinbro.trackerbat.Implentation.Base;
-import com.example.ianshinbro.trackerbat.Implentation.Game;
+import com.example.ianshinbro.trackerbat.data.model.Game;
 import com.example.ianshinbro.trackerbat.R;
-
-import org.w3c.dom.Text;
 
 public class GameEnd extends Activity {
 

@@ -3,7 +3,8 @@ package com.example.ianshinbro.trackerbat.data.repo;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.ianshinbro.trackerbat.model.PlayerGame;
+import com.example.ianshinbro.trackerbat.data.DatabaseManager;
+import com.example.ianshinbro.trackerbat.data.model.PlayerGame;
 
 
 /**
@@ -11,7 +12,7 @@ import com.example.ianshinbro.trackerbat.model.PlayerGame;
  */
 public class PlayerGameRepo {
 
-    private final String TAG = com.example.ianshinbro.trackerbat.data.SQLLiteSetup.data.PlayerGameRepo.class.getSimpleName();
+    private final String TAG =PlayerGameRepo.class.getSimpleName();
 
 
     private PlayerGame playerGame;
@@ -23,9 +24,9 @@ public class PlayerGameRepo {
 
     public static String createTable() {
         return "CREATE TABLE "+PlayerGame.TABLE_NAME + "("
-                + PlayerGame.COLUMN_RELATIONID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + PlayerGame.COLUMN_PLAYERID + "INTEGER,"
-                + PlayerGame.COLUMN_GAMEID + "INTEGER )";
+                + PlayerGame.COLUMN_RELATIONID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + PlayerGame.COLUMN_PLAYERID + " INTEGER,"
+                + PlayerGame.COLUMN_GAMEID + " INTEGER )";
     }
 
     public void insert(PlayerGame playerGame) {

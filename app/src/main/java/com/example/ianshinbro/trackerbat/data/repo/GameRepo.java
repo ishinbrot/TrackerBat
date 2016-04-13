@@ -37,14 +37,14 @@ public class GameRepo {
 
 
     public static final String createTable() {
-        return "CREATE TABLE"
+        return "CREATE TABLE "
                 + Game.TABLE_NAME + "("
-                + Game.COLUMN_GAMEID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + Game.COLUMN_NUMOFINNINGS + "INTEGER,"
-                + Game.COLUMN_HOMETEAM + "TEXT,"
-                + Game.COLUMN_AWAYTEAM + "TEXT,"
-                + Game.COLUMN_HOMESCORE + "INTEGER,"
-                + Game.COLUMN_AWAYSCORE + "INTEGER," + ")";
+                + Game.COLUMN_GAMEID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + Game.COLUMN_NUMOFINNINGS + " INTEGER,"
+                + Game.COLUMN_HOMETEAM + " TEXT,"
+                + Game.COLUMN_AWAYTEAM + " TEXT,"
+                + Game.COLUMN_HOMESCORE + " INTEGER,"
+                + Game.COLUMN_AWAYSCORE + " INTEGER" + ")";
     }
 
     public void delete() {

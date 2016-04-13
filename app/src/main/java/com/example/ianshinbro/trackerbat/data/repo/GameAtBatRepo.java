@@ -21,9 +21,9 @@ public class GameAtBatRepo {
 
     public static String createTable() {
         return "CREATE TABLE "+GameAtBat.TABLE_NAME + "("
-                + GameAtBat.COLUMN_RELATIONID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + GameAtBat.COLUMN_GAMEID + "INTEGER,"
-                + GameAtBat.COLUMN_ATBATID + "INTEGER )";
+                + GameAtBat.COLUMN_RELATIONID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + GameAtBat.COLUMN_GAMEID + " INTEGER,"
+                + GameAtBat.COLUMN_ATBATID + " INTEGER )";
     }
 
     public void insert(GameAtBat gameAtBat) {

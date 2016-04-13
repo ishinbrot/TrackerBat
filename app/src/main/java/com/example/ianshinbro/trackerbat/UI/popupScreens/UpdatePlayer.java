@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.ianshinbro.trackerbat.Implentation.Player;
+import com.example.ianshinbro.trackerbat.data.model.Player;
 import com.example.ianshinbro.trackerbat.R;
 
 public class UpdatePlayer extends Activity {

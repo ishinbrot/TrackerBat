@@ -55,10 +55,12 @@ public class playerListScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_view);
-        playerRepo.delete();
+        players = new ArrayList<>();
+        playerRepo = new PlayerRepo();
+        retrievePlayers();
         // create the delegate
         context = getApplicationContext();
-        players = new ArrayList<>();
+
         Log.d(this.tag, "initialLoad");
             this.loadFields();
             this.setOnClickListeners();
@@ -108,7 +110,9 @@ public class playerListScreen extends AppCompatActivity {
 
         }
     };
-
+    private void retrievePlayers() {
+        players = playerRepo.getAllPlayers();
+    }
     private void loadList() {
 
         // creates a new player adapter with a custom listener for selected, dragging, and updating
