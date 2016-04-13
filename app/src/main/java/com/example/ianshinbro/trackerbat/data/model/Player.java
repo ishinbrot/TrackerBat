@@ -1,4 +1,4 @@
-package com.example.ianshinbro.trackerbat.Implentation;
+package com.example.ianshinbro.trackerbat.data.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

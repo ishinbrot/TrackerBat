@@ -1,4 +1,4 @@
-package com.example.ianshinbro.trackerbat.Implentation;
+package com.example.ianshinbro.trackerbat.data.model;
 
 /**
  * Created by ianshinbro on 4/12/2016.

@@ -1,6 +1,8 @@
-package com.example.ianshinbro.trackerbat.Implentation;
+package com.example.ianshinbro.trackerbat.data.model;
 
 import java.io.Serializable;
+
+import static com.example.ianshinbro.trackerbat.data.model.Base.FIRST;
 
 /**
  * Created by ianshinbro on 2/19/2016.
@@ -66,7 +68,7 @@ public class AtBat implements  Serializable{
                 this.currentBase = Base.ATBAT;
                 break;
             case SECOND:
-                this.currentBase = Base.FIRST;
+                this.currentBase = FIRST;
                 break;
             case THIRD:
                 this.currentBase = Base.SECOND;
@@ -169,7 +171,7 @@ public class AtBat implements  Serializable{
      * Defaults all related values
      */
     public void undoOut() {
-        this.finalCatch=OutField.NONE;
+        this.finalCatch= OutField.NONE;
         this.initialCatch=OutField.NONE;
         this.firstOutRecieved=false;
         this.out=false;
@@ -302,7 +304,7 @@ public class AtBat implements  Serializable{
     }
     boolean hit;
     boolean out=false;
-    boolean walk;
+    public boolean walk;
     int score;
     private Base initialBase = Base.ATBAT;
     private Base finalBase = Base.ATBAT;
@@ -311,4 +313,8 @@ public class AtBat implements  Serializable{
     private boolean firstOutRecieved;
     private OutField finalCatch;
     private int inningNumber;
+    public static final String TABLE_NAME="AtBats";
+    public static final String COLUMN_ATBATID = "atBatID";
+    public static final String COLUMN_INNINGNUMBER = "inningNumber";
+    public static final String COLUMN_BASESTATS = "BaseStats";
 }
