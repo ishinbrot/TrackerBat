@@ -11,6 +11,7 @@ import com.example.ianshinbro.trackerbat.data.model.Game;
 import com.example.ianshinbro.trackerbat.R;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHelperAdapter;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.OnStartDragListener;
+import com.example.ianshinbro.trackerbat.data.repo.GameRepo;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ import java.util.ArrayList;
  */
 public class GameAdapter extends RecyclerView.Adapter<GameHolder> implements ItemTouchHelperAdapter {
     private ArrayList<Game> games;
+    private GameRepo gameRepo;
     private OnStartDragListener mDragStartListener;
     private static String Log="PlayerAdapter";
 
@@ -27,8 +29,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameHolder> implements Ite
         this.games=games;
 
     }
-    public GameAdapter(ArrayList<Game> games, OnStartDragListener dragListener) {
-        this.games=games;
+    public GameAdapter(int playerId, OnStartDragListener dragListener) {
+        gameRepo = new GameRepo();
+        this.games=gameRepo.getGamesById(playerId);
         this.mDragStartListener = dragListener;
     }
     public interface OnDragStartListener {

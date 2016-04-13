@@ -23,6 +23,7 @@ import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHel
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.OnStartDragListener;
 import com.example.ianshinbro.trackerbat.UI.popupScreens.AddGame;
 import com.example.ianshinbro.trackerbat.UI.popupScreens.UpdateGame;
+import com.example.ianshinbro.trackerbat.data.repo.GameRepo;
 
 
 /**
@@ -32,6 +33,7 @@ public class gameOverviewScreen extends AppCompatActivity {
     RecyclerView gameList;
     FloatingActionButton addGameButton;
     Game game;
+    GameRepo gameRepo;
     Player player;
     private ItemTouchHelper mItemTouchHelper;
     private LinearLayoutManager linearLayoutManager;

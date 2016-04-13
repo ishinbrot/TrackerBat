@@ -20,6 +20,7 @@ public class PlayerRepo {
     public PlayerRepo() {
         player = new Player();
     }
+    private final String TAG = PlayerRepo.class.getSimpleName();
 
     public static final String createTable() {
         return "CREATE TABLE "
