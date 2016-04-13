@@ -7,8 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.ianshinbro.trackerbat.Implentation.Player;
-import com.example.ianshinbro.trackerbat.data.SQLLiteSetup.DataBaseHelper;
+import com.example.ianshinbro.trackerbat.data.model.Player;
 import com.example.ianshinbro.trackerbat.R;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHelperAdapter;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.OnStartDragListener;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> implements ItemTouchHelperAdapter {
     private ArrayList<Player> players = new ArrayList<>();
     private OnStartDragListener mDragStartListener;
-    private DataBaseHelper dataBaseHelper;
     private static String Log="PlayerAdapter";
 
     public PlayerAdapter(ArrayList<Player> players) {
@@ -30,9 +28,8 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> implements
 
     }
 
-    public PlayerAdapter(ArrayList<Player>players, DataBaseHelper helper, OnStartDragListener dragListener) {
+    public PlayerAdapter(ArrayList<Player>players, OnStartDragListener dragListener) {
         mDragStartListener = dragListener;
-        dataBaseHelper = helper;
         this.players=players;
     }
     public interface OnDragStartListener {
@@ -111,13 +108,11 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> implements
     }
     public void addItem(int position, Player player) {
         players.add(player);
-        dataBaseHelper.addPlayer(player);
 
         notifyItemInserted(position - 1);
     }
     public void updatePlayer(Player player, int position) {
         players.set(position, player);
-        dataBaseHelper.updatePlayer(player);
         notifyItemChanged(position);
     }
     @Override

@@ -5,8 +5,8 @@
     android:targetSdkVersion="23"/>
     <meta-data android:name="com.google.android.backup.api_key" android:value="AEdPqrEAAAAIlMA74L6xG6bvubKBgdlQIf-avW79igt2Mr_QBg" />
     <application
+        android:name=".app.App"
         android:allowBackup="true"
-        android:backupAgent="TheBackupAgent"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"

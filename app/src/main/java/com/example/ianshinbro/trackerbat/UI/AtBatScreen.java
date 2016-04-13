@@ -13,9 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 
-import com.example.ianshinbro.trackerbat.Implentation.AtBat;
-import com.example.ianshinbro.trackerbat.Implentation.Base;
-import com.example.ianshinbro.trackerbat.Implentation.OutField;
+import com.example.ianshinbro.trackerbat.data.model.AtBat;
+import com.example.ianshinbro.trackerbat.data.model.Base;
+import com.example.ianshinbro.trackerbat.data.model.OutField;
 import com.example.ianshinbro.trackerbat.R;
 import com.example.ianshinbro.trackerbat.UI.popupScreens.HitPopUp;
 import com.example.ianshinbro.trackerbat.UI.popupScreens.OutPopUp;

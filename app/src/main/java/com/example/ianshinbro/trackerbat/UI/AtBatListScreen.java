@@ -15,8 +15,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.util.Log;
 
-import com.example.ianshinbro.trackerbat.Implentation.AtBat;
-import com.example.ianshinbro.trackerbat.Implentation.Game;
+import com.example.ianshinbro.trackerbat.data.model.AtBat;
+import com.example.ianshinbro.trackerbat.data.model.Game;
 import com.example.ianshinbro.trackerbat.R;
 import com.example.ianshinbro.trackerbat.UI.Adapters.AtBatAdapter;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.DividerItemDecoration;

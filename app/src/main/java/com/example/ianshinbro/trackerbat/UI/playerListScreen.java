@@ -17,8 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 
-import com.example.ianshinbro.trackerbat.Implentation.Player;
-import com.example.ianshinbro.trackerbat.data.SQLLiteSetup.DataBaseHelper;
+import com.example.ianshinbro.trackerbat.data.model.Player;
 import com.example.ianshinbro.trackerbat.R;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.DividerItemDecoration;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHelperCallBack;
@@ -26,6 +25,7 @@ import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.OnStartDragL
 import com.example.ianshinbro.trackerbat.UI.Adapters.PlayerAdapter;
 import com.example.ianshinbro.trackerbat.UI.popupScreens.AddPlayer;
 import com.example.ianshinbro.trackerbat.UI.popupScreens.UpdatePlayer;
+import com.example.ianshinbro.trackerbat.data.repo.PlayerRepo;
 
 import java.util.ArrayList;
 
@@ -47,7 +47,7 @@ public class playerListScreen extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private ItemTouchHelper mItemTouchHelper;
     private Toolbar toolbar;
-    DataBaseHelper helper;
+    private PlayerRepo playerRepo;
 
     private boolean firstPlayer = false;
 
@@ -55,6 +55,7 @@ public class playerListScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_view);
+        playerRepo.delete();
         // create the delegate
         context = getApplicationContext();
         players = new ArrayList<>();
@@ -76,6 +77,7 @@ public class playerListScreen extends AppCompatActivity {
             Player player = (Player) data.getExtras().getSerializable("player");
             totalinList++;
             selectedPosition = totalinList;
+            playerRepo.insert(player);
             player.setId(selectedPosition);
             players.add(player);
             Intent selectedPlayer = new Intent(playerListScreen.this,gameOverviewScreen.class);
@@ -110,7 +112,7 @@ public class playerListScreen extends AppCompatActivity {
     private void loadList() {
 
         // creates a new player adapter with a custom listener for selected, dragging, and updating
-        playerAdapter = new PlayerAdapter(players, helper, new OnStartDragListener() {
+        playerAdapter = new PlayerAdapter(players, new OnStartDragListener() {
             @Override
             public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
                 mItemTouchHelper.startDrag(viewHolder);
