@@ -34,6 +34,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        if (!db.isReadOnly()) {
+            //Enable foreign key constraints
+            db.setForeignKeyConstraintsEnabled(true);
+        }
+    }
+    @Override
     public void onCreate(SQLiteDatabase db) {
         //All necessary tables you like to create will create here
         db.execSQL(PlayerRepo.createTable());
