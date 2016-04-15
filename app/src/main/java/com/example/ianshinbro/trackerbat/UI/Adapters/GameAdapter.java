@@ -23,6 +23,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameHolder> implements Ite
     private ArrayList<Game> games;
     private GameRepo gameRepo;
     private OnStartDragListener mDragStartListener;
+    private int playerId_;
     private static String Log="PlayerAdapter";
 
     public GameAdapter(ArrayList<Game> games) {
@@ -31,7 +32,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameHolder> implements Ite
     }
     public GameAdapter(int playerId, OnStartDragListener dragListener) {
         gameRepo = new GameRepo();
-        this.games=gameRepo.getGamesById(playerId);
+        this.playerId_=playerId;
+        this.games=gameRepo.getGamesById(this.playerId_);
         this.mDragStartListener = dragListener;
     }
     public interface OnDragStartListener {
@@ -48,6 +50,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameHolder> implements Ite
     @Override
     public void onItemDismiss(int position) {
         games.remove(position);
+        gameRepo.remove(position);
         notifyItemRemoved(position);
     }
     @Override
@@ -119,16 +122,19 @@ public class GameAdapter extends RecyclerView.Adapter<GameHolder> implements Ite
         this.games.addAll(games);
         notifyDataSetChanged();
     }
-    public void addItem(int position, Game game) {
+    public void addGame(Game game, int position) {
         games.add(game);
+        gameRepo.insert(game, this.playerId_);
 
         notifyItemInserted(position - 1);
     }
+
     public void updateGame(Game game, int position) {
         games.set(position, game);
         notifyItemChanged(position);
     }
-    public void removeItem(int position) {
+    public void removeGame(int position) {
+
         games.remove(position);
         notifyItemRemoved(position);
     }

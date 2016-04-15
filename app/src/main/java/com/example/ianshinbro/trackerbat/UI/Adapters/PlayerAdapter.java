@@ -111,12 +111,6 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> implements
             }
         });
     }
-
-    public void updateData(ArrayList<Player> players) {
-        players.clear();
-        players.addAll(players);
-        notifyDataSetChanged();
-    }
     public void addPlayer(Player player,int position) {
         players.add(player);
         playerRepo.insert(player);
@@ -127,7 +121,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> implements
         return players.get(position);
     }
     public void updatePlayer(Player player, int position) {
-        players.set(position, player);
+        players.set(player.getID()-1, player);
         playerRepo.updatePlayer(player);
         notifyItemChanged(position);
     }

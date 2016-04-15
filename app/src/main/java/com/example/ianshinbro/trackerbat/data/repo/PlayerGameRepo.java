@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.ianshinbro.trackerbat.data.DatabaseManager;
+import com.example.ianshinbro.trackerbat.data.model.Game;
+import com.example.ianshinbro.trackerbat.data.model.Player;
 import com.example.ianshinbro.trackerbat.data.model.PlayerGame;
 
 
@@ -23,10 +25,13 @@ public class PlayerGameRepo {
     }
 
     public static String createTable() {
-        return "CREATE TABLE "+PlayerGame.TABLE_NAME + "("
-                + PlayerGame.COLUMN_RELATIONID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+        return "CREATE TABLE " + PlayerGame.TABLE_NAME + "("
+                + PlayerGame.COLUMN_RELATIONID + " INTEGER PRIMARY KEY,"
                 + PlayerGame.COLUMN_PLAYERID + " INTEGER,"
-                + PlayerGame.COLUMN_GAMEID + " INTEGER )";
+                + PlayerGame.COLUMN_GAMEID + " INTEGER, "
+                + "FOREIGN KEY (" + PlayerGame.COLUMN_PLAYERID + ")" + "REFERENCES " + Player.TABLE_NAME + "(" + Player.COLUMN_PLAYERID + ") ON DELETE CASCADE "
+                + "FOREIGN KEY (" + Game.COLUMN_GAMEID + " )" + "REFERENCES " + Game.TABLE_NAME + " (" + Game.COLUMN_GAMEID + ") ON DELETE CASCADE "
+                + ")";
     }
 
     public void insert(PlayerGame playerGame) {

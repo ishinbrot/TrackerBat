@@ -33,7 +33,6 @@ public class gameOverviewScreen extends AppCompatActivity {
     RecyclerView gameList;
     FloatingActionButton addGameButton;
     Game game;
-    GameRepo gameRepo;
     Player player;
     private ItemTouchHelper mItemTouchHelper;
     private LinearLayoutManager linearLayoutManager;
@@ -65,7 +64,7 @@ public class gameOverviewScreen extends AppCompatActivity {
             Log.d(this.tag, "Adding game");
             game = (Game) data.getExtras().getSerializable("game");
             game.setId(totalinList);
-            player.addGame(game);
+            gameAdapter.addGame(game,selectedPosition);
             totalinList++;
             selectedPosition = totalinList;
             editGame();
@@ -126,7 +125,7 @@ public class gameOverviewScreen extends AppCompatActivity {
      */
     private void loadList() {
             // initializes the game adapter with a custom listener for select, update, and drag
-        gameAdapter = new GameAdapter(player.getGames(), new OnStartDragListener() {
+        gameAdapter = new GameAdapter(player.getID(), new OnStartDragListener() {
             @Override
             public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
                 mItemTouchHelper.startDrag(viewHolder);

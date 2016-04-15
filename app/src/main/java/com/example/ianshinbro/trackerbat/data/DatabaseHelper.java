@@ -24,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //version number to upgrade database version
     //each time if you Add, Edit table, you need to change the
     //version number.
-    private static final int DATABASE_VERSION =8;
+    private static final int DATABASE_VERSION =2;
     // Database Name
     public static final String DATABASE_NAME = "trackerBat.db";
     private static final String TAG = DatabaseHelper.class.getSimpleName().toString();
@@ -35,6 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onOpen(SQLiteDatabase db) {
+
         super.onOpen(db);
         if (!db.isReadOnly()) {
             //Enable foreign key constraints

@@ -20,7 +20,7 @@ public class AtBatRepo {
     public static final String createTable() {
         return "CREATE TABLE "
                 + AtBat.TABLE_NAME + "("
-                + AtBat.COLUMN_ATBATID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + AtBat.COLUMN_ATBATID + " INTEGER PRIMARY KEY,"
                 + AtBat.COLUMN_INNINGNUMBER + " INTEGER,"
                 + AtBat.COLUMN_BASESTATS + " TEXT)";
     }

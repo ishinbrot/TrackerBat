@@ -25,7 +25,7 @@ public class PlayerRepo {
     public static final String createTable() {
         return "CREATE TABLE "
                 + Player.TABLE_NAME + "("
-                + Player.COLUMN_PLAYERID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + Player.COLUMN_PLAYERID + " INTEGER PRIMARY KEY,"
                 + Player.COLUMN_FIRST_NAME + " TEXT NOT NULL,"
                 + Player.COLUMN_LAST_NAME + " TEXT NOT NULL,"
                 + Player.COLUMN_NICKNAME + " TEXT,"
@@ -45,6 +45,7 @@ public class PlayerRepo {
         // insert row
         playerId = (int)db .insert(player.TABLE_NAME,null,values);
         DatabaseManager.getInstance().closeDatabase();
+        Log.d(TAG, "inserting player at id " +player.getID());
 
         return playerId;
     }
@@ -65,12 +66,12 @@ public class PlayerRepo {
                 row.setNickName(res.getString(3));
             }
             row.setNumber(Integer.parseInt(res.getString(4)));
-            Log.d("Player Repo", "Retrieving player at " + row.getID());
+            Log.d(TAG, "Retrieving player at " + row.getID());
             list.add(row);
         }
 
         if (list.size()==0) {
-            Log.d("Player Repo", "Empty list");
+            Log.d(TAG, "Empty list");
         }
 
         res.close();
@@ -79,16 +80,16 @@ public class PlayerRepo {
 
     }
 
-    // Deleting a shop
+    // Deleting a player
     public void remove(int id) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        Log.d("Player Repo", "Remove player at "+ id);
+        Log.d(TAG, "Remove player at "+ id);
         db.delete(Player.TABLE_NAME, Player.COLUMN_PLAYERID + " = ?",
                 new String[]{String.valueOf(id)});
         DatabaseManager.getInstance().closeDatabase();
     }
-    // Updating a shop
-    public int updatePlayer(Player player) {
+    // Updating a plalyer
+    public void updatePlayer(Player player) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(player.COLUMN_FIRST_NAME, player.getFirstName());
@@ -96,8 +97,10 @@ public class PlayerRepo {
         values.put(player.COLUMN_NICKNAME, player.getNickName());
         values.put(player.COLUMN_NUMBER, player.getNumber());
 // updating row
-        return db.update(player.TABLE_NAME, values, "PlayerID" + " = ?",
+         db.update(player.TABLE_NAME, values, Player.COLUMN_PLAYERID + " = ?",
                 new String[]{String.valueOf(player.getID())});
+        Log.d(TAG,"Updating player at " + player.getID());
+        DatabaseManager.getInstance().closeDatabase();
     }
     public void delete() {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();

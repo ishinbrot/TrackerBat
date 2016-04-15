@@ -18,20 +18,20 @@ public class UpdatePlayer extends Activity {
     EditText lastName;
     EditText nickName;
     EditText playerNumber;
+    Player player;
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_player);
         intent = getIntent();
-        Player player = (Player)intent.getExtras().getSerializable("player");
+         player = (Player)intent.getExtras().getSerializable("player");
         this.initializeButtons();
         this.setText(player);
         this.setOnClickListeners();
     }
 
     private void updatePlayer() {
-        Player player = new Player();
         player.setFirstName(firstName.getText().toString());
         player.setLastName(lastName.getText().toString());
         if (nickName.getText().length() != 0) {
