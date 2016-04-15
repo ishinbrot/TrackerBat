@@ -121,7 +121,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> implements
         return players.get(position);
     }
     public void updatePlayer(Player player, int position) {
-        players.set(player.getID()-1, player);
+        players.set(position, player);
         playerRepo.updatePlayer(player);
         notifyItemChanged(position);
     }

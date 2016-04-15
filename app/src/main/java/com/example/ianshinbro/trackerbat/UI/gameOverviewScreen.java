@@ -23,7 +23,6 @@ import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHel
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.OnStartDragListener;
 import com.example.ianshinbro.trackerbat.UI.popupScreens.AddGame;
 import com.example.ianshinbro.trackerbat.UI.popupScreens.UpdateGame;
-import com.example.ianshinbro.trackerbat.data.repo.GameRepo;
 
 
 /**
@@ -36,7 +35,7 @@ public class gameOverviewScreen extends AppCompatActivity {
     Player player;
     private ItemTouchHelper mItemTouchHelper;
     private LinearLayoutManager linearLayoutManager;
-    int totalinList = -1;
+    int totalinList = 0;
     private String tag = "gameOverviewScreen";
     private int selectedPosition = -1;
     private GameAdapter gameAdapter;
@@ -63,16 +62,16 @@ public class gameOverviewScreen extends AppCompatActivity {
         if (resultCode == 1) {        // return 1 is adding
             Log.d(this.tag, "Adding game");
             game = (Game) data.getExtras().getSerializable("game");
-            game.setId(totalinList);
-            gameAdapter.addGame(game,selectedPosition);
             totalinList++;
             selectedPosition = totalinList;
+            game.setId(selectedPosition+1);
+            gameAdapter.addGame(game,selectedPosition);
+
             editGame();
         }
         if (resultCode == 2) {        // new at bat
             Log.d(this.tag, "Updating game");
             game = (Game) data.getExtras().getSerializable("game");
-            player.updateGame(selectedPosition, game);
             gameAdapter.updateGame(game, selectedPosition);
 
             selectedPosition = -1;        // deselect current position
@@ -81,7 +80,7 @@ public class gameOverviewScreen extends AppCompatActivity {
         if (resultCode == 3) {
             Log.d(this.tag, "Ending Player Edit");
             game = (Game) data.getExtras().getSerializable("game");
-            player.updateGame(selectedPosition, game);
+            gameAdapter.updateGame(game, selectedPosition);
             selectedPosition = -1;
 
         }
@@ -172,7 +171,7 @@ public class gameOverviewScreen extends AppCompatActivity {
      * @param position - position in the array list
      */
     private void updateGame(int position) {
-        Game game = player.getGame(position);
+        Game game = gameAdapter.getGame(position);
         Intent selectedGame = new Intent(gameOverviewScreen.this, UpdateGame.class);
 
         selectedGame.putExtra("game", game);
@@ -185,7 +184,7 @@ public class gameOverviewScreen extends AppCompatActivity {
      * @param position - position in the list
      */
     private void selectGame(int position) {
-        Game game = player.getGame(position);
+        Game game = gameAdapter.getGame(position);
         selectedPosition = position;
 
         Intent selectedGame = new Intent(gameOverviewScreen.this, AtBatListScreen.class);

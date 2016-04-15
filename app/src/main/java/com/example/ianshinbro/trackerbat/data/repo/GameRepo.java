@@ -17,24 +17,25 @@ import java.util.ArrayList;
 public class GameRepo {
 
     private final String TAG = GameRepo.class.getSimpleName();
-    private Game game;
-
+    private Game game_;
+    private PlayerGameRepo playerGameRepo;
     public GameRepo() {
-        game = new Game();
+        game_ = new Game();
     }
 
     public static final String createTable() {
         return "CREATE TABLE "
                 + Game.TABLE_NAME + "("
                 + Game.COLUMN_GAMEID + " INTEGER PRIMARY KEY,"
-                + Game.COLUMN_NUMOFINNINGS + " INTEGER,"
-                + Game.COLUMN_HOMETEAM + " TEXT,"
-                + Game.COLUMN_AWAYTEAM + " TEXT,"
+                + Game.COLUMN_NUMOFINNINGS + " INTEGER NOT NULL,"
+                + Game.COLUMN_HOMETEAM + " TEXT NOT NULL,"
+                + Game.COLUMN_AWAYTEAM + " TEXT NOT NULL,"
                 + Game.COLUMN_HOMESCORE + " INTEGER,"
                 + Game.COLUMN_AWAYSCORE + " INTEGER" + ")";
     }
     public int insert(Game game, int playerId) {
         int gameId;
+        this.game_=game;
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(Game.COLUMN_GAMEID, game.getID());
@@ -48,7 +49,6 @@ public class GameRepo {
         // create a player game object
         insertPlayerGame(db, playerId);
 
-        db.insert(Game.TABLE_NAME, null, values);
         DatabaseManager.getInstance().closeDatabase();
 
         return gameId;
@@ -61,13 +61,10 @@ public class GameRepo {
      */
     private void insertPlayerGame(SQLiteDatabase db, int playerId) {
         PlayerGame playerGame = new PlayerGame();
-        playerGame.setGameId(game.getID());
+        playerGame.setGameId(game_.getID());
         playerGame.setPlayerId(playerId);
-        ContentValues values = new ContentValues();
-        values.put(PlayerGame.COLUMN_GAMEID, playerGame.getGameId());
-        values.put(PlayerGame.COLUMN_PLAYERID,playerGame.getPlayerId());
-
-        db.insert(playerGame.TABLE_NAME,null,values);
+        playerGameRepo = new PlayerGameRepo();
+        playerGameRepo.insert(playerGame);
     }
     public void remove(int id) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
@@ -96,8 +93,8 @@ public class GameRepo {
      * @return
      */
     public ArrayList<Game> getGamesById(int id) {
-        String query = "SELECT  *" + " FROM " + PlayerGame.TABLE_NAME +
-                " WHERE " + PlayerGame.COLUMN_PLAYERID + " = " + id;
+        String query = "SELECT  *" + " FROM " + Game.TABLE_NAME +
+                " WHERE " + Game.COLUMN_GAMEID + " = " + id;
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         Cursor res = db.rawQuery(query, null);

@@ -37,8 +37,6 @@ public class playerListScreen extends AppCompatActivity {
     RecyclerView playerList;
     FloatingActionButton addPlayerButton;
     int totalinList=0;
-    Button helpButton;
-    TextView titleView;
     private int selectedPosition=-1;
     private String tag="PlayerListScreen";
    private Context context;
@@ -46,7 +44,6 @@ public class playerListScreen extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private ItemTouchHelper mItemTouchHelper;
     private Toolbar toolbar;
-    private PlayerRepo playerRepo;
 
     private boolean firstPlayer = false;
 
@@ -75,7 +72,7 @@ public class playerListScreen extends AppCompatActivity {
             Player player = (Player) data.getExtras().getSerializable("player");
             totalinList++;
             selectedPosition = totalinList;
-            player.setId(selectedPosition);
+            player.setId(selectedPosition+1);
             playerAdapter.addPlayer(player,selectedPosition);
           //  players.add(player);
             Intent selectedPlayer = new Intent(playerListScreen.this,gameOverviewScreen.class);

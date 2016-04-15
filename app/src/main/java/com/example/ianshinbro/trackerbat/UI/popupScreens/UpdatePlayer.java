@@ -18,7 +18,7 @@ public class UpdatePlayer extends Activity {
     EditText lastName;
     EditText nickName;
     EditText playerNumber;
-    Player player;
+    private Player player;
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
