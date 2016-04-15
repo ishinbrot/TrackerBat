@@ -133,6 +133,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameHolder> implements Ite
     }
     public void updateGame(Game game, int position) {
         games.set(position, game);
+        gameRepo.updateGame(game);
         notifyItemChanged(position);
     }
     @Override

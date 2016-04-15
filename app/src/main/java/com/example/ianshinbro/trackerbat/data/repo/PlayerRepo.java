@@ -3,6 +3,7 @@ package com.example.ianshinbro.trackerbat.data.repo;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
 import com.example.ianshinbro.trackerbat.data.DatabaseManager;
@@ -33,7 +34,7 @@ public class PlayerRepo {
     }
 
     public int insert(Player player) {
-        int playerId;
+        int playerId=0;
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(player.COLUMN_FIRST_NAME, player.getFirstName());
@@ -43,9 +44,14 @@ public class PlayerRepo {
         }
         values.put(player.COLUMN_NUMBER, player.getNumber());
         // insert row
-        playerId = (int)db .insert(player.TABLE_NAME,null,values);
+        try {
+            playerId = (int) db.insert(player.TABLE_NAME, null, values);
+            Log.d(TAG, "inserting player at id " +player.getID());
+        }
+        catch(SQLiteException e) {
+            Log.e(TAG,"Error inserting at " + player.getID(), e);
+        }
         DatabaseManager.getInstance().closeDatabase();
-        Log.d(TAG, "inserting player at id " +player.getID());
 
         return playerId;
     }
@@ -84,9 +90,16 @@ public class PlayerRepo {
     public void remove(int id) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         Log.d(TAG, "Remove player at "+ id);
-        db.delete(Player.TABLE_NAME, Player.COLUMN_PLAYERID + " = ?",
-                new String[]{String.valueOf(id)});
+        try {
+            db.delete(Player.TABLE_NAME, Player.COLUMN_PLAYERID + " = ?",
+                    new String[]{String.valueOf(id)});
+        }
+        catch(SQLiteException e) {
+            //TODO Edit Exception
+        }
+
         DatabaseManager.getInstance().closeDatabase();
+
     }
     // Updating a plalyer
     public void updatePlayer(Player player) {

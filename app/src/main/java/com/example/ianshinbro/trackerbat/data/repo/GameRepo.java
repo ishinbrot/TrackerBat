@@ -2,6 +2,7 @@ package com.example.ianshinbro.trackerbat.data.repo;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -34,7 +35,7 @@ public class GameRepo {
                 + Game.COLUMN_AWAYSCORE + " INTEGER" + ")";
     }
     public int insert(Game game, int playerId) {
-        int gameId;
+        int gameId=0;
         this.game_=game;
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
@@ -45,7 +46,13 @@ public class GameRepo {
         values.put(Game.COLUMN_AWAYSCORE, game.getAwayScore());
         values.put(Game.COLUMN_NUMOFINNINGS, game.getInningNumber());
         // insert row
-        gameId = (int) db.insert(game.TABLE_NAME, null, values);
+        try {
+            gameId = (int) db.insert(game.TABLE_NAME, null, values);
+        }
+        catch(SQLException e) {
+            Log.e(TAG, "Error inserting game at id" + game.getID(),e);
+            return 0;
+        }
         // create a player game object
         insertPlayerGame(db, playerId);
 
@@ -68,7 +75,7 @@ public class GameRepo {
     }
     public void remove(int id) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
-        Log.d(TAG, "Remove player at "+ id);
+        Log.d(TAG, "Remove game at "+ id);
         db.delete(Game.TABLE_NAME, Game.COLUMN_GAMEID + " = ?",
                 new String[]{String.valueOf(id)});
         DatabaseManager.getInstance().closeDatabase();
@@ -76,15 +83,24 @@ public class GameRepo {
     public int updateGame(Game game) {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
-        values.put(Game.COLUMN_GAMEID, game.getID());
+        int id;
         values.put(Game.COLUMN_AWAYTEAM, game.getAwayTeam());
         values.put(Game.COLUMN_HOMETEAM, game.getHomeTeam());
         values.put(Game.COLUMN_HOMESCORE, game.getHomeScore());
         values.put(Game.COLUMN_AWAYSCORE, game.getAwayScore());
         values.put(Game.COLUMN_NUMOFINNINGS, game.getInningNumber());
 // updating row
-        return db.update(Game.TABLE_NAME, values, Game.COLUMN_GAMEID + " = ?",
-                new String[]{String.valueOf(game.getID())});
+        Log.d(TAG, "Update game at "+ game.getID());
+        try {
+             id= db.update(Game.TABLE_NAME, values, Game.COLUMN_GAMEID + " = ?",
+                    new String[]{String.valueOf(game.getID())});
+        }
+        catch(Exception e) {
+            Log.d(TAG, "Error updating table" + e.getMessage());
+            return 0;
+        }
+        DatabaseManager.getInstance().closeDatabase();
+        return id;
     }
 
     /**
