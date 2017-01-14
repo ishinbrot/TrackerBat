@@ -1,20 +1,22 @@
 package com.example.ianshinbro.trackerbat.Implentation;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.annotation.Unique;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
+import com.example.ianshinbro.trackerbat.AppDataBase;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ianshinbrot on 4/30/15.
  * This is a player class
  * Serializable is used to navigate intents in android
  */
-@Table(name= "Player")
-public class Player extends Model implements Serializable{
+@Table(database = AppDataBase.class)
+public class Player extends BaseModel implements Serializable{
 
 
 
@@ -46,8 +48,8 @@ public class Player extends Model implements Serializable{
     public void updateGame(int index, Game game) {
         this.games_.set(index, game);
     }
-    public List<Game> getGames() {
-        return getMany(Game.class, "Player");
+    public ArrayList<Game> getGames() {
+        return games_;
     }
     public void setId(int id) {
         this.id_=id;
@@ -110,15 +112,19 @@ public class Player extends Model implements Serializable{
     public String toString() {
         return this.firstName_ + " " + this.lastName_ + " " + this.number_;
     }
-    @Column(name = "firtName")
+
+    @Column
     private String firstName_;
-    @Column(name = "lastName")
+    @Column
     private String lastName_;
-    @Column(name = "nickName")
+
+    @Column
     private String nickName_;
     int id_;
     private Boolean hasNickName=false;
-    @Column(name = "number", index = true)
+
+    @Column
+    @Unique
     private int number_;
 
     public int getPlayerId() {
@@ -129,6 +135,7 @@ public class Player extends Model implements Serializable{
         this.playerId_ = playerId;
     }
 
+    @PrimaryKey(autoincrement = true)
     private int playerId_;
     private ArrayList<Game> games_;
 

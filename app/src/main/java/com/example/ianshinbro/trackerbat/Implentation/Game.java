@@ -1,7 +1,11 @@
 package com.example.ianshinbro.trackerbat.Implentation;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
+import com.example.ianshinbro.trackerbat.AppDataBase;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
+
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,7 +14,9 @@ import java.util.List;
 /**
  * Created by ianshinbrot on 5/2/15.
  */
-public class Game extends Model implements Serializable{
+@Table(database = AppDataBase.class)
+
+public class Game extends BaseModel implements Serializable{
     /**
      * Constructor for game object
      * Sets the score to zero, progress to true, and default number of innings to 9
@@ -73,8 +79,8 @@ public class Game extends Model implements Serializable{
      * Gets all of the at bats in a game
      * @return
      */
-    public List<AtBat> getAtBats() {
-        return getMany(AtBat.class, "Game");
+    public ArrayList<AtBat> getAtBats() {
+        return atBats_;
     }
 
     /**
@@ -178,29 +184,23 @@ public class Game extends Model implements Serializable{
     }
 
     private ArrayList<AtBat> atBats_;
-    @Column(name="HomeTeam")
+    @Column
     private String homeTeam_;
-    @Column(name="AwayTeam")
+    @Column
     private String awayTeam_;
+    @Column
+    @PrimaryKey
     private int id_;
-    @Column(name="AwayScore")
+    @Column
     private int awayScore_;
-    @Column(name="HomeScore")
+    @Column
     private int homeScore_;
-    @Column(name="numberOfInnings")
+    @Column
     private int numberOfInnings_;       // 9 is default number of innings
-    @Column(name="inProgress")
+    @Column
     boolean inProgress_;
 
     public static final String TAG = Game.class.getSimpleName();
-    public static final String TABLE = "GAME";
-
-    // Labels Table Columns names
-    public static final String KEY_HomeTeam = "HomeTeam";
-    public static final String KEY_AwayTeam = "AwayTeam";
-    public static final String KEY_GameID = "GameID";
-    public static final String KEY_Innings = "Innings";
-    public static final String KEY_Score = "Score";
 
 
 

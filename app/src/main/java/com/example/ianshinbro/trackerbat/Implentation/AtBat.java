@@ -1,7 +1,9 @@
 package com.example.ianshinbro.trackerbat.Implentation;
-
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
+import com.example.ianshinbro.trackerbat.AppDataBase;
 
 import java.io.Serializable;
 
@@ -13,7 +15,8 @@ import java.io.Serializable;
  * This method stores atBat information
  * It implements serializable to be utilized by Android
  */
-public class AtBat extends Model implements iAtBat, Serializable{
+@Table(database = AppDataBase.class)
+public class AtBat extends BaseModel implements iAtBat, Serializable{
 
     public AtBat(int inningNumber) {
         this.hit=false;
@@ -303,13 +306,13 @@ public class AtBat extends Model implements iAtBat, Serializable{
     public boolean isOut() {
         return this.out;
     }
-    @Column(name="hit")
+    @Column
     boolean hit;
-    @Column(name="out")
+    @Column
     boolean out=false;
-    @Column(name="walk")
+    @Column
     boolean walk;
-    @Column(name="score")
+    @Column
     int score;
     private Base initialBase = Base.ATBAT;
     private Base finalBase = Base.ATBAT;
@@ -317,7 +320,7 @@ public class AtBat extends Model implements iAtBat, Serializable{
     private OutField initialCatch;
     private boolean firstOutRecieved;
     private OutField finalCatch;
-    @Column(name="inningNumber")
+    @Column
     private int inningNumber;
 
     public int getAtBatId() {
@@ -328,12 +331,10 @@ public class AtBat extends Model implements iAtBat, Serializable{
         this.atBatId = atBatId;
     }
 
+    @Column
+    @PrimaryKey
     private int atBatId;
 
     public static final String TAG = AtBat.class.getSimpleName();
     public static final String TABLE="AtBat";
-
-    public static final String KEY_BaseStats = "BaseStats";
-    public static final String KEY_InningNumber = "InningNumber";
-    public static final String KEY_AtBatID = "AtBatID";
 }

@@ -7,7 +7,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".UI.trackerBatApplication"
+        android:name=".trackerBatApplication"
         android:theme="@style/MyMaterialTheme">
         <activity
             android:name=".UI.playerListScreen"
@@ -64,11 +64,6 @@
             android:name=".UI.popupScreens.OutPopUp"
             android:screenOrientation="portrait"
             android:theme="@style/PopupBases"/>
-        <meta-data
-            android:name="SCORECARD_MODELS"
-            android:value="com.example.ianshinbro.trackerbat.Implentation.model.Game, com.example.ianshinbro.trackerbat.Implentation.model.Player, com.example.ianshinbro.trackerbat.model.AtBat" />
-
-        <meta-data android:name="SCORECARD_DB_VERSION" android:value="1" />
     </application>
 
 </manifest>
