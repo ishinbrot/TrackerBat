@@ -101,7 +101,8 @@ public class gameOverviewScreen extends AppCompatActivity {
     private OnClickListener addGameListener = new OnClickListener() {
         public void onClick(View v) {
             // register selection
-
+            Log.d(tag, "Add game");
+            System.out.println("Add Game");
             Intent addGame = new Intent(gameOverviewScreen.this, AddGame.class);
 
             startActivityForResult(addGame, 0);
@@ -113,6 +114,7 @@ public class gameOverviewScreen extends AppCompatActivity {
      * This method is called when the save button is pressed
      */
     private void savePlayerFunction() {
+        Log.d(tag, "Save player");
         Intent savePlayer = new Intent();
         savePlayer.putExtra("player", player);
         setResult(3, savePlayer);

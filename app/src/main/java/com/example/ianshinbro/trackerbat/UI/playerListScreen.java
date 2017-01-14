@@ -2,6 +2,7 @@ package com.example.ianshinbro.trackerbat.UI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -40,7 +41,7 @@ public class playerListScreen extends AppCompatActivity {
     TextView titleView;
     private int selectedPosition=-1;
     private String tag="PlayerListScreen";
-   private Context context;
+    private Context context;
     private ArrayList<Player> players;
     private PlayerAdapter playerAdapter;
     private LinearLayoutManager linearLayoutManager;
@@ -104,7 +105,6 @@ public class playerListScreen extends AppCompatActivity {
 
         }
     };
-
     private void loadList() {
 
         // creates a new player adapter with a custom listener for selected, dragging, and updating
@@ -166,6 +166,9 @@ public class playerListScreen extends AppCompatActivity {
 
     private void setOnClickListeners() {
         addPlayerButton.setOnClickListener(addPlayer);
+        addPlayerButton.setOnLongClickListener(v -> { Log.d(tag, "Add Player"); return true;});
+
+
 
     }
     @Override

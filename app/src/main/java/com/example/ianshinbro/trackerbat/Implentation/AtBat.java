@@ -311,4 +311,21 @@ public class AtBat implements iAtBat, Serializable{
     private boolean firstOutRecieved;
     private OutField finalCatch;
     private int inningNumber;
+
+    public int getAtBatId() {
+        return atBatId;
+    }
+
+    public void setAtBatId(int atBatId) {
+        this.atBatId = atBatId;
+    }
+
+    private int atBatId;
+
+    public static final String TAG = AtBat.class.getSimpleName();
+    public static final String TABLE="AtBat";
+
+    public static final String KEY_BaseStats = "BaseStats";
+    public static final String KEY_InningNumber = "InningNumber";
+    public static final String KEY_AtBatID = "AtBatID";
 }

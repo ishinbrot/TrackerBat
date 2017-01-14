@@ -83,6 +83,7 @@ public class Player implements Serializable{
         return number_;
     }
 
+
     public void setNumber(int number) {
         this.number_ = number;
     }
@@ -105,5 +106,22 @@ public class Player implements Serializable{
     int id_;
     private Boolean hasNickName=false;
     private int number_;
+
+    public int getPlayerId() {
+        return playerId_;
+    }
+
+    public void setPlayerId(int playerId) {
+        this.playerId_ = playerId;
+    }
+
+    private int playerId_;
     private ArrayList<Game> games_;
+
+    public static final String TABLE = "Player";
+    public static final String KEY_FirstName = "First Name";
+    public static final String KEY_LastName = "Last Name";
+    public static final String KEY_NickName = "NickName";
+    public static final String KEY_PlayerID = "Player_ID";
+    public static final String KEY_PlayerNumber = "Player Number";
 }

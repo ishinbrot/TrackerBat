@@ -151,7 +151,7 @@ public class Game implements Serializable{
      *
      * @return
      */
-    public int getInningNumber() {
+    public int getInningTotal() {
         return this.numberOfInnings_;
     }
 
@@ -161,7 +161,7 @@ public class Game implements Serializable{
      */
     public String getScore() {
 
-    return null;
+        return getHomeScore() +"-" +  getAwayScore();
     }
     public void setId(int id) {
         this.id_=id;
@@ -178,6 +178,16 @@ public class Game implements Serializable{
     private int homeScore_;
     private int numberOfInnings_;       // 9 is default number of innings
     boolean inProgress_;
+
+    public static final String TAG = Game.class.getSimpleName();
+    public static final String TABLE = "GAME";
+
+    // Labels Table Columns names
+    public static final String KEY_HomeTeam = "HomeTeam";
+    public static final String KEY_AwayTeam = "AwayTeam";
+    public static final String KEY_GameID = "GameID";
+    public static final String KEY_Innings = "Innings";
+    public static final String KEY_Score = "Score";
 
 
 

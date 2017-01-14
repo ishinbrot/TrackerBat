@@ -29,7 +29,7 @@ public interface iGame {
 
     String getAwayTeam();
     String getHomeTeam();
-    int getInningNumber();
+    int getInningTotal();
 
     String getScore();
 }
