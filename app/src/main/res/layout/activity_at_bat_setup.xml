@@ -19,7 +19,6 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:drawableLeft="@drawable/ic_stars_red_800_18dp"
         android:id="@+id/addInningText_AtBat_SetupPage"
         android:hint="Inning Number"
         android:width="150dp"

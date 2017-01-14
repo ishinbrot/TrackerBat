@@ -21,8 +21,6 @@
         android:ems="10"
         android:id="@+id/FirstName_UpdatePlayerScreen"
         android:hint="@string/First_Name_TxtFld"
-
-        android:drawableLeft="@drawable/ic_stars_red_800_18dp"
         android:width="150dp" />
     </android.support.design.widget.TextInputLayout>
 
@@ -40,7 +38,6 @@
         android:ems="10"
         android:id="@+id/LastName_UpdatePlayerScreen"
         android:layout_centerHorizontal="true"
-        android:drawableLeft="@drawable/ic_stars_red_800_18dp"
         android:width="150dp" />
 </android.support.design.widget.TextInputLayout>
 
@@ -78,7 +75,6 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_stars_red_800_18dp"
         android:inputType="number|textCapWords"
         android:ems="10"
         android:id="@+id/PlayerNumber_UpdatePlayerScreen"

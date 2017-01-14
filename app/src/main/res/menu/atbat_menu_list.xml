@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/saveAtBatListButton"
-        android:icon="@drawable/ic_content_save_24"
+        android:icon="@drawable/ic_content_save"
         android:title="@string/SaveChanges_BTNText"
         android:orderInCategory="200"
         app:showAsAction="ifRoom"/>

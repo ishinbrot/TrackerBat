@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:inputType="number"
-        android:drawableLeft="@drawable/ic_stars_red_800_18dp"
         android:id="@+id/HomeTeamScore"
         android:width="200dp" />
     </android.support.design.widget.TextInputLayout>
@@ -35,7 +34,6 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_stars_red_800_18dp"
         android:inputType="number"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/AwayTeamScore"
