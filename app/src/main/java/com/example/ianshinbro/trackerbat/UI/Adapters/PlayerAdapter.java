@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.activeandroid.ActiveAndroid;
 import com.example.ianshinbro.trackerbat.Implentation.Player;
 import com.example.ianshinbro.trackerbat.R;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHelperAdapter;
@@ -42,12 +43,13 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> implements
     public void onItemDismiss(int position) {
         players.remove(position);
         notifyItemRemoved(position);
+        Player.delete(Player.class, position);
     }
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        Player prev = players.remove(fromPosition);
-        players.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
-        notifyItemMoved(fromPosition, toPosition);
+    //    Player prev = players.remove(fromPosition);
+     //   players.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
+     //   notifyItemMoved(fromPosition, toPosition);
     }
 
    @Override
@@ -105,15 +107,26 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> implements
     public void updateData(ArrayList<Player> players) {
         players.clear();
         players.addAll(players);
-        notifyDataSetChanged();
+        ActiveAndroid.beginTransaction();
+        try {
+            for (int i = 0; i < players.size(); i++) {
+                Player player = players.get(i);
+                player.save();
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+            notifyDataSetChanged();
+        }
     }
     public void addItem(int position, Player player) {
         players.add(player);
-
+        player.save();
         notifyItemInserted(position - 1);
     }
     public void updatePlayer(Player player, int position) {
         players.set(position, player);
+        player.save();
         notifyItemChanged(position);
     }
     @Override

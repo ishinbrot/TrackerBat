@@ -1,22 +1,31 @@
 package com.example.ianshinbro.trackerbat.Implentation;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ianshinbrot on 4/30/15.
  * This is a player class
  * Serializable is used to navigate intents in android
  */
-public class Player implements Serializable{
+@Table(name= "Player")
+public class Player extends Model implements Serializable{
+
 
 
     public Player( int number) {
+        super();
         this.number_ = number;
         this.games_ = new ArrayList<>();
     }
 
     public Player() {
+        super();
         this.games_=new ArrayList<>();
     }
 
@@ -25,6 +34,7 @@ public class Player implements Serializable{
         this.lastName_ = lastName;
         this.number_ = number;
         this.games_ = new ArrayList<>();
+
 
     }
 
@@ -36,8 +46,8 @@ public class Player implements Serializable{
     public void updateGame(int index, Game game) {
         this.games_.set(index, game);
     }
-    public ArrayList<Game> getGames() {
-        return this.games_;
+    public List<Game> getGames() {
+        return getMany(Game.class, "Player");
     }
     public void setId(int id) {
         this.id_=id;
@@ -100,11 +110,15 @@ public class Player implements Serializable{
     public String toString() {
         return this.firstName_ + " " + this.lastName_ + " " + this.number_;
     }
+    @Column(name = "firtName")
     private String firstName_;
+    @Column(name = "lastName")
     private String lastName_;
+    @Column(name = "nickName")
     private String nickName_;
     int id_;
     private Boolean hasNickName=false;
+    @Column(name = "number", index = true)
     private int number_;
 
     public int getPlayerId() {

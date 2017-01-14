@@ -63,7 +63,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameHolder> implements Ite
         else if (!game.getStatus()) {
             viewHolder.progress.setText("Finished");
         }
-        viewHolder.score.setText(game.getHomeScore() + " - " + game.getAwayScore());
+        viewHolder.score.setText(game.getScore());
 
         viewHolder.gameTeam.setText(game.getHomeTeam() + " vs " + game.getAwayTeam());
 

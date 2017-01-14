@@ -1,22 +1,28 @@
 package com.example.ianshinbro.trackerbat.Implentation;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ianshinbrot on 5/2/15.
  */
-public class Game implements Serializable{
+public class Game extends Model implements Serializable{
     /**
      * Constructor for game object
      * Sets the score to zero, progress to true, and default number of innings to 9
      */
     public Game() {
+        super();
         this.numberOfInnings_=9;
         this.atBats_ = new ArrayList<>();
         this.awayScore_=0;
         this.homeScore_=0;
         this.inProgress_=true;
+
     }
 
     /**
@@ -24,6 +30,7 @@ public class Game implements Serializable{
      * @param numOfInnings - sets number of innings to passed in object
      */
     public Game(int numOfInnings) {
+        super();
         this.numberOfInnings_=numOfInnings;
         this.atBats_ = new ArrayList<>();
         this.awayScore_=0;
@@ -66,8 +73,8 @@ public class Game implements Serializable{
      * Gets all of the at bats in a game
      * @return
      */
-    public ArrayList<AtBat> getAtBats() {
-        return this.atBats_;
+    public List<AtBat> getAtBats() {
+        return getMany(AtBat.class, "Game");
     }
 
     /**
@@ -171,12 +178,18 @@ public class Game implements Serializable{
     }
 
     private ArrayList<AtBat> atBats_;
+    @Column(name="HomeTeam")
     private String homeTeam_;
+    @Column(name="AwayTeam")
     private String awayTeam_;
     private int id_;
+    @Column(name="AwayScore")
     private int awayScore_;
+    @Column(name="HomeScore")
     private int homeScore_;
+    @Column(name="numberOfInnings")
     private int numberOfInnings_;       // 9 is default number of innings
+    @Column(name="inProgress")
     boolean inProgress_;
 
     public static final String TAG = Game.class.getSimpleName();

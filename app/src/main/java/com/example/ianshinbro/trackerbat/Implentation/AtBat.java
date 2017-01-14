@@ -1,5 +1,8 @@
 package com.example.ianshinbro.trackerbat.Implentation;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+
 import java.io.Serializable;
 
 /**
@@ -10,7 +13,7 @@ import java.io.Serializable;
  * This method stores atBat information
  * It implements serializable to be utilized by Android
  */
-public class AtBat implements iAtBat, Serializable{
+public class AtBat extends Model implements iAtBat, Serializable{
 
     public AtBat(int inningNumber) {
         this.hit=false;
@@ -300,9 +303,13 @@ public class AtBat implements iAtBat, Serializable{
     public boolean isOut() {
         return this.out;
     }
+    @Column(name="hit")
     boolean hit;
+    @Column(name="out")
     boolean out=false;
+    @Column(name="walk")
     boolean walk;
+    @Column(name="score")
     int score;
     private Base initialBase = Base.ATBAT;
     private Base finalBase = Base.ATBAT;
@@ -310,6 +317,7 @@ public class AtBat implements iAtBat, Serializable{
     private OutField initialCatch;
     private boolean firstOutRecieved;
     private OutField finalCatch;
+    @Column(name="inningNumber")
     private int inningNumber;
 
     public int getAtBatId() {
