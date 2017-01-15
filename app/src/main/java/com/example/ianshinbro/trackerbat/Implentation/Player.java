@@ -1,5 +1,8 @@
 package com.example.ianshinbro.trackerbat.Implentation;
 import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ColumnIgnore;
+import com.raizlabs.android.dbflow.annotation.ForeignKey;
+import com.raizlabs.android.dbflow.annotation.ForeignKeyReference;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.annotation.Unique;
@@ -9,6 +12,7 @@ import com.example.ianshinbro.trackerbat.AppDataBase;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ianshinbrot on 4/30/15.
@@ -22,20 +26,20 @@ public class Player extends BaseModel implements Serializable{
 
     public Player( int number) {
         super();
-        this.number_ = number;
-        this.games_ = new ArrayList<>();
+        this.number = number;
+        this.games = new ArrayList<>();
     }
 
     public Player() {
         super();
-        this.games_=new ArrayList<>();
+        this.games=new ArrayList<>();
     }
 
-    public Player(String firstName, String lastName, int number) {
-        this.firstName_ = firstName;
-        this.lastName_ = lastName;
-        this.number_ = number;
-        this.games_ = new ArrayList<>();
+    public Player(String firstName, String lastName, long number) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.number = number;
+        this.games = new ArrayList<>();
 
 
     }
@@ -46,37 +50,36 @@ public class Player extends BaseModel implements Serializable{
      * @param game - the modified game object
      */
     public void updateGame(int index, Game game) {
-        this.games_.set(index, game);
+        this.games.set(index, game);
     }
     public ArrayList<Game> getGames() {
-        return games_;
+        return games;
     }
-    public void setId(int id) {
-        this.id_=id;
+    public void setId(long id) {
+        this.playerId=id;
     }
-    public int getID() {
-        return this.id_;
-    }
+    public void addGames(List<Game> games) {games.addAll(games);}
+
     public String getFirstName() {
-        return this.firstName_;
+        return this.firstName;
     }
     public String getLastName() {
-        return this.lastName_;
+        return this.lastName;
     }
     public String getNickName() {
-        return this.nickName_;
+        return this.nickName;
     }
     public void updateGames(ArrayList<Game> games) {
-        this.games_=games;
+        this.games=games;
     }
     public void setFirstName(String firstName) {
-        this.firstName_ = firstName;
+        this.firstName = firstName;
     }
     public void setLastName(String lastName) {
-        this.lastName_ = lastName;
+        this.lastName = lastName;
     }
     public void setNickName(String nickName) {
-        this.nickName_ = nickName; this.hasNickName=true;
+        this.nickName = nickName; this.hasNickName=true;
     }
 
     /**
@@ -91,58 +94,53 @@ public class Player extends BaseModel implements Serializable{
      * This retrieves the number of the player
      * @return - number of the player
      */
-    public int getNumber() {
-        return number_;
+    public long getNumber() {
+        return number;
     }
 
-
-    public void setNumber(int number) {
-        this.number_ = number;
+    public void setNumber(long number) {
+        this.number = number;
     }
     public void addGame(Game game) {
-        this.games_.add(game);
+        this.games.add(game);
     }
     public void removeGame(int index) {
-        this.games_.remove(index);
+        this.games.remove(index);
     }
     public Game getGame(int index) {
-        return this.games_.get(index);
+        return this.games.get(index);
     }
 
     public String toString() {
-        return this.firstName_ + " " + this.lastName_ + " " + this.number_;
+        return this.firstName + " " + this.lastName + " " + this.number;
     }
 
     @Column
-    private String firstName_;
+    public String firstName;
     @Column
-    private String lastName_;
+    public String lastName;
 
     @Column
-    private String nickName_;
-    int id_;
-    private Boolean hasNickName=false;
+    public String nickName;
+    @Column
+    public Boolean hasNickName=false;
 
     @Column
     @Unique
-    private int number_;
+    private long number;
 
-    public int getPlayerId() {
-        return playerId_;
+    public long getPlayerId() {
+        return playerId;
     }
 
-    public void setPlayerId(int playerId) {
-        this.playerId_ = playerId;
+    public void setPlayerId(long playerId) {
+        this.playerId = playerId;
     }
 
-    @PrimaryKey(autoincrement = true)
-    private int playerId_;
-    private ArrayList<Game> games_;
+    @ForeignKey(references = { @ForeignKeyReference(foreignKeyColumnName = "playerId", columnName = "playerId")}, tableClass = Game.class)
+    @PrimaryKey
+    public long playerId;
 
-    public static final String TABLE = "Player";
-    public static final String KEY_FirstName = "First Name";
-    public static final String KEY_LastName = "Last Name";
-    public static final String KEY_NickName = "NickName";
-    public static final String KEY_PlayerID = "Player_ID";
-    public static final String KEY_PlayerNumber = "Player Number";
+    @ColumnIgnore
+    private ArrayList<Game> games;
 }

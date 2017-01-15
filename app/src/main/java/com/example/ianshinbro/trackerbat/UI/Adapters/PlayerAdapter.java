@@ -7,11 +7,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.activeandroid.ActiveAndroid;
+import com.example.ianshinbro.trackerbat.AppDataBase;
 import com.example.ianshinbro.trackerbat.Implentation.Player;
 import com.example.ianshinbro.trackerbat.R;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHelperAdapter;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.OnStartDragListener;
+import com.raizlabs.android.dbflow.config.FlowManager;
+import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
+import com.raizlabs.android.dbflow.structure.database.transaction.ProcessModelTransaction;
+import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
 
 import java.util.ArrayList;
 
@@ -41,15 +45,16 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> implements
     }
     @Override
     public void onItemDismiss(int position) {
+        players.get(position).delete();
         players.remove(position);
         notifyItemRemoved(position);
-        Player.delete(Player.class, position);
     }
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
     //    Player prev = players.remove(fromPosition);
      //   players.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
      //   notifyItemMoved(fromPosition, toPosition);
+        //TODO :: Implement in database in the future
     }
 
    @Override
@@ -69,7 +74,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> implements
         } else {
             viewHolder.name.setText(player.getFirstName() + " " + player.getLastName());
         }
-        viewHolder.number.setText(Integer.toString(player.getNumber()));
+        viewHolder.number.setText(Long.toString(player.getNumber()));
 
         viewHolder.updateView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -107,17 +112,27 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> implements
     public void updateData(ArrayList<Player> players) {
         players.clear();
         players.addAll(players);
-        ActiveAndroid.beginTransaction();
-        try {
-            for (int i = 0; i < players.size(); i++) {
-                Player player = players.get(i);
-                player.save();
-            }
-            ActiveAndroid.setTransactionSuccessful();
-        } finally {
-            ActiveAndroid.endTransaction();
-            notifyDataSetChanged();
-        }
+        FlowManager.getDatabase(AppDataBase.class)
+                .beginTransactionAsync(new ProcessModelTransaction.Builder<>(
+                        new ProcessModelTransaction.ProcessModel<Player>() {
+                            @Override
+                            public void processModel(Player player, DatabaseWrapper wrapper) {
+                                // do work here -- i.e. user.delete() or user.update()
+                                player.save();
+                            }
+                        }).addAll(players).build())  // add elements (can also handle multiple)
+                .error(new Transaction.Error() {
+                    @Override
+                    public void onError(Transaction transaction, Throwable error) {
+
+                    }
+                })
+                .success(new Transaction.Success() {
+                    @Override
+                    public void onSuccess(Transaction transaction) {
+
+                    }
+                }).build().execute();
     }
     public void addItem(int position, Player player) {
         players.add(player);

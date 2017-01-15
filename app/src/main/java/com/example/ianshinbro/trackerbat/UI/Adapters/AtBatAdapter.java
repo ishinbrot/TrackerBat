@@ -21,7 +21,6 @@ import java.util.ArrayList;
  */
 public class AtBatAdapter extends RecyclerView.Adapter<AtBatHolder> implements ItemTouchHelperAdapter {
     private ArrayList<AtBat> atBats;
-    private Context mContext;
     private OnStartDragListener mDragStartListener;
     private static String Log="PlayerAdapter";
 
@@ -43,6 +42,7 @@ public class AtBatAdapter extends RecyclerView.Adapter<AtBatHolder> implements I
     }
     @Override
     public void onItemDismiss(int position) {
+        atBats.get(position).delete();
         atBats.remove(position);
         notifyItemRemoved(position);
     }
@@ -54,9 +54,9 @@ public class AtBatAdapter extends RecyclerView.Adapter<AtBatHolder> implements I
      */
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        AtBat prev = atBats.remove(fromPosition);
-        atBats.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
-        notifyItemMoved(fromPosition, toPosition);
+   //     AtBat prev = atBats.remove(fromPosition);
+    //    atBats.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
+     //   notifyItemMoved(fromPosition, toPosition);
     }
 
     /**

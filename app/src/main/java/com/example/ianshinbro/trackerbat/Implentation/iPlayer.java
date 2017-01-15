@@ -16,7 +16,7 @@ public interface iPlayer {
     void setLastName(String lastName);
     void setNickName(String nickName);
 
-     int getNumber();
+     long getNumber();
 
      void setNumber(int number);
 

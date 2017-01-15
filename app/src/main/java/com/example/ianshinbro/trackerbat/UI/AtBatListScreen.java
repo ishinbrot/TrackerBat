@@ -16,7 +16,9 @@ import android.view.View.OnClickListener;
 import android.util.Log;
 
 import com.example.ianshinbro.trackerbat.Implentation.AtBat;
+import com.example.ianshinbro.trackerbat.Implentation.AtBat_Table;
 import com.example.ianshinbro.trackerbat.Implentation.Game;
+import com.example.ianshinbro.trackerbat.Implentation.Game_Table;
 import com.example.ianshinbro.trackerbat.R;
 import com.example.ianshinbro.trackerbat.UI.Adapters.AtBatAdapter;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.DividerItemDecoration;
@@ -24,6 +26,7 @@ import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHel
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.OnStartDragListener;
 import com.example.ianshinbro.trackerbat.UI.popupScreens.GameEnd;
 import com.example.ianshinbro.trackerbat.UI.popupScreens.atBatSetup;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 
 /**
@@ -51,7 +54,7 @@ public class AtBatListScreen extends AppCompatActivity {
         Intent intent = getIntent();
 
         game = (Game) intent.getExtras().getSerializable("game");
-        game.updateAtBats(game.getAtBats());
+        game.updateAtBats(SQLite.select().from(AtBat.class).where(Game_Table.atBatId.eq(game.getGameId())).queryList());
         Log.d(this.tag, "atbat load");
         this.loadFields();
         this.setOnClickListeners();

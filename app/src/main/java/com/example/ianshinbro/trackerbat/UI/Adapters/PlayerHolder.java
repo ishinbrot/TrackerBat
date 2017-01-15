@@ -23,7 +23,7 @@ public  class PlayerHolder extends RecyclerView.ViewHolder implements ItemTouchH
         super(itemView);
         this.name = (TextView) itemView.findViewById(R.id.PlayerName_PlayerListScreen);
         this.number = (TextView) itemView.findViewById(R.id.PlayerNumber_PlayerListScreen);
-        mainLayout = (LinearLayout) itemView.findViewById(R.id.playerListLinearLayout);
+        this.mainLayout = (LinearLayout) itemView.findViewById(R.id.playerListLinearLayout);
         updateView = (ImageView) itemView.findViewById(R.id.handle_UpdatePlayerButton);
     }
         @Override

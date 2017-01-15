@@ -14,8 +14,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.util.Log;
 
+import com.example.ianshinbro.trackerbat.Implentation.AtBat;
 import com.example.ianshinbro.trackerbat.Implentation.Game;
+import com.example.ianshinbro.trackerbat.Implentation.Game_Table;
 import com.example.ianshinbro.trackerbat.Implentation.Player;
+import com.example.ianshinbro.trackerbat.Implentation.Player_Table;
 import com.example.ianshinbro.trackerbat.R;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.DividerItemDecoration;
 import com.example.ianshinbro.trackerbat.UI.Adapters.GameAdapter;
@@ -23,6 +26,7 @@ import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHel
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.OnStartDragListener;
 import com.example.ianshinbro.trackerbat.UI.popupScreens.AddGame;
 import com.example.ianshinbro.trackerbat.UI.popupScreens.UpdateGame;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 
 /**
@@ -48,7 +52,9 @@ public class gameOverviewScreen extends AppCompatActivity {
         Intent intent = getIntent();
         setSupportActionBar(toolbar);
         player = (Player) intent.getExtras().getSerializable("player");
-        player.updateGames((player.getGames()));
+        player.addGames(SQLite.select().from(Game.class).where(Game_Table.gameId.eq(player.getPlayerId())).queryList());
+  //      if (player.getGames() == null)
+      //  player.updateGames((player.getGames()));
         this.loadFields();
         this.setOnClickListeners();
         this.setUpToolbar();
@@ -64,6 +70,7 @@ public class gameOverviewScreen extends AppCompatActivity {
             game = (Game) data.getExtras().getSerializable("game");
             game.setId(totalinList);
             player.addGame(game);
+            game.save();
             totalinList++;
             selectedPosition = totalinList;
             editGame();

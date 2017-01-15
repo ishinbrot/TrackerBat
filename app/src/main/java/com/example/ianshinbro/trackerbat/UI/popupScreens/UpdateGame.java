@@ -101,7 +101,7 @@ public class UpdateGame extends Activity {
         updateGame.setText(R.string.SaveChanges_BTNText);
         homeTeam.setText(game.getHomeTeam());
         awayTeam.setText(game.getAwayTeam());
-        inningTotal.setText(Integer.toString(game.getInningTotal()));
+        inningTotal.setText(Long.toString(game.getInningTotal()));
     }
 
     /**

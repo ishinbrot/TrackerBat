@@ -2,6 +2,9 @@ package com.example.ianshinbro.trackerbat.Implentation;
 
 import com.example.ianshinbro.trackerbat.AppDataBase;
 import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ColumnIgnore;
+import com.raizlabs.android.dbflow.annotation.ForeignKey;
+import com.raizlabs.android.dbflow.annotation.ForeignKeyReference;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
@@ -23,11 +26,11 @@ public class Game extends BaseModel implements Serializable{
      */
     public Game() {
         super();
-        this.numberOfInnings_=9;
-        this.atBats_ = new ArrayList<>();
-        this.awayScore_=0;
-        this.homeScore_=0;
-        this.inProgress_=true;
+        this.numberOfInnings =9;
+        this.atBats = new ArrayList<>();
+        this.awayScore =0;
+        this.homeScore =0;
+        this.inProgress =true;
 
     }
 
@@ -37,10 +40,10 @@ public class Game extends BaseModel implements Serializable{
      */
     public Game(int numOfInnings) {
         super();
-        this.numberOfInnings_=numOfInnings;
-        this.atBats_ = new ArrayList<>();
-        this.awayScore_=0;
-        this.homeScore_=0;
+        this.numberOfInnings =numOfInnings;
+        this.atBats = new ArrayList<>();
+        this.awayScore =0;
+        this.homeScore =0;
     }
 
     /**
@@ -48,14 +51,14 @@ public class Game extends BaseModel implements Serializable{
      * @param atBat the current at bat that will be added to the game
      */
    public void addAtBat(AtBat atBat) {
-        this.atBats_.add(atBat);
+        this.atBats.add(atBat);
    }
 
     /**
      * This will end the game
      */
     public void endGame() {
-        this.inProgress_=false;
+        this.inProgress =false;
     }
 
     /**
@@ -63,7 +66,7 @@ public class Game extends BaseModel implements Serializable{
      * @param index - index to remove the at bat
      */
     public void removeAtBat(int index) {
-        this.atBats_.remove(index);
+        this.atBats.remove(index);
     }
 
     /**
@@ -72,7 +75,7 @@ public class Game extends BaseModel implements Serializable{
      * @return - the at bat at the current index
      */
     public AtBat getAtBat(int index) {
-       return this.atBats_.get(index);
+       return this.atBats.get(index);
     }
 
     /**
@@ -80,7 +83,7 @@ public class Game extends BaseModel implements Serializable{
      * @return
      */
     public ArrayList<AtBat> getAtBats() {
-        return atBats_;
+        return atBats;
     }
 
     /**
@@ -89,15 +92,15 @@ public class Game extends BaseModel implements Serializable{
      * @param atBat - new at bat object to be modified
      */
     public void updateGameAtIndex(int index, AtBat atBat) {
-        this.atBats_.set(index,atBat);
+        this.atBats.set(index,atBat);
     }
 
     /**
      * This method updates every atBat in the array
      * @param atBats
      */
-    public void updateAtBats(ArrayList<AtBat> atBats) {
-        this.atBats_=atBats;
+    public void updateAtBats(List<AtBat> atBats) {
+        this.atBats.addAll(atBats);
     }
 
     /**
@@ -105,7 +108,7 @@ public class Game extends BaseModel implements Serializable{
      * @param awayTeam - String for the away team
      */
     public void setAwayTeam(String awayTeam) {
-        this.awayTeam_ = awayTeam;
+        this.awayTeam = awayTeam;
     }
 
     /**
@@ -113,7 +116,7 @@ public class Game extends BaseModel implements Serializable{
      * @param number - total number of innings in the game
      */
     public void setInningNumber(int number) {
-        this.numberOfInnings_=number;
+        this.numberOfInnings =number;
     }
 
     /**
@@ -121,7 +124,7 @@ public class Game extends BaseModel implements Serializable{
      * @return
      */
     public String getAwayTeam() {
-        return this.awayTeam_;
+        return this.awayTeam;
     }
 
     /**
@@ -129,7 +132,7 @@ public class Game extends BaseModel implements Serializable{
      * @param homeTeam - String containing the home team to be added
      */
     public void setHomeTeam(String homeTeam) {
-        this.homeTeam_ = homeTeam;
+        this.homeTeam = homeTeam;
     }
 
     /**
@@ -137,7 +140,7 @@ public class Game extends BaseModel implements Serializable{
      * @return
      */
     public String getHomeTeam() {
-        return this.homeTeam_;
+        return this.homeTeam;
     }
 
     /**
@@ -145,27 +148,27 @@ public class Game extends BaseModel implements Serializable{
      * @param score - int containing the score of the away team
      */
     public void setAwayScore(int score) {
-        this.awayScore_=score;
+        this.awayScore =score;
     }
     public int getAwayScore() {
-        return this.awayScore_;
+        return this.awayScore;
     }
     public void setHomeScore(int score) {
-        this.homeScore_=score;
+        this.homeScore =score;
     }
-    public int getHomeScore() {
-        return this.homeScore_;
+    public long getHomeScore() {
+        return this.homeScore;
     }
 
     public boolean getStatus() {
-        return this.inProgress_;
+        return this.inProgress;
     }
     /**
      *
      * @return
      */
-    public int getInningTotal() {
-        return this.numberOfInnings_;
+    public long getInningTotal() {
+        return this.numberOfInnings;
     }
 
     /**
@@ -177,32 +180,46 @@ public class Game extends BaseModel implements Serializable{
         return getHomeScore() +"-" +  getAwayScore();
     }
     public void setId(int id) {
-        this.id_=id;
+        this.atBatId =id;
     }
-    public int getID() {
-        return this.id_;
+    public long getID() {
+        return this.atBatId;
     }
 
-    private ArrayList<AtBat> atBats_;
+    public ArrayList<AtBat> atBats;
     @Column
-    private String homeTeam_;
+    public String homeTeam;
     @Column
-    private String awayTeam_;
+    public String awayTeam;
+
     @Column
+    @ForeignKey(references = { @ForeignKeyReference(foreignKeyColumnName = "atBatId", columnName = "atBatId")}, tableClass = AtBat.class)
+    public long atBatId;
+    @Column
+    public int awayScore;
+    @Column
+    public long homeScore;
+    @Column
+    public long numberOfInnings;       // 9 is default number of innings
+    @Column
+    public boolean inProgress;
+
+    public long getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(long gameId) {
+        this.gameId = gameId;
+    }
+
+
     @PrimaryKey
-    private int id_;
-    @Column
-    private int awayScore_;
-    @Column
-    private int homeScore_;
-    @Column
-    private int numberOfInnings_;       // 9 is default number of innings
-    @Column
-    boolean inProgress_;
+    public long gameId;
 
+    @ForeignKey(references = { @ForeignKeyReference(foreignKeyColumnName = "playerId", columnName = "playerId")}, tableClass = Player.class)
+    @PrimaryKey
+    public long playerId;
+@ColumnIgnore
     public static final String TAG = Game.class.getSimpleName();
-
-
-
 
 }

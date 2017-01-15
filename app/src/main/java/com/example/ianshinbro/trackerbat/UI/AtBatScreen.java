@@ -228,6 +228,7 @@ public class AtBatScreen extends AppCompatActivity {
     private void endAtBat() {
             Intent intent = new Intent();
             atBat.setFinalBase(atBat.getCurrentBase());
+            atBat.save();
             intent.putExtra("atBat", atBat);
             setResult(2, intent);
             finish();

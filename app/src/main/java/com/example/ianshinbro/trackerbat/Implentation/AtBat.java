@@ -1,5 +1,8 @@
 package com.example.ianshinbro.trackerbat.Implentation;
 import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ColumnIgnore;
+import com.raizlabs.android.dbflow.annotation.ForeignKey;
+import com.raizlabs.android.dbflow.annotation.ForeignKeyReference;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
@@ -16,9 +19,9 @@ import java.io.Serializable;
  * It implements serializable to be utilized by Android
  */
 @Table(database = AppDataBase.class)
-public class AtBat extends BaseModel implements iAtBat, Serializable{
+public class AtBat extends BaseModel implements Serializable{
 
-    public AtBat(int inningNumber) {
+    public AtBat(long inningNumber) {
         this.hit=false;
         this.out=false;
         this.score=0;
@@ -38,7 +41,7 @@ public class AtBat extends BaseModel implements iAtBat, Serializable{
      *
      * @return - retrieves the inning number
      */
-    public int getInningNumber() {
+    public long getInningNumber() {
         return this.inningNumber;
     }
 
@@ -104,7 +107,7 @@ public class AtBat extends BaseModel implements iAtBat, Serializable{
      * This sets the inning number for hte AtBat
      * @param inning - inning number of the AtBat
      */
-    public void setInningNumber(int inning) {
+    public void setInningNumber(long inning) {
         this.inningNumber=inning;
     }
 
@@ -306,35 +309,60 @@ public class AtBat extends BaseModel implements iAtBat, Serializable{
     public boolean isOut() {
         return this.out;
     }
-    @Column
-    boolean hit;
-    @Column
-    boolean out=false;
-    @Column
-    boolean walk;
-    @Column
-    int score;
-    private Base initialBase = Base.ATBAT;
-    private Base finalBase = Base.ATBAT;
-    private Base currentBase;
-    private OutField initialCatch;
-    private boolean firstOutRecieved;
-    private OutField finalCatch;
-    @Column
-    private int inningNumber;
 
-    public int getAtBatId() {
+    @Column
+    public boolean hit;
+
+    @Column
+    private boolean out=false;
+
+    @Column
+    public boolean walk;
+
+    public long getScore() {
+        return score;
+    }
+
+    public void setScore(long score) {
+        this.score = score;
+    }
+
+    @Column
+    public long score;
+    public Base initialBase = Base.ATBAT;
+    @ColumnIgnore
+    public Base finalBase = Base.ATBAT;
+    public Base currentBase;
+    public OutField initialCatch;
+    @Column
+    public boolean firstOutRecieved;
+    @ColumnIgnore
+    public OutField finalCatch;
+    @Column
+    private long inningNumber;
+
+    public long getAtBatId() {
         return atBatId;
     }
 
-    public void setAtBatId(int atBatId) {
+    public void setAtBatId(long atBatId) {
         this.atBatId = atBatId;
     }
 
     @Column
+    @ForeignKey(references = { @ForeignKeyReference(foreignKeyColumnName = "atBatId", columnName = "atBatId")}, tableClass = AtBat.class)
     @PrimaryKey
-    private int atBatId;
+    public long atBatId;
 
-    public static final String TAG = AtBat.class.getSimpleName();
-    public static final String TABLE="AtBat";
+    public long getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(long gameId) {
+        this.gameId = gameId;
+    }
+
+    @Column
+    @ForeignKey(references = { @ForeignKeyReference(foreignKeyColumnName = "gameId", columnName = "gameId")}, tableClass = Game.class)
+    public long gameId;
 }

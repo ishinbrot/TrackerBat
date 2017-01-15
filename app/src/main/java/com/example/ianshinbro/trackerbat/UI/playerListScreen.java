@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 
+import com.example.ianshinbro.trackerbat.AppDataBase;
 import com.example.ianshinbro.trackerbat.Implentation.Player;
 import com.example.ianshinbro.trackerbat.R;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.DividerItemDecoration;
@@ -26,8 +27,15 @@ import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.OnStartDragL
 import com.example.ianshinbro.trackerbat.UI.Adapters.PlayerAdapter;
 import com.example.ianshinbro.trackerbat.UI.popupScreens.AddPlayer;
 import com.example.ianshinbro.trackerbat.UI.popupScreens.UpdatePlayer;
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
+import com.raizlabs.android.dbflow.structure.database.transaction.ProcessModelTransaction;
+import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
@@ -56,7 +64,11 @@ public class playerListScreen extends AppCompatActivity {
         setContentView(R.layout.list_view);
         // create the delegate
         context = getApplicationContext();
-        players = new ArrayList<>();
+
+        players = new ArrayList();
+        players.addAll(SQLite.select().from(Player.class).queryList());
+        if (players == null)
+            players = new ArrayList<>();
         Log.d(this.tag, "initialLoad");
             this.loadFields();
             this.setOnClickListeners();
@@ -166,10 +178,15 @@ public class playerListScreen extends AppCompatActivity {
 
     private void setOnClickListeners() {
         addPlayerButton.setOnClickListener(addPlayer);
-        addPlayerButton.setOnLongClickListener(v -> { Log.d(tag, "Add Player"); return true;});
-
-
-
+        addPlayerButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                {
+                    Log.d(tag, "Add Player");
+                    return true;
+                }
+            }
+        });
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

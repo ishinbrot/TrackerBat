@@ -100,7 +100,7 @@ public class UpdatePlayer extends Activity {
         savePlayer.setText(R.string.SaveChanges_BTNText);
         firstName.setText(player.getFirstName());
         lastName.setText(player.getLastName());
-        playerNumber.setText(Integer.toString(player.getNumber()));
+        playerNumber.setText(Long.toString(player.getNumber()));
         if (player.nickNameExists()) {
             nickName.setText(player.getNickName());
         }
