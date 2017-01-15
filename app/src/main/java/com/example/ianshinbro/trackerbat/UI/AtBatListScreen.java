@@ -16,7 +16,6 @@ import android.view.View.OnClickListener;
 import android.util.Log;
 
 import com.example.ianshinbro.trackerbat.Implentation.AtBat;
-import com.example.ianshinbro.trackerbat.Implentation.AtBat_Table;
 import com.example.ianshinbro.trackerbat.Implentation.Game;
 import com.example.ianshinbro.trackerbat.Implentation.Game_Table;
 import com.example.ianshinbro.trackerbat.R;
@@ -54,7 +53,7 @@ public class AtBatListScreen extends AppCompatActivity {
         Intent intent = getIntent();
 
         game = (Game) intent.getExtras().getSerializable("game");
-        game.updateAtBats(SQLite.select().from(AtBat.class).where(Game_Table.atBatId.eq(game.getGameId())).queryList());
+        game.updateAtBats(SQLite.select().from(AtBat.class).where(Game_Table.gameId.eq(game.getGameId())).queryList());
         Log.d(this.tag, "atbat load");
         this.loadFields();
         this.setOnClickListeners();
@@ -69,7 +68,9 @@ public class AtBatListScreen extends AppCompatActivity {
         if (resultCode == 1) {        // return 1 is adding
             Log.d(this.tag, "Adding at atBat");
             atBat = (AtBat) data.getExtras().getSerializable("atBat");
+            atBat.setGameId(game.getGameId());
             game.addAtBat(atBat);
+            atBat.save();
             totalinList++;
             selectedPosition = totalinList;
             editAtBat();
@@ -78,7 +79,8 @@ public class AtBatListScreen extends AppCompatActivity {
             Log.d(this.tag, "Updating at Bat");
             Log.d(this.tag, atBat.getBaseStats());
             atBat = (AtBat) data.getExtras().getSerializable("atBat");
-            game.updateGameAtIndex(selectedPosition, atBat);
+            atBat.save();
+            game.updateAtBatatIndex(selectedPosition, atBat);
 
             selectedPosition = -1;        // deselect current position
         }

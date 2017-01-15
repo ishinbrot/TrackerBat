@@ -28,6 +28,8 @@ import com.example.ianshinbro.trackerbat.UI.popupScreens.AddGame;
 import com.example.ianshinbro.trackerbat.UI.popupScreens.UpdateGame;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
+import java.util.List;
+
 
 /**
  * Created by ianshinbrot on 4/30/15.
@@ -52,9 +54,7 @@ public class gameOverviewScreen extends AppCompatActivity {
         Intent intent = getIntent();
         setSupportActionBar(toolbar);
         player = (Player) intent.getExtras().getSerializable("player");
-        player.addGames(SQLite.select().from(Game.class).where(Game_Table.gameId.eq(player.getPlayerId())).queryList());
-  //      if (player.getGames() == null)
-      //  player.updateGames((player.getGames()));
+        player.addGames(SQLite.select().from(Game.class).where(Game_Table.playerId.is(player.getPlayerId())).queryList());
         this.loadFields();
         this.setOnClickListeners();
         this.setUpToolbar();
@@ -68,9 +68,12 @@ public class gameOverviewScreen extends AppCompatActivity {
         if (resultCode == 1) {        // return 1 is adding
             Log.d(this.tag, "Adding game");
             game = (Game) data.getExtras().getSerializable("game");
-            game.setId(totalinList);
-            player.addGame(game);
+            game.setPlayerId(player.getPlayerId());
+            game.setGameId(totalinList);
             game.save();
+
+            player.addGame(game);
+
             totalinList++;
             selectedPosition = totalinList;
             editGame();
@@ -88,6 +91,7 @@ public class gameOverviewScreen extends AppCompatActivity {
             Log.d(this.tag, "Ending Player Edit");
             game = (Game) data.getExtras().getSerializable("game");
             player.updateGame(selectedPosition, game);
+            gameAdapter.updateGame(game, selectedPosition);
             selectedPosition = -1;
 
         }

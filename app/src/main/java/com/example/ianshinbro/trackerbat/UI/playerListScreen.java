@@ -88,6 +88,7 @@ public class playerListScreen extends AppCompatActivity {
             totalinList++;
             selectedPosition = totalinList;
             player.setId(selectedPosition);
+            player.save();
             players.add(player);
             Intent selectedPlayer = new Intent(playerListScreen.this,gameOverviewScreen.class);
             selectedPlayer.putExtra("player", player);
