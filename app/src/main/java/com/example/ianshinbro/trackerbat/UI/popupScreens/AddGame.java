@@ -54,6 +54,7 @@ public class AddGame extends Activity {
         Game game = new Game();
         game.setHomeTeam(homeTeam.getText().toString());
         game.setAwayTeam(awayTeam.getText().toString());
+
         if (inningTotal.getText().length()!=0) {
             game.setInningNumber(Integer.parseInt(inningTotal.getText().toString()));
         }

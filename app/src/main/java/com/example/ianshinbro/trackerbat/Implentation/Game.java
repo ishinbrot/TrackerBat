@@ -91,7 +91,7 @@ public class Game extends BaseModel implements Serializable{
      * @param index - index to update teh at bat
      * @param atBat - new at bat object to be modified
      */
-    public void updateGameAtIndex(int index, AtBat atBat) {
+    public void updateAtBatatIndex(int index, AtBat atBat) {
         this.atBats.set(index,atBat);
     }
 
@@ -179,10 +179,10 @@ public class Game extends BaseModel implements Serializable{
 
         return getHomeScore() +"-" +  getAwayScore();
     }
-    public void setId(int id) {
+    public void setAtBatId(int id) {
         this.atBatId =id;
     }
-    public long getID() {
+    public long getAtBatId() {
         return this.atBatId;
     }
 
@@ -215,6 +215,14 @@ public class Game extends BaseModel implements Serializable{
 
     @PrimaryKey
     public long gameId;
+
+    public long getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(long playerId) {
+        this.playerId = playerId;
+    }
 
     @ForeignKey(references = { @ForeignKeyReference(foreignKeyColumnName = "playerId", columnName = "playerId")}, tableClass = Player.class)
     @PrimaryKey

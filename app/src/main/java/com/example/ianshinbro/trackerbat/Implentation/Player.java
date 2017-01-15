@@ -58,7 +58,7 @@ public class Player extends BaseModel implements Serializable{
     public void setId(long id) {
         this.playerId=id;
     }
-    public void addGames(List<Game> games) {games.addAll(games);}
+    public void addGames(List<Game> games) {this.games.addAll(games);}
 
     public String getFirstName() {
         return this.firstName;

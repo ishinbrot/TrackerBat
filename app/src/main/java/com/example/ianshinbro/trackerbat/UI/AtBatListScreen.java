@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.ianshinbro.trackerbat.Implentation.AtBat;
 import com.example.ianshinbro.trackerbat.Implentation.Game;
@@ -81,7 +82,7 @@ public class AtBatListScreen extends AppCompatActivity {
             atBat = (AtBat) data.getExtras().getSerializable("atBat");
             atBat.save();
             game.updateAtBatatIndex(selectedPosition, atBat);
-
+            atBatAdapter.updateAtBat(atBat, selectedPosition);
             selectedPosition = -1;        // deselect current position
         }
         if (resultCode == 3) {
@@ -139,6 +140,7 @@ public class AtBatListScreen extends AppCompatActivity {
             @Override
             public void onSelect(RecyclerView.ViewHolder viewHolder) {
                 int position = viewHolder.getAdapterPosition();
+                Toast.makeText(getApplicationContext(), "Editing not implemented yet", Toast.LENGTH_SHORT);
             //    selectAtBat(position);
             }
 

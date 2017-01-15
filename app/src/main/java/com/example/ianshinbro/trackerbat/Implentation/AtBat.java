@@ -166,11 +166,8 @@ public class AtBat extends BaseModel implements Serializable{
      * Informs the AtBat class that the user walked
      * TODO currently not utilzed to display walk on list screen, as scorecard doesn't inform walk
      */
-    public void setWalk() {
-        this.walk=true;
-    }
-    public void undoWalk() {
-        this.walk=false;
+    public void setWalk(boolean walk) {
+        this.walk=walk;
     }
 
     /**
@@ -310,14 +307,28 @@ public class AtBat extends BaseModel implements Serializable{
         return this.out;
     }
 
+    public boolean isHit() {
+        return hit;
+    }
+
+    public void setHit(boolean hit) {
+        this.hit = hit;
+    }
+
     @Column
-    public boolean hit;
+    private boolean hit;
 
     @Column
     private boolean out=false;
 
+    public boolean isWalk() {
+        return walk;
+    }
+
+
+
     @Column
-    public boolean walk;
+    private boolean walk = false;
 
     public long getScore() {
         return score;

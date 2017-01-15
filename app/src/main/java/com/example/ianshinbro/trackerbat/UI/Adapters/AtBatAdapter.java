@@ -98,7 +98,11 @@ public class AtBatAdapter extends RecyclerView.Adapter<AtBatHolder> implements I
             }
         });
     }
-
+    public void updateAtBat(AtBat atBat, int position) {
+        atBats.set(position, atBat);
+        atBat.update();
+        notifyItemChanged(position);
+    }
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);

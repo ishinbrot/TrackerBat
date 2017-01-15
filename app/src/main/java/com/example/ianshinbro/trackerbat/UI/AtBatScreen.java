@@ -73,6 +73,7 @@ public class AtBatScreen extends AppCompatActivity {
         if (resultCode == 1) {        // return 1 is adding
             Log.d(this.tag, "Hit Updated");
             atBat = (AtBat) data.getExtras().getSerializable("atBat");
+            atBat.setHit(true);
             // disable all buttons on screen
             Out.setEnabled(false);
             Walk.setEnabled(false);
@@ -257,7 +258,7 @@ public class AtBatScreen extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             atBat.setInitialBase(Base.FIRST);
-            atBat.setWalk();
+            atBat.setWalk(true);
             String message = "Walk to first";
             setStatus(message);
             Out.setEnabled(false);
