@@ -17,9 +17,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.ianshinbro.trackerbat.AppDataBase;
 import com.example.ianshinbro.trackerbat.Implentation.Player;
+import com.example.ianshinbro.trackerbat.Implentation.Player_Table;
 import com.example.ianshinbro.trackerbat.R;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.DividerItemDecoration;
 import com.example.ianshinbro.trackerbat.UI.Adapters.adapterHelpers.ItemTouchHelperCallBack;
@@ -85,14 +87,23 @@ public class playerListScreen extends AppCompatActivity {
         if (resultCode==1) {        // return 1 is adding
             Log.d(this.tag, "Adding player");
             Player player = (Player) data.getExtras().getSerializable("player");
-            totalinList++;
-            selectedPosition = totalinList;
-            player.setId(selectedPosition);
-            player.save();
-            players.add(player);
-            Intent selectedPlayer = new Intent(playerListScreen.this,gameOverviewScreen.class);
-            selectedPlayer.putExtra("player", player);
-            startActivityForResult(selectedPlayer,3);
+
+            //TODO Check if player number already exists in database
+
+            if (SQLite.select().from(Player.class).where(Player_Table.number.is(player.getNumber())).queryList().size()>0)
+            {
+                Toast.makeText(this.context,"Please select a number not already taken", Toast.LENGTH_LONG).show();
+            }
+            else {
+                totalinList++;
+                selectedPosition = totalinList;
+                player.setId(selectedPosition);
+                player.save();
+                players.add(player);
+                Intent selectedPlayer = new Intent(playerListScreen.this, gameOverviewScreen.class);
+                selectedPlayer.putExtra("player", player);
+                startActivityForResult(selectedPlayer, 3);
+            }
         }
         // This is when updating a player
         if (resultCode==2) {        // updates

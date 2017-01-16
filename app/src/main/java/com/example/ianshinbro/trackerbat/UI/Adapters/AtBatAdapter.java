@@ -54,6 +54,7 @@ public class AtBatAdapter extends RecyclerView.Adapter<AtBatHolder> implements I
      */
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
+        //TODO Implement moving item in databaseS
    //     AtBat prev = atBats.remove(fromPosition);
     //    atBats.add(toPosition > fromPosition ? toPosition - 1 : toPosition, prev);
      //   notifyItemMoved(fromPosition, toPosition);
@@ -81,6 +82,7 @@ public class AtBatAdapter extends RecyclerView.Adapter<AtBatHolder> implements I
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    //TODO update so dismiss doesn't also select
                     mDragStartListener.onSelect(viewHolder);
                 }
 

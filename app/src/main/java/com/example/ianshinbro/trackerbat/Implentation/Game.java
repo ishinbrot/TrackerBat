@@ -4,7 +4,9 @@ import com.example.ianshinbro.trackerbat.AppDataBase;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ColumnIgnore;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
+import com.raizlabs.android.dbflow.annotation.ForeignKeyAction;
 import com.raizlabs.android.dbflow.annotation.ForeignKeyReference;
+import com.raizlabs.android.dbflow.annotation.NotNull;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
@@ -18,7 +20,6 @@ import java.util.List;
  * Created by ianshinbrot on 5/2/15.
  */
 @Table(database = AppDataBase.class)
-
 public class Game extends BaseModel implements Serializable{
     /**
      * Constructor for game object
@@ -179,12 +180,6 @@ public class Game extends BaseModel implements Serializable{
 
         return getHomeScore() +"-" +  getAwayScore();
     }
-    public void setAtBatId(int id) {
-        this.atBatId =id;
-    }
-    public long getAtBatId() {
-        return this.atBatId;
-    }
 
     public ArrayList<AtBat> atBats;
     @Column
@@ -192,9 +187,6 @@ public class Game extends BaseModel implements Serializable{
     @Column
     public String awayTeam;
 
-    @Column
-    @ForeignKey(references = { @ForeignKeyReference(foreignKeyColumnName = "atBatId", columnName = "atBatId")}, tableClass = AtBat.class)
-    public long atBatId;
     @Column
     public int awayScore;
     @Column
@@ -214,6 +206,7 @@ public class Game extends BaseModel implements Serializable{
 
 
     @PrimaryKey
+    @ForeignKey(references = { @ForeignKeyReference(foreignKeyColumnName = "gameId", columnName = "gameId")}, tableClass = Game.class)
     public long gameId;
 
     public long getPlayerId() {
@@ -224,8 +217,9 @@ public class Game extends BaseModel implements Serializable{
         this.playerId = playerId;
     }
 
-    @ForeignKey(references = { @ForeignKeyReference(foreignKeyColumnName = "playerId", columnName = "playerId")}, tableClass = Player.class)
-    @PrimaryKey
+    @Column
+    @ForeignKey(references = { @ForeignKeyReference(foreignKeyColumnName = "playerId", columnName = "playerId")}, tableClass = Player.class, onDelete = ForeignKeyAction.CASCADE)
+    @NotNull
     public long playerId;
 @ColumnIgnore
     public static final String TAG = Game.class.getSimpleName();

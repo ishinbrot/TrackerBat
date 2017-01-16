@@ -7,7 +7,7 @@
         android:title="@string/SaveChanges_BTNText"
         android:orderInCategory="200"
         app:showAsAction="ifRoom"
-        android:enabled="false" />
+        android:enabled="true" />
     <!-- Settings will always be in overflow -->
 
 </menu>

@@ -17,6 +17,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.ianshinbro.trackerbat.Implentation.AtBat;
+import com.example.ianshinbro.trackerbat.Implentation.AtBat_Table;
 import com.example.ianshinbro.trackerbat.Implentation.Game;
 import com.example.ianshinbro.trackerbat.Implentation.Game_Table;
 import com.example.ianshinbro.trackerbat.R;
@@ -54,7 +55,7 @@ public class AtBatListScreen extends AppCompatActivity {
         Intent intent = getIntent();
 
         game = (Game) intent.getExtras().getSerializable("game");
-        game.updateAtBats(SQLite.select().from(AtBat.class).where(Game_Table.gameId.eq(game.getGameId())).queryList());
+        game.updateAtBats(SQLite.select().from(AtBat.class).where(AtBat_Table.gameId.is(game.getGameId())).queryList());
         Log.d(this.tag, "atbat load");
         this.loadFields();
         this.setOnClickListeners();

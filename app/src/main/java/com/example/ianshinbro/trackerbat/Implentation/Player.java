@@ -137,8 +137,8 @@ public class Player extends BaseModel implements Serializable{
         this.playerId = playerId;
     }
 
-    @ForeignKey(references = { @ForeignKeyReference(foreignKeyColumnName = "playerId", columnName = "playerId")}, tableClass = Game.class)
     @PrimaryKey
+    @ForeignKey(references = { @ForeignKeyReference(foreignKeyColumnName = "playerId", columnName = "playerId")}, tableClass = Player.class)
     public long playerId;
 
     @ColumnIgnore

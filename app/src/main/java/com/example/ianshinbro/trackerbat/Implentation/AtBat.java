@@ -2,6 +2,7 @@ package com.example.ianshinbro.trackerbat.Implentation;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ColumnIgnore;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
+import com.raizlabs.android.dbflow.annotation.ForeignKeyAction;
 import com.raizlabs.android.dbflow.annotation.ForeignKeyReference;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
@@ -340,14 +341,17 @@ public class AtBat extends BaseModel implements Serializable{
 
     @Column
     public long score;
+    @Column
     public Base initialBase = Base.ATBAT;
-    @ColumnIgnore
+    @Column
     public Base finalBase = Base.ATBAT;
+    @Column
     public Base currentBase;
+    @Column
     public OutField initialCatch;
     @Column
     public boolean firstOutRecieved;
-    @ColumnIgnore
+    @Column
     public OutField finalCatch;
     @Column
     private long inningNumber;
@@ -374,6 +378,6 @@ public class AtBat extends BaseModel implements Serializable{
     }
 
     @Column
-    @ForeignKey(references = { @ForeignKeyReference(foreignKeyColumnName = "gameId", columnName = "gameId")}, tableClass = Game.class)
+    @ForeignKey(references = { @ForeignKeyReference(foreignKeyColumnName = "gameId", columnName = "gameId")}, tableClass = Game.class, onDelete = ForeignKeyAction.CASCADE)
     public long gameId;
 }
